@@ -4,8 +4,9 @@ import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/paper-styles/color.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-input/paper-input.js";
+import { TodoBaseImpl } from "./todo-base.js";
 
-class TodoAddItem extends PolymerElement {
+class TodoAddItem extends TodoBaseImpl {
   constructor() {
     super();
   }
@@ -52,15 +53,15 @@ class TodoAddItem extends PolymerElement {
         on-keypress="_handleKeyPressEvent"
         on-focus="_handleFocusEvent"
         on-focusout="_handleFocusLostEvent"
+        label="{{localize('addTaskPlaceholder')}}"
       >
-        <iron-icon id="icon" slot="prefix"></iron-icon>
+        <iron-icon id="icon" icon="add" slot="prefix"></iron-icon>
       </paper-input>
     `;
   }
 
   ready() {
     super.ready();
-    this._handleFocusLostEvent();
   }
 
   _handleKeyPressEvent(event) {
@@ -78,12 +79,12 @@ class TodoAddItem extends PolymerElement {
 
   _handleFocusEvent() {
     this.$.icon.icon = "radio-button-unchecked";
-    this.$.textField.label = "Try typing 'Pay utilities bill by Friday 6pm'";
+    this.$.textField.label = this.localize("addTaskExample");
   }
 
   _handleFocusLostEvent() {
     this.$.icon.icon = "add";
-    this.$.textField.label = "Add a task";
+    this.$.textField.label = this.localize("addTaskPlaceholder");
   }
 }
 

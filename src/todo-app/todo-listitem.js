@@ -6,8 +6,9 @@ import "@polymer/paper-checkbox/paper-checkbox.js";
 import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
+import { TodoBaseImpl } from "./todo-base.js";
 
-class TodoListItem extends PolymerElement {
+class TodoListItem extends TodoBaseImpl {
   constructor() {
     super();
   }
@@ -81,30 +82,30 @@ class TodoListItem extends PolymerElement {
             <div slot="dropdown-content">
               <paper-item on-tap="_toggleMarkAsImportantEvent">
                 <template is="dom-if" if="{{!item._isImportant}}">
-                  <iron-icon class="menu-icon" icon="star"></iron-icon>Mark as
-                  important
+                  <iron-icon class="menu-icon" icon="star"></iron-icon
+                  >{{localize('markAsImportant')}}
                 </template>
                 <template is="dom-if" if="{{item._isImportant}}">
                   <iron-icon class="menu-icon" icon="star-border"></iron-icon
-                  >Remove importance
+                  >{{localize('removeImportance')}}
                 </template>
               </paper-item>
               <paper-item on-tap="_toggledMarkAsCompletedEvent">
                 <template is="dom-if" if="{{!item._isCompleted}}">
                   <iron-icon class="menu-icon" icon="check-circle"></iron-icon
-                  >Mark as completed
+                  >{{localize('markAsCompleted')}}
                 </template>
                 <template is="dom-if" if="{{item._isCompleted}}">
                   <iron-icon
                     class="menu-icon"
                     icon="radio-button-unchecked"
                   ></iron-icon
-                  >Mark as not completed
+                  >{{localize('markAsNotCompleted')}}
                 </template>
               </paper-item>
               <paper-item on-tap="_handleDeleteItemEvent"
                 ><iron-icon class="menu-icon" icon="delete-forever"></iron-icon
-                >Delete task
+                >{{localize('deleteForever')}}
               </paper-item>
             </div>
           </paper-menu-button>

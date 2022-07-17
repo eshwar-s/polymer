@@ -1,0 +1,16 @@
+{
+  "en": {
+    "appTitle": "Todo",
+    "addTaskPlaceholder": "Add a task",
+    "addTaskExample": "Try typing 'Pay utilities bill by Friday 6pm'",
+    "completedTasks": "Completed",
+    "newList": "New List",
+    "renameList": "Rename List",
+    "deleteList": "Delete List",
+    "markAsCompleted": "Mark as completed",
+    "markAsNotCompleted": "Mark as not completed",
+    "markAsImportant": "Mark as important",
+    "removeImportance": "Remove importance",
+    "deleteForever": "Delete task"
+  }
+}

@@ -7,10 +7,11 @@ import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-drawer.js";
+import { TodoBaseImpl } from "./todo-base.js";
 import { TodoItem } from "../model/todo-item.js";
 import { loadTodoLists, saveTodoLists } from "../model/todo-liststore.js";
 
-class TodoApp extends PolymerElement {
+class TodoApp extends TodoBaseImpl {
   constructor() {
     super();
     this._unloadListener = this._unload.bind(this);
@@ -115,7 +116,10 @@ class TodoApp extends PolymerElement {
                 items="{{selectedTodoList.items}}"
                 criteria="0"
               ></todo-listitems>
-              <todo-collapse id="collapse" text="Completed">
+              <todo-collapse
+                id="collapse"
+                text="{{localize('completedTasks')}}"
+              >
                 <todo-listitems
                   items="{{selectedTodoList.items}}"
                   criteria="1"

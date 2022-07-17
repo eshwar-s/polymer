@@ -1,4 +1,6 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { mixinBehaviors } from "@polymer/polymer/lib/legacy/class.js";
+import { AppLocalizeBehavior } from "@polymer/app-localize-behavior/app-localize-behavior.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-button/paper-button.js";
@@ -6,10 +8,11 @@ import "@polymer/paper-ripple/paper-ripple.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/iron-icons.js";
-import { TodoList } from "../model/todo-list.js";
+import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-editlabel.js";
+import { TodoList } from "../model/todo-list.js";
 
-class TodoSideBar extends PolymerElement {
+class TodoSideBar extends TodoBaseImpl {
   constructor() {
     super();
   }
@@ -105,12 +108,12 @@ class TodoSideBar extends PolymerElement {
             <div class="dropdown-content" slot="dropdown-content">
               <paper-listbox>
                 <paper-item on-tap="_renameTodoListEvent">
-                  <iron-icon class="menu-icon" icon="create"></iron-icon>Rename
-                  List
+                  <iron-icon class="menu-icon" icon="create"></iron-icon
+                  >{{localize('renameList')}}
                 </paper-item>
                 <paper-item on-tap="_deleteTodoListEvent">
                   <iron-icon class="menu-icon" icon="delete-forever"></iron-icon
-                  >Delete List
+                  >{{localize('deleteList')}}
                 </paper-item>
               </paper-listbox>
             </div>
@@ -118,7 +121,7 @@ class TodoSideBar extends PolymerElement {
         </div>
         <paper-button on-tap="_newTodoListEvent">
           <iron-icon icon="add"></iron-icon>
-          New list
+          {{localize('newList')}}
         </paper-button>
       </div>
     `;
