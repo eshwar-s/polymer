@@ -1,0 +1,7 @@
+{
+  "name": "Todo",
+  "short_name": "Todo",
+  "description": "Todo application in Polymer 3.0",
+  "start_url": "/",
+  "display": "standalone"
+}
