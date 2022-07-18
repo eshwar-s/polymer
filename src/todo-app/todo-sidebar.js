@@ -114,13 +114,6 @@ class TodoSideBar extends TodoBaseImpl {
     `;
   }
 
-  _isBadgeVisible(item) {
-    if (item) {
-      return item.items.filter((t) => !t._isCompleted).length > 0;
-    }
-    return false;
-  }
-
   _getBadgeCount(item) {
     if (item) {
       let count = item.items.filter((t) => !t._isCompleted).length;
