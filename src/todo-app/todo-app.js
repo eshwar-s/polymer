@@ -1,5 +1,6 @@
-import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
+import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-additem.js";
 import "./todo-editlabel.js";
 import "./todo-listitems.js";
@@ -7,7 +8,6 @@ import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-drawer.js";
-import { TodoBaseImpl } from "./todo-base.js";
 import { TodoItem } from "../model/todo-item.js";
 import { loadTodoLists, saveTodoLists } from "../model/todo-liststore.js";
 
@@ -114,7 +114,7 @@ class TodoApp extends TodoBaseImpl {
               ></todo-editlabel>
               <todo-listitems
                 items="{{selectedTodoList.items}}"
-                criteria="0"
+                filter="1"
               ></todo-listitems>
               <todo-collapse
                 id="collapse"
@@ -122,7 +122,7 @@ class TodoApp extends TodoBaseImpl {
               >
                 <todo-listitems
                   items="{{selectedTodoList.items}}"
-                  criteria="1"
+                  filter="0"
                 ></todo-listitems>
               </todo-collapse>
             </div>

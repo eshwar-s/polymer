@@ -1,6 +1,4 @@
-# \<Todo\>
-
-Todo application in Polymer 3.0
+# Todo application in Polymer 3.0
 
 ## Install the Polymer-CLI
 

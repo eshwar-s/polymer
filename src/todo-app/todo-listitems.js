@@ -3,6 +3,8 @@ import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
 import "./todo-listitem.js";
 
+export const Filter = { Completed: 0, NotCompleted: 1 };
+
 class TodoListItems extends PolymerElement {
   constructor() {
     super();
@@ -26,9 +28,10 @@ class TodoListItems extends PolymerElement {
         notify: true,
         reflectToAttribute: true
       },
-      criteria: {
+      filter: {
         type: Number,
-        value: undefined
+        value: undefined,
+        observer: "_validateFilter"
       }
     };
   }
@@ -44,8 +47,8 @@ class TodoListItems extends PolymerElement {
         <template
           is="dom-repeat"
           items="{{items}}"
-          sort="{{_computeSort(criteria)}}"
-          filter="{{_computeFilter(criteria)}}"
+          sort="{{_computeSort(filter)}}"
+          filter="{{_computeFilter(filter)}}"
           observe="_isImportant _isCompleted"
         >
           <todo-listitem
@@ -61,17 +64,27 @@ class TodoListItems extends PolymerElement {
     super.ready();
   }
 
-  _computeFilter(criteria) {
-    if (criteria !== undefined) {
+  _validateFilter(newValue, oldValue) {
+    if (newValue !== Filter.Completed && newValue !== Filter.NotCompleted) {
+      this.filter = undefined;
+    }
+  }
+
+  _computeFilter(filter) {
+    // No filter is applied when undefined, otherwise if 'true' return completed
+    // items or if 'false' return not completed items
+    if (filter !== undefined) {
       return function (item) {
-        return criteria === 0 ? !item._isCompleted : item._isCompleted;
+        return filter === Filter.Completed
+          ? item._isCompleted
+          : !item._isCompleted;
       };
     }
     return null;
   }
 
-  _computeSort(criteria) {
-    if (criteria === 0) {
+  _computeSort(filter) {
+    if (filter === Filter.NotCompleted) {
       return function (item1, item2) {
         if (item1._isImportant !== item2._isImportant) {
           return item1._isImportant ? -1 : 1;

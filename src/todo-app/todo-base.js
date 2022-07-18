@@ -17,6 +17,7 @@ export class TodoBaseImpl extends mixinBehaviors(
   }
 
   attached() {
+    // Resources are cached so they aren't loaded each time
     const path = this.resolveUrl("locales.json");
     this.loadResources(path);
   }

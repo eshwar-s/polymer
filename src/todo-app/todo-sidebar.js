@@ -1,6 +1,4 @@
-import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
-import { mixinBehaviors } from "@polymer/polymer/lib/legacy/class.js";
-import { AppLocalizeBehavior } from "@polymer/app-localize-behavior/app-localize-behavior.js";
+import { html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-button/paper-button.js";
