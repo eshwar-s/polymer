@@ -8,6 +8,7 @@ import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/iron-icons.js";
 import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-editlabel.js";
+import "./todo-badge.js";
 import { TodoList } from "../model/todo-list.js";
 
 class TodoSideBar extends TodoBaseImpl {
@@ -49,15 +50,6 @@ class TodoSideBar extends TodoBaseImpl {
           display: flex;
           justify-content: space-between;
         }
-        .count-badge {
-          font-size: 12px;
-          font-weight: normal !important;
-          min-width: 24px;
-          min-height: 24px;
-          text-align: center;
-          border-radius: 50%;
-          background-color: var(--paper-grey-300);
-        }
         iron-dropdown [slot="dropdown-content"] {
           width: 300px;
           @apply --shadow-elevation-3dp;
@@ -89,11 +81,8 @@ class TodoSideBar extends TodoBaseImpl {
                     on-updated="_todoListNameChanged"
                   ></todo-editlabel>
                 </div>
-                <template is="dom-if" if="{{_isBadgeVisible(item, item.*)}}">
-                  <div class="count-badge">
-                    {{_getBadgeCount(item, item.*)}}
-                  </div>
-                </template>
+                <todo-badge count="{{_getBadgeCount(item, item.*)}}">
+                </todo-badge>
                 <paper-ripple></paper-ripple>
               </paper-item>
             </template>
