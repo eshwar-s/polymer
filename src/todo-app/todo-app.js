@@ -80,6 +80,9 @@ class TodoApp extends TodoBaseImpl {
             display: block;
           }
         }
+        #collapse {
+          display: none;
+        }
       </style>
 
       <todo-spinner id="spinner">

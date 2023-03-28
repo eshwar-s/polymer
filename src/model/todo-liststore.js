@@ -1,6 +1,7 @@
 import { TodoList } from "./todo-list.js";
 
 const todo_list_storage_id = "todo-lists";
+const todo_list_load_timeout = 300;
 
 export async function loadTodoLists() {
   return new Promise((resolve) => {
@@ -9,13 +10,17 @@ export async function loadTodoLists() {
       const todoLists = [];
       const listData = window.localStorage.getItem(todo_list_storage_id);
 
-      for (const listId of JSON.parse(listData)) {
-        const itemData = window.localStorage.getItem(listId);
-        todoLists.push(new TodoList().deserialize(itemData));
+      if (listData) {
+        for (const listId of JSON.parse(listData)) {
+          const itemData = window.localStorage.getItem(listId);
+          todoLists.push(new TodoList().deserialize(itemData));
+        }
+      } else {
+        todoLists.push(TodoList.new());
       }
 
       resolve(todoLists);
-    }, 300);
+    }, todo_list_load_timeout);
   });
 }
 

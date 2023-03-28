@@ -123,7 +123,7 @@ class TodoSideBar extends TodoBaseImpl {
   }
 
   _newTodoListEvent(e) {
-    this.push("lists", new TodoList("Untitled"));
+    this.push("lists", TodoList.new());
     this.set("selected", this.lists.length - 1);
   }
 

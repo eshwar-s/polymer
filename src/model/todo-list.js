@@ -20,6 +20,10 @@ export class TodoList {
     return this._todoListItems;
   }
 
+  static new() {
+    return new TodoList("Untitled");
+  }
+
   addTodoItem(item) {
     this._todoListItems.push(item);
   }
