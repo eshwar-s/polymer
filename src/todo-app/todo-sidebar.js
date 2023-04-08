@@ -116,7 +116,7 @@ class TodoSideBar extends TodoBaseImpl {
 
   _getBadgeCount(item) {
     if (item) {
-      let count = item.items.filter((t) => !t._isCompleted).length;
+      let count = item.items.filter((task) => !task.isCompleted).length;
       return count;
     }
     return 0;
@@ -129,8 +129,8 @@ class TodoSideBar extends TodoBaseImpl {
 
   _renameTodoListEvent(e) {
     const model = this.$.list.modelForElement(this.$.dropdown.positionTarget);
-    const id = model.get("item._id");
-    const index = this.lists.findIndex((item) => item._id === id);
+    const id = model.get("item.id");
+    const index = this.lists.findIndex((item) => item.id === id);
     if (index !== -1) {
       this.set("selected", index);
       const element =
@@ -143,8 +143,8 @@ class TodoSideBar extends TodoBaseImpl {
   _deleteTodoListEvent(e) {
     const id = this.$.list
       .modelForElement(this.$.dropdown.positionTarget)
-      .get("item._id");
-    const index = this.lists.findIndex((item) => item._id === id);
+      .get("item.id");
+    const index = this.lists.findIndex((item) => item.id === id);
     if (index !== -1) {
       this.splice("lists", index, 1);
       if (index === this.selected) {

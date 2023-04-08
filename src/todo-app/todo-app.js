@@ -1,9 +1,9 @@
 import { html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import { TodoBaseImpl } from "./todo-base.js";
-import "./todo-additem.js";
+import "./todo-addtask.js";
 import "./todo-editlabel.js";
-import "./todo-listitems.js";
+import "./todo-tasklist.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
@@ -23,6 +23,11 @@ class TodoApp extends TodoBaseImpl {
 
   static get properties() {
     return {
+      loading: {
+        type: Boolean,
+        value: true,
+        reflectToAttribute: true
+      },
       todoLists: {
         type: Array,
         value: [],
@@ -37,10 +42,6 @@ class TodoApp extends TodoBaseImpl {
         observer: "_selectedListChanged"
       }
     };
-  }
-
-  static get observers() {
-    return ["_todoListItemsChanged(todoLists.*, selectedList)"];
   }
 
   static get template() {
@@ -80,12 +81,9 @@ class TodoApp extends TodoBaseImpl {
             display: block;
           }
         }
-        #collapse {
-          display: none;
-        }
       </style>
 
-      <todo-spinner id="spinner">
+      <todo-spinner id="spinner" loading="[[loading]]">
         <div class="container">
           <div class="sidebar">
             <todo-sidebar
@@ -115,22 +113,27 @@ class TodoApp extends TodoBaseImpl {
                 on-updated="_todoListNameChanged"
                 click-to-edit
               ></todo-editlabel>
-              <todo-listitems
+              <todo-tasklist
                 items="{{selectedTodoList.items}}"
                 filter="1"
-              ></todo-listitems>
-              <todo-collapse
-                id="collapse"
-                text="{{localize('completedTasks')}}"
+              ></todo-tasklist>
+              <template
+                is="dom-if"
+                if="[[_showCompletedTasks(todoLists.*, selectedList)]]"
               >
-                <todo-listitems
-                  items="{{selectedTodoList.items}}"
-                  filter="0"
-                ></todo-listitems>
-              </todo-collapse>
+                <todo-collapse
+                  id="collapse"
+                  text="{{localize('completedTasks')}}"
+                >
+                  <todo-tasklist
+                    items="{{selectedTodoList.items}}"
+                    filter="0"
+                  ></todo-tasklist>
+                </todo-collapse>
+              </template>
             </div>
             <div class="footer">
-              <todo-additem on-add="_addTodoItem"></todo-additem>
+              <todo-addtask on-add="_addTodoItem"></todo-addtask>
             </div>
           </div>
         </div>
@@ -163,11 +166,11 @@ class TodoApp extends TodoBaseImpl {
     this.set("todoLists", this.todoLists);
     this._selectedListChanged();
 
-    this.$.spinner.loaded();
+    this.loading = false;
   }
 
   _unload() {
-    if (!this.$.spinner.loading) {
+    if (!this.loading) {
       saveTodoLists(this.todoLists);
     }
   }
@@ -192,14 +195,14 @@ class TodoApp extends TodoBaseImpl {
     }
   }
 
-  _todoListItemsChanged() {
+  _showCompletedTasks() {
     if (this.selectedList < this.todoLists.length) {
       let completedItems = this.todoLists[this.selectedList].items.filter(
-        (item) => item._isCompleted
+        (item) => item.isCompleted
       );
-      this.$.collapse.style.display =
-        completedItems.length > 0 ? "block" : "none";
+      return completedItems.length > 0;
     }
+    return false;
   }
 }
 

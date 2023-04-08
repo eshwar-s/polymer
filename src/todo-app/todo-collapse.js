@@ -18,6 +18,16 @@ class TodoCollapse extends PolymerElement {
         type: String,
         notify: true,
         reflectToAttribute: true
+      },
+      opened: {
+        type: Boolean,
+        value: true,
+        reflectToAttribute: true
+      },
+      startIcon: {
+        type: String,
+        computed: "_computeIcon(opened)",
+        reflectToAttribute: true
       }
     };
   }
@@ -35,9 +45,10 @@ class TodoCollapse extends PolymerElement {
         }
       </style>
       <paper-button on-click="_toggleCollapse"
-        ><iron-icon id="icon"></iron-icon>{{text}}</paper-button
+        ><iron-icon id="icon" icon="[[startIcon]]"></iron-icon
+        >{{text}}</paper-button
       >
-      <iron-collapse id="collapse">
+      <iron-collapse id="collapse" opened="[[opened]]">
         <slot></slot>
       </iron-collapse>
     `;
@@ -45,12 +56,14 @@ class TodoCollapse extends PolymerElement {
 
   ready() {
     super.ready();
-    this._toggleCollapse();
   }
 
   _toggleCollapse() {
-    this.$.icon.icon = this.$.collapse.opened ? "chevron-right" : "expand-more";
-    this.$.collapse.toggle();
+    this.opened = !this.opened;
+  }
+
+  _computeIcon(opened) {
+    return opened ? "chevron-right" : "expand-more";
   }
 }
 

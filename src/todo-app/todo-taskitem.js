@@ -8,13 +8,13 @@ import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
 import { TodoBaseImpl } from "./todo-base.js";
 
-class TodoListItem extends TodoBaseImpl {
+class TodoTaskItem extends TodoBaseImpl {
   constructor() {
     super();
   }
 
   static get is() {
-    return "todo-listitem";
+    return "todo-taskitem";
   }
 
   static get properties() {
@@ -47,23 +47,23 @@ class TodoListItem extends TodoBaseImpl {
       </style>
       <paper-item class="todo-item">
         <div class="left-wrapper">
-          <paper-checkbox checked="{{item._isCompleted}}">
-            <template is="dom-if" if="{{!item._isCompleted}}">
-              {{item._title}}
+          <paper-checkbox checked="{{item.isCompleted}}">
+            <template is="dom-if" if="{{!item.isCompleted}}">
+              {{item.title}}
             </template>
-            <template is="dom-if" if="{{item._isCompleted}}">
-              <del>{{item._title}}</del>
+            <template is="dom-if" if="{{item.isCompleted}}">
+              <del>{{item.title}}</del>
             </template>
           </paper-checkbox>
         </div>
         <div class="right-wrapper">
-          <template is="dom-if" if="{{!item._isImportant}}">
+          <template is="dom-if" if="{{!item.isImportant}}">
             <iron-icon
               icon="star-border"
               on-click="_toggleMarkAsImportantEvent"
             ></iron-icon>
           </template>
-          <template is="dom-if" if="{{item._isImportant}}">
+          <template is="dom-if" if="{{item.isImportant}}">
             <iron-icon
               icon="star"
               on-click="_toggleMarkAsImportantEvent"
@@ -81,21 +81,21 @@ class TodoListItem extends TodoBaseImpl {
             ></paper-icon-button>
             <div slot="dropdown-content">
               <paper-item on-tap="_toggleMarkAsImportantEvent">
-                <template is="dom-if" if="{{!item._isImportant}}">
+                <template is="dom-if" if="{{!item.isImportant}}">
                   <iron-icon class="menu-icon" icon="star"></iron-icon
                   >{{localize('markAsImportant')}}
                 </template>
-                <template is="dom-if" if="{{item._isImportant}}">
+                <template is="dom-if" if="{{item.isImportant}}">
                   <iron-icon class="menu-icon" icon="star-border"></iron-icon
                   >{{localize('removeImportance')}}
                 </template>
               </paper-item>
               <paper-item on-tap="_toggledMarkAsCompletedEvent">
-                <template is="dom-if" if="{{!item._isCompleted}}">
+                <template is="dom-if" if="{{!item.isCompleted}}">
                   <iron-icon class="menu-icon" icon="check-circle"></iron-icon
                   >{{localize('markAsCompleted')}}
                 </template>
-                <template is="dom-if" if="{{item._isCompleted}}">
+                <template is="dom-if" if="{{item.isCompleted}}">
                   <iron-icon
                     class="menu-icon"
                     icon="radio-button-unchecked"
@@ -115,12 +115,12 @@ class TodoListItem extends TodoBaseImpl {
   }
 
   _toggleMarkAsImportantEvent() {
-    this.set("item._isImportant", !this.item._isImportant);
+    this.set("item.isImportant", !this.item.isImportant);
     this.$.dropdown.close();
   }
 
   _toggledMarkAsCompletedEvent() {
-    this.set("item._isCompleted", !this.item._isCompleted);
+    this.set("item.isCompleted", !this.item.isCompleted);
     this.$.dropdown.close();
   }
 
@@ -128,11 +128,11 @@ class TodoListItem extends TodoBaseImpl {
     const customEvent = new CustomEvent("remove", {
       bubbles: true,
       composed: true,
-      detail: { id: this.item._id }
+      detail: { id: this.item.id }
     });
     this.dispatchEvent(customEvent);
     this.$.dropdown.close();
   }
 }
 
-window.customElements.define(TodoListItem.is, TodoListItem);
+window.customElements.define(TodoTaskItem.is, TodoTaskItem);

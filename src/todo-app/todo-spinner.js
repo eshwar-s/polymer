@@ -4,7 +4,6 @@ import "@polymer/paper-spinner/paper-spinner.js";
 class TodoSpinner extends PolymerElement {
   constructor() {
     super();
-    this._loadedListener = this.loaded.bind(this);
   }
 
   static get is() {
@@ -37,10 +36,6 @@ class TodoSpinner extends PolymerElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-  }
-
-  loaded() {
-    this.loading = false;
   }
 }
 

@@ -1,17 +1,17 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
-import "./todo-listitem.js";
+import "./todo-taskitem.js";
 
 export const Filter = { Completed: 0, NotCompleted: 1 };
 
-class TodoListItems extends PolymerElement {
+class TodoTaskList extends PolymerElement {
   constructor() {
     super();
   }
 
   static get is() {
-    return "todo-listitems";
+    return "todo-tasklist";
   }
 
   static get properties() {
@@ -49,12 +49,12 @@ class TodoListItems extends PolymerElement {
           items="{{items}}"
           sort="{{_computeSort(filter)}}"
           filter="{{_computeFilter(filter)}}"
-          observe="_isImportant _isCompleted"
+          observe="isImportant isCompleted"
         >
-          <todo-listitem
+          <todo-taskitem
             item="{{item}}"
             on-remove="_removeTodoItem"
-          ></todo-listitem>
+          ></todo-taskitem>
         </template>
       </paper-listbox>
     `;
@@ -76,8 +76,8 @@ class TodoListItems extends PolymerElement {
     if (filter !== undefined) {
       return function (item) {
         return filter === Filter.Completed
-          ? item._isCompleted
-          : !item._isCompleted;
+          ? item.isCompleted
+          : !item.isCompleted;
       };
     }
     return null;
@@ -86,8 +86,8 @@ class TodoListItems extends PolymerElement {
   _computeSort(filter) {
     if (filter === Filter.NotCompleted) {
       return function (item1, item2) {
-        if (item1._isImportant !== item2._isImportant) {
-          return item1._isImportant ? -1 : 1;
+        if (item1.isImportant !== item2.isImportant) {
+          return item1.isImportant ? -1 : 1;
         }
         return 0;
       };
@@ -96,11 +96,11 @@ class TodoListItems extends PolymerElement {
   }
 
   _removeTodoItem(e) {
-    const index = this.items.findIndex((item) => item._id === e.detail.id);
+    const index = this.items.findIndex((item) => item.id === e.detail.id);
     if (index !== -1) {
       this.splice("items", index, 1);
     }
   }
 }
 
-window.customElements.define(TodoListItems.is, TodoListItems);
+window.customElements.define(TodoTaskList.is, TodoTaskList);

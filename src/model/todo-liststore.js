@@ -1,14 +1,14 @@
 import { TodoList } from "./todo-list.js";
 
-const todo_list_storage_id = "todo-lists";
-const todo_list_load_timeout = 300;
+const TODO_LIST_STORAGE_ID = "todo-lists";
+const TODO_LIST_LOAD_TIMEOUT = 300;
 
 export async function loadTodoLists() {
   return new Promise((resolve) => {
     // Using a timeout to simulate slower fetch
     setTimeout(() => {
       const todoLists = [];
-      const listData = window.localStorage.getItem(todo_list_storage_id);
+      const listData = window.localStorage.getItem(TODO_LIST_STORAGE_ID);
 
       if (listData) {
         for (const listId of JSON.parse(listData)) {
@@ -20,13 +20,13 @@ export async function loadTodoLists() {
       }
 
       resolve(todoLists);
-    }, todo_list_load_timeout);
+    }, TODO_LIST_LOAD_TIMEOUT);
   });
 }
 
 export function saveTodoLists(todoLists) {
   window.localStorage.setItem(
-    todo_list_storage_id,
+    TODO_LIST_STORAGE_ID,
     JSON.stringify(todoLists.map((list) => list.id))
   );
 

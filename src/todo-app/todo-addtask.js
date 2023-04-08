@@ -6,19 +6,28 @@ import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-input/paper-input.js";
 import { TodoBaseImpl } from "./todo-base.js";
 
-class TodoAddItem extends TodoBaseImpl {
+class TodoAddTask extends TodoBaseImpl {
   constructor() {
     super();
   }
 
   static get is() {
-    return "todo-additem";
+    return "todo-addtask";
   }
 
   static get properties() {
     return {
       value: {
-        type: String
+        type: String,
+        reflectToAttribute: true
+      },
+      placeholder: {
+        type: String,
+        reflectToAttribute: true
+      },
+      startIcon: {
+        type: String,
+        reflectToAttribute: true
       }
     };
   }
@@ -53,15 +62,18 @@ class TodoAddItem extends TodoBaseImpl {
         on-keypress="_handleKeyPressEvent"
         on-focus="_handleFocusEvent"
         on-focusout="_handleFocusLostEvent"
-        label="{{localize('addTaskPlaceholder')}}"
+        label="[[placeholder]]"
       >
-        <iron-icon id="icon" icon="add" slot="prefix"></iron-icon>
+        <iron-icon id="icon" icon="[[startIcon]]" slot="prefix"> </iron-icon>
       </paper-input>
     `;
   }
 
   ready() {
     super.ready();
+    this.addEventListener("app-localize-resources-loaded", function () {
+      this._handleFocusLostEvent();
+    });
   }
 
   _handleKeyPressEvent(event) {
@@ -78,14 +90,14 @@ class TodoAddItem extends TodoBaseImpl {
   }
 
   _handleFocusEvent() {
-    this.$.icon.icon = "radio-button-unchecked";
-    this.$.textField.label = this.localize("addTaskExample");
+    this.startIcon = "radio-button-unchecked";
+    this.placeholder = this.localize("addTaskExample");
   }
 
   _handleFocusLostEvent() {
-    this.$.icon.icon = "add";
-    this.$.textField.label = this.localize("addTaskPlaceholder");
+    this.startIcon = "add";
+    this.placeholder = this.localize("addTaskPlaceholder");
   }
 }
 
-window.customElements.define(TodoAddItem.is, TodoAddItem);
+window.customElements.define(TodoAddTask.is, TodoAddTask);
