@@ -1,5 +1,6 @@
 import { html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
+import "@polymer/app-route/app-location.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-ripple/paper-ripple.js";
@@ -32,7 +33,8 @@ class TodoSideBar extends TodoBaseImpl {
         type: Number,
         value: 0,
         notify: true,
-        reflectToAttribute: true
+        reflectToAttribute: true,
+        observer: "_selectionChanged"
       }
     };
   }
@@ -89,6 +91,7 @@ class TodoSideBar extends TodoBaseImpl {
             </paper-item>
           </template>
         </paper-listbox>
+        <app-location route="{{route}}"></app-location>
         <iron-dropdown
           id="dropdown"
           horizontal-align="left"
@@ -113,6 +116,10 @@ class TodoSideBar extends TodoBaseImpl {
         {{localize('newList')}}
       </paper-button>
     `;
+  }
+
+  _selectionChanged() {
+    this.set("route.path", `/lists/${this.selected}`);
   }
 
   _getBadgeCount(item) {

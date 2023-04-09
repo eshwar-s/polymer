@@ -4,7 +4,7 @@ import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
-import "./todo-listview.js";
+import "./todo-mainpanel.js";
 import { loadTodoLists, saveTodoLists } from "../model/todo-liststore.js";
 
 class TodoApp extends TodoBaseImpl {
@@ -29,13 +29,6 @@ class TodoApp extends TodoBaseImpl {
         value: [],
         notify: true,
         reflectToAttribute: true
-      },
-      selectedList: {
-        type: Number,
-        value: 0,
-        notify: true,
-        reflectToAttribute: true,
-        observer: "_selectedListChanged"
       }
     };
   }
@@ -81,13 +74,8 @@ class TodoApp extends TodoBaseImpl {
               selected="{{selectedList}}"
             ></todo-sidebar>
           </div>
-          <array-selector
-            id="selector"
-            items="{{todoLists}}"
-            selected-item="{{selectedTodoList}}"
-          ></array-selector>
           <div class="main">
-            <todo-listview list="{{selectedTodoList}}"> </todo-listview>
+            <todo-mainpanel todo-lists="{{todoLists}}"> </todo-mainpanel>
           </div>
         </div>
       </todo-spinner>
@@ -117,20 +105,12 @@ class TodoApp extends TodoBaseImpl {
     }
 
     this.set("todoLists", this.todoLists);
-    this._selectedListChanged();
-
     this.loading = false;
   }
 
   _unload() {
     if (!this.loading) {
       saveTodoLists(this.todoLists);
-    }
-  }
-
-  _selectedListChanged() {
-    if (this.selectedList < this.todoLists.length) {
-      this.$.selector.select(this.todoLists[this.selectedList]);
     }
   }
 }

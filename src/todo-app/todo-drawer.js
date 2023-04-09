@@ -15,7 +15,7 @@ class TodoDrawer extends PolymerElement {
     return html`
       <style>
         app-drawer {
-          --app-drawer-width: 300px;
+          --app-drawer-width: 250px;
         }
       </style>
       <paper-icon-button
