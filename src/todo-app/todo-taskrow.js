@@ -1,5 +1,4 @@
 import { html } from "@polymer/polymer/polymer-element.js";
-import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-ripple/paper-ripple.js";
 import "@polymer/paper-checkbox/paper-checkbox.js";
@@ -43,6 +42,9 @@ class TodoTaskRow extends TodoBaseImpl {
         }
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
+        }
+        .menu-icon {
+          margin-right: 10px;
         }
       </style>
       <paper-item class="todo-item">
