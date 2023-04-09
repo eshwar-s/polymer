@@ -34,15 +34,7 @@ class TodoEditLabel extends PolymerElement {
     return html`
       <style>
         :host {
-          display: inline-block;
-        }
-        :host([heading]) {
-          display: block;
-        }
-        :host([heading]) > * {
-          font-size: 1.5em;
-          font-weight: bold;
-          margin: 10px 0;
+          @apply --todo-edit-label;
         }
         paper-input.custom {
           border: 1px solid #bdbdbd;

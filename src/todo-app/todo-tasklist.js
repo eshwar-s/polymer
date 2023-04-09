@@ -1,7 +1,7 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
-import "./todo-taskitem.js";
+import "./todo-taskrow.js";
 
 export const Filter = { Completed: 0, NotCompleted: 1 };
 
@@ -51,10 +51,10 @@ class TodoTaskList extends PolymerElement {
           filter="{{_computeFilter(filter)}}"
           observe="isImportant isCompleted"
         >
-          <todo-taskitem
+          <todo-taskrow
             item="{{item}}"
             on-remove="_removeTodoItem"
-          ></todo-taskitem>
+          ></todo-taskrow>
         </template>
       </paper-listbox>
     `;

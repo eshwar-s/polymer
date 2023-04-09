@@ -49,9 +49,12 @@ class TodoSideBar extends TodoBaseImpl {
         .list-item {
           display: flex;
           justify-content: space-between;
+          --todo-edit-label: {
+            display: inline-block;
+          }
         }
         iron-dropdown [slot="dropdown-content"] {
-          width: 300px;
+          width: 250px;
           @apply --shadow-elevation-3dp;
         }
         paper-item:hover {

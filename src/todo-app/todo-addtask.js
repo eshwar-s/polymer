@@ -38,7 +38,7 @@ class TodoAddTask extends TodoBaseImpl {
         paper-input {
           background-color: var(--paper-grey-300);
           padding-left: 10px;
-          border-radius: 3px;
+          border-radius: 4px;
 
           --paper-input-container-underline: {
             display: none;
@@ -51,7 +51,7 @@ class TodoAddTask extends TodoBaseImpl {
           }
         }
         iron-icon {
-          margin-right: 5px;
+          margin-right: 6px;
         }
       </style>
 

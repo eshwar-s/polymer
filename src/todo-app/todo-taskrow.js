@@ -8,13 +8,13 @@ import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
 import { TodoBaseImpl } from "./todo-base.js";
 
-class TodoTaskItem extends TodoBaseImpl {
+class TodoTaskRow extends TodoBaseImpl {
   constructor() {
     super();
   }
 
   static get is() {
-    return "todo-taskitem";
+    return "todo-taskrow";
   }
 
   static get properties() {
@@ -33,7 +33,7 @@ class TodoTaskItem extends TodoBaseImpl {
         .todo-item {
           background-color: var(--paper-grey-200);
           margin-bottom: 3px;
-          border-radius: 3px;
+          border-radius: 4px;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
@@ -41,8 +41,8 @@ class TodoTaskItem extends TodoBaseImpl {
         .todo-item:hover {
           background-color: var(--paper-grey-100);
         }
-        .menu-icon {
-          margin-right: 10px;
+        paper-checkbox {
+          --paper-checkbox-label-spacing: 16px;
         }
       </style>
       <paper-item class="todo-item">
@@ -135,4 +135,4 @@ class TodoTaskItem extends TodoBaseImpl {
   }
 }
 
-window.customElements.define(TodoTaskItem.is, TodoTaskItem);
+window.customElements.define(TodoTaskRow.is, TodoTaskRow);

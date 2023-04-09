@@ -1,14 +1,10 @@
 import { html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import { TodoBaseImpl } from "./todo-base.js";
-import "./todo-addtask.js";
-import "./todo-editlabel.js";
-import "./todo-tasklist.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
-import "./todo-drawer.js";
-import { TodoItem } from "../model/todo-item.js";
+import "./todo-listview.js";
 import { loadTodoLists, saveTodoLists } from "../model/todo-liststore.js";
 
 class TodoApp extends TodoBaseImpl {
@@ -59,16 +55,12 @@ class TodoApp extends TodoBaseImpl {
           height: 100%;
         }
         .main {
-          display: flex;
-          flex-direction: column;
           flex-grow: 1;
-          justify-content: space-between;
-          padding: 5px;
         }
         .sidebar {
-          width: 300px;
+          width: 250px;
           height: 100%;
-          padding: 5px;
+          padding: 12px;
         }
         .drawer {
           display: none;
@@ -76,9 +68,6 @@ class TodoApp extends TodoBaseImpl {
         @media only screen and (max-width: 800px) {
           .sidebar {
             display: none;
-          }
-          .drawer {
-            display: block;
           }
         }
       </style>
@@ -92,49 +81,13 @@ class TodoApp extends TodoBaseImpl {
               selected="{{selectedList}}"
             ></todo-sidebar>
           </div>
+          <array-selector
+            id="selector"
+            items="{{todoLists}}"
+            selected-item="{{selectedTodoList}}"
+          ></array-selector>
           <div class="main">
-            <div class="content" style="overflow-y:auto">
-              <todo-drawer class="drawer">
-                <todo-sidebar
-                  id="sidebar"
-                  lists="{{todoLists}}"
-                  selected="{{selectedList}}"
-                ></todo-sidebar>
-              </todo-drawer>
-              <array-selector
-                id="selector"
-                items="{{todoLists}}"
-                selected-item="{{selectedTodoList}}"
-              ></array-selector>
-              <todo-editlabel
-                id="listName"
-                heading
-                value="[[selectedTodoList.name]]"
-                on-updated="_todoListNameChanged"
-                click-to-edit
-              ></todo-editlabel>
-              <todo-tasklist
-                items="{{selectedTodoList.items}}"
-                filter="1"
-              ></todo-tasklist>
-              <template
-                is="dom-if"
-                if="[[_showCompletedTasks(todoLists.*, selectedList)]]"
-              >
-                <todo-collapse
-                  id="collapse"
-                  text="{{localize('completedTasks')}}"
-                >
-                  <todo-tasklist
-                    items="{{selectedTodoList.items}}"
-                    filter="0"
-                  ></todo-tasklist>
-                </todo-collapse>
-              </template>
-            </div>
-            <div class="footer">
-              <todo-addtask on-add="_addTodoItem"></todo-addtask>
-            </div>
+            <todo-listview list="{{selectedTodoList}}"> </todo-listview>
           </div>
         </div>
       </todo-spinner>
@@ -175,34 +128,10 @@ class TodoApp extends TodoBaseImpl {
     }
   }
 
-  _addTodoItem(e) {
-    this.push(
-      `todoLists.${this.selectedList}.items`,
-      new TodoItem(e.detail.task)
-    );
-  }
-
-  _todoListNameChanged(e) {
-    if (this.selectedList < this.todoLists.length && e.detail.value) {
-      this.set(`todoLists.${this.selectedList}.name`, e.detail.value);
-    }
-  }
-
   _selectedListChanged() {
     if (this.selectedList < this.todoLists.length) {
       this.$.selector.select(this.todoLists[this.selectedList]);
-      this.$.listName.setEditable(false);
     }
-  }
-
-  _showCompletedTasks() {
-    if (this.selectedList < this.todoLists.length) {
-      let completedItems = this.todoLists[this.selectedList].items.filter(
-        (item) => item.isCompleted
-      );
-      return completedItems.length > 0;
-    }
-    return false;
   }
 }
 
