@@ -71,7 +71,7 @@ class TodoSideBar extends TodoBaseImpl {
           margin-right: 10px;
         }
       </style>
-      <div class="list">
+      <nav class="list">
         <paper-listbox selected="{{selected}}">
           <template id="list" is="dom-repeat" items="{{lists}}">
             <paper-item
@@ -110,7 +110,7 @@ class TodoSideBar extends TodoBaseImpl {
             </paper-listbox>
           </div>
         </iron-dropdown>
-      </div>
+      </nav>
       <paper-button on-tap="_newTodoListEvent">
         <iron-icon icon="add"></iron-icon>
         {{localize('newList')}}
