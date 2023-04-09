@@ -73,7 +73,7 @@ class TodoMainPanel extends TodoBaseImpl {
   }
 
   _routeChanged(page, id) {
-    this.currentRoute = { page: page || "lists", id: id || 0 };
+    this.currentRoute = this._resolveRoute(page, id);
 
     switch (this.currentRoute.page) {
       case "lists":
@@ -81,6 +81,17 @@ class TodoMainPanel extends TodoBaseImpl {
           this.$.selector.select(this.todoLists[this.currentRoute.id]);
         }
         break;
+    }
+  }
+
+  _resolveRoute(page, id) {
+    switch (page) {
+      case "lists":
+        return { page: page, id: id || 0 };
+
+      default:
+        // default route to use as fallback
+        return { page: "lists", id: 0 };
     }
   }
 }
