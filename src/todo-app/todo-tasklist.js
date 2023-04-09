@@ -42,6 +42,9 @@ class TodoTaskList extends PolymerElement {
         :host {
           margin-bottom: 10px;
         }
+        paper-listbox {
+          background-color: transparent;
+        }
       </style>
       <paper-listbox selected="{{selected}}">
         <template

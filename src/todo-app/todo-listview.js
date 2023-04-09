@@ -34,15 +34,22 @@ class TodoListView extends TodoBaseImpl {
           display: flex;
           flex-direction: column;
           padding: 12px;
+          background-color: var(--primary-color);
         }
         .content {
           flex-grow: 1;
         }
         .heading {
           --todo-edit-label: {
+            display: block;
+            color: var(--primary-background-color);
             font-size: 1.5em;
             font-weight: bold;
+            margin-bottom: 8px;
           }
+        }
+        todo-collapse {
+          color: var(--primary-background-color);
         }
       </style>
       <div class="content" style="overflow-y:auto">

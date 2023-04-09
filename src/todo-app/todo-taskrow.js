@@ -30,12 +30,12 @@ class TodoTaskRow extends TodoBaseImpl {
     return html`
       <style>
         .todo-item {
-          background-color: var(--paper-grey-200);
-          margin-bottom: 3px;
-          border-radius: 4px;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          background-color: var(--primary-background-color);
+          margin-bottom: 3px;
+          border-radius: 4px;
         }
         .todo-item:hover {
           background-color: var(--paper-grey-100);
@@ -60,16 +60,16 @@ class TodoTaskRow extends TodoBaseImpl {
         </div>
         <div class="right-wrapper">
           <template is="dom-if" if="{{!item.isImportant}}">
-            <iron-icon
+            <paper-icon-button
               icon="star-border"
               on-click="_toggleMarkAsImportantEvent"
-            ></iron-icon>
+            ></paper-icon-button>
           </template>
           <template is="dom-if" if="{{item.isImportant}}">
-            <iron-icon
+            <paper-icon-button
               icon="star"
               on-click="_toggleMarkAsImportantEvent"
-            ></iron-icon>
+            ></paper-icon-button>
           </template>
           <paper-menu-button
             id="dropdown"

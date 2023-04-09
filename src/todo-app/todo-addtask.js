@@ -36,9 +36,10 @@ class TodoAddTask extends TodoBaseImpl {
     return html`
       <style>
         paper-input {
-          background-color: var(--paper-grey-300);
+          background-color: rgba(0, 0, 0, 0.15);
           padding-left: 10px;
           border-radius: 4px;
+          color: var(--primary-background-color);
 
           --paper-input-container-underline: {
             display: none;
@@ -46,12 +47,14 @@ class TodoAddTask extends TodoBaseImpl {
           --paper-input-container-underline-focus: {
             display: none;
           }
-          --paper-input-container-underline-disabled: {
-            display: none;
+          --paper-input-container-label: {
+            color: var(--primary-background-color);
           }
+          --paper-input-container-input-color: var(--primary-background-color);
         }
         iron-icon {
           margin-right: 6px;
+          color: var(--primary-background-color);
         }
       </style>
 

@@ -40,7 +40,7 @@ class TodoSideBar extends TodoBaseImpl {
   static get template() {
     return html`
       <style include="paper-material-styles">
-        .container {
+        :host {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -69,51 +69,49 @@ class TodoSideBar extends TodoBaseImpl {
           margin-right: 10px;
         }
       </style>
-      <div class="container">
-        <div class="list">
-          <paper-listbox selected="{{selected}}">
-            <template id="list" is="dom-repeat" items="{{lists}}">
-              <paper-item
-                class="list-item"
-                on-contextmenu="_handleContextMenuOpen"
-              >
-                <div class="list-name">
-                  <iron-icon icon="list"></iron-icon>
-                  <todo-editlabel
-                    value="[[item.name]]"
-                    on-updated="_todoListNameChanged"
-                  ></todo-editlabel>
-                </div>
-                <todo-badge count="{{_getBadgeCount(item, item.*)}}">
-                </todo-badge>
-                <paper-ripple></paper-ripple>
+      <div class="list">
+        <paper-listbox selected="{{selected}}">
+          <template id="list" is="dom-repeat" items="{{lists}}">
+            <paper-item
+              class="list-item"
+              on-contextmenu="_handleContextMenuOpen"
+            >
+              <div class="list-name">
+                <iron-icon icon="list"></iron-icon>
+                <todo-editlabel
+                  value="[[item.name]]"
+                  on-updated="_todoListNameChanged"
+                ></todo-editlabel>
+              </div>
+              <todo-badge count="{{_getBadgeCount(item, item.*)}}">
+              </todo-badge>
+              <paper-ripple></paper-ripple>
+            </paper-item>
+          </template>
+        </paper-listbox>
+        <iron-dropdown
+          id="dropdown"
+          horizontal-align="left"
+          vertical-align="top"
+        >
+          <div class="dropdown-content" slot="dropdown-content">
+            <paper-listbox>
+              <paper-item on-tap="_renameTodoListEvent">
+                <iron-icon class="menu-icon" icon="create"></iron-icon
+                >{{localize('renameList')}}
               </paper-item>
-            </template>
-          </paper-listbox>
-          <iron-dropdown
-            id="dropdown"
-            horizontal-align="left"
-            vertical-align="top"
-          >
-            <div class="dropdown-content" slot="dropdown-content">
-              <paper-listbox>
-                <paper-item on-tap="_renameTodoListEvent">
-                  <iron-icon class="menu-icon" icon="create"></iron-icon
-                  >{{localize('renameList')}}
-                </paper-item>
-                <paper-item on-tap="_deleteTodoListEvent">
-                  <iron-icon class="menu-icon" icon="delete-forever"></iron-icon
-                  >{{localize('deleteList')}}
-                </paper-item>
-              </paper-listbox>
-            </div>
-          </iron-dropdown>
-        </div>
-        <paper-button on-tap="_newTodoListEvent">
-          <iron-icon icon="add"></iron-icon>
-          {{localize('newList')}}
-        </paper-button>
+              <paper-item on-tap="_deleteTodoListEvent">
+                <iron-icon class="menu-icon" icon="delete-forever"></iron-icon
+                >{{localize('deleteList')}}
+              </paper-item>
+            </paper-listbox>
+          </div>
+        </iron-dropdown>
       </div>
+      <paper-button on-tap="_newTodoListEvent">
+        <iron-icon icon="add"></iron-icon>
+        {{localize('newList')}}
+      </paper-button>
     `;
   }
 
