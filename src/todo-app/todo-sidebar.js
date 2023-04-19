@@ -1,4 +1,5 @@
 import { html } from "@polymer/polymer/polymer-element.js";
+import { afterNextRender } from "@polymer/polymer/lib/utils/render-status.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/app-route/app-location.js";
 import "@polymer/paper-listbox/paper-listbox.js";
@@ -134,7 +135,10 @@ class TodoSideBar extends TodoBaseImpl {
 
   _newTodoListEvent(e) {
     this.push("lists", TodoList.new());
-    this.set("route.path", `/lists/${this.lists.length - 1}`);
+
+    afterNextRender(this, () => {
+      this.set("selected", `/lists/${this.lists.length - 1}`);
+    });
   }
 
   _renameTodoListEvent(e) {
