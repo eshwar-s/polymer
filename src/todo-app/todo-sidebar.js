@@ -51,6 +51,7 @@ class TodoSideBar extends TodoBaseImpl {
         .list-item {
           display: flex;
           justify-content: space-between;
+          user-select: none;
           --todo-edit-label: {
             display: inline-block;
           }
@@ -123,11 +124,7 @@ class TodoSideBar extends TodoBaseImpl {
   }
 
   _getBadgeCount(item) {
-    if (item) {
-      let count = item.items.filter((task) => !task.isCompleted).length;
-      return count;
-    }
-    return 0;
+    return item ? item.items.filter((task) => !task.isCompleted).length : 0;
   }
 
   _newTodoListEvent(e) {

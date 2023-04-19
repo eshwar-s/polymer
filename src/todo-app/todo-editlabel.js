@@ -43,6 +43,7 @@ class TodoEditLabel extends PolymerElement {
           --paper-input-container-input: {
             box-sizing: border-box;
             font: inherit;
+            color: inherit;
           }
           --paper-input-container: {
             padding: 0;
@@ -60,12 +61,7 @@ class TodoEditLabel extends PolymerElement {
         }
       </style>
       <template is="dom-if" if="{{!editable}}">
-        <template is="dom-if" if="{{clickToEdit}}">
-          <div on-tap="_handleClick">{{value}}</div>
-        </template>
-        <template is="dom-if" if="{{!clickToEdit}}">
-          <div>{{value}}</div>
-        </template>
+        <div on-tap="_handleClick">{{value}}</div>
       </template>
       <template is="dom-if" if="{{editable}}">
         <paper-input
@@ -94,7 +90,9 @@ class TodoEditLabel extends PolymerElement {
   }
 
   _handleClick(e) {
-    this.editable = true;
+    if (this.clickToEdit) {
+      this.editable = true;
+    }
   }
 
   _handleKeyDownEvent(e) {

@@ -11,6 +11,16 @@ class TodoDrawer extends PolymerElement {
     return "todo-drawer";
   }
 
+  static get properties() {
+    return {
+      opened: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      }
+    };
+  }
+
   static get template() {
     return html`
       <style>
@@ -22,7 +32,7 @@ class TodoDrawer extends PolymerElement {
         icon="menu"
         on-click="_openDrawerClicked"
       ></paper-icon-button>
-      <app-drawer id="drawer" style="z-index:1">
+      <app-drawer id="drawer" opened="[[opened]]" style="z-index:1">
         <slot></slot>
       </app-drawer>
     `;
@@ -33,7 +43,7 @@ class TodoDrawer extends PolymerElement {
   }
 
   _openDrawerClicked() {
-    this.$.drawer.open();
+    this.opened = true;
   }
 }
 

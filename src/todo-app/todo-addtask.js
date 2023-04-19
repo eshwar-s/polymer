@@ -21,11 +21,11 @@ class TodoAddTask extends TodoBaseImpl {
         type: String,
         reflectToAttribute: true
       },
-      placeholder: {
+      startIcon: {
         type: String,
         reflectToAttribute: true
       },
-      startIcon: {
+      placeholder: {
         type: String,
         reflectToAttribute: true
       }
@@ -67,7 +67,7 @@ class TodoAddTask extends TodoBaseImpl {
         on-focusout="_handleFocusLostEvent"
         label="[[placeholder]]"
       >
-        <iron-icon id="icon" icon="[[startIcon]]" slot="prefix"> </iron-icon>
+        <iron-icon id="icon" icon="[[startIcon]]" slot="prefix"></iron-icon>
       </paper-input>
     `;
   }

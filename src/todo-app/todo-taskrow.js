@@ -34,7 +34,7 @@ class TodoTaskRow extends TodoBaseImpl {
           flex-direction: row;
           justify-content: space-between;
           background-color: var(--primary-background-color);
-          margin-bottom: 3px;
+          margin-bottom: 2px;
           border-radius: 4px;
         }
         .todo-item:hover {

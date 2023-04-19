@@ -5,7 +5,7 @@ import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-mainpanel.js";
-import { loadTodoLists, saveTodoLists } from "../model/todo-liststore.js";
+import { loadTodoLists, saveTodoLists } from "../model/todo-store.js";
 
 class TodoApp extends TodoBaseImpl {
   constructor() {
@@ -55,9 +55,6 @@ class TodoApp extends TodoBaseImpl {
           height: 100%;
           padding: 12px;
         }
-        .drawer {
-          display: none;
-        }
         @media only screen and (max-width: 800px) {
           .sidebar {
             display: none;
@@ -75,7 +72,7 @@ class TodoApp extends TodoBaseImpl {
             ></todo-sidebar>
           </div>
           <div class="main">
-            <todo-mainpanel todo-lists="{{todoLists}}"> </todo-mainpanel>
+            <todo-mainpanel todo-lists="{{todoLists}}"></todo-mainpanel>
           </div>
         </div>
       </todo-spinner>
