@@ -6,6 +6,7 @@
     "completedTasks": "Completed",
     "newList": "New List",
     "renameList": "Rename List",
+    "printList": "Print List",
     "deleteList": "Delete List",
     "markAsCompleted": "Mark as completed",
     "markAsNotCompleted": "Mark as not completed",

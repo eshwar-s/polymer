@@ -6,7 +6,7 @@ import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-ripple/paper-ripple.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/iron-dropdown/iron-dropdown.js";
-import "@polymer/iron-icons/iron-icons.js";
+import "@polymer/iron-icons/image-icons.js";
 import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-editlabel.js";
 import "./todo-badge.js";
@@ -30,8 +30,7 @@ class TodoSideBar extends TodoBaseImpl {
         reflectToAttribute: true
       },
       selected: {
-        type: Number,
-        value: 0,
+        type: String,
         notify: true,
         reflectToAttribute: true,
         observer: "_selectionChanged"
@@ -57,7 +56,7 @@ class TodoSideBar extends TodoBaseImpl {
           }
         }
         iron-dropdown [slot="dropdown-content"] {
-          width: 250px;
+          width: 200px;
           @apply --shadow-elevation-3dp;
         }
         paper-item:hover {
@@ -73,18 +72,20 @@ class TodoSideBar extends TodoBaseImpl {
         }
       </style>
       <nav class="list">
-        <paper-listbox selected="{{selected}}">
+        <paper-listbox
+          selected="{{selected}}"
+          attr-for-selected="link"
+          fallback-selection="/lists/0"
+        >
           <template id="list" is="dom-repeat" items="{{lists}}">
             <paper-item
               class="list-item"
+              link="/lists/{{index}}"
               on-contextmenu="_handleContextMenuOpen"
             >
               <div class="list-name">
                 <iron-icon icon="list"></iron-icon>
-                <todo-editlabel
-                  value="[[item.name]]"
-                  on-updated="_todoListNameChanged"
-                ></todo-editlabel>
+                [[item.name]]
               </div>
               <todo-badge count="{{_getBadgeCount(item, item.*)}}">
               </todo-badge>
@@ -101,8 +102,12 @@ class TodoSideBar extends TodoBaseImpl {
           <div class="dropdown-content" slot="dropdown-content">
             <paper-listbox>
               <paper-item on-tap="_renameTodoListEvent">
-                <iron-icon class="menu-icon" icon="create"></iron-icon
+                <iron-icon class="menu-icon" icon="image:flip"></iron-icon
                 >{{localize('renameList')}}
+              </paper-item>
+              <paper-item on-tap="_printTodoListEvent">
+                <iron-icon class="menu-icon" icon="print"></iron-icon
+                >{{localize('printList')}}
               </paper-item>
               <paper-item on-tap="_deleteTodoListEvent">
                 <iron-icon class="menu-icon" icon="delete-forever"></iron-icon
@@ -120,7 +125,7 @@ class TodoSideBar extends TodoBaseImpl {
   }
 
   _selectionChanged() {
-    this.set("route.path", `/lists/${this.selected}`);
+    this.set("route.path", this.selected);
   }
 
   _getBadgeCount(item) {
@@ -129,19 +134,14 @@ class TodoSideBar extends TodoBaseImpl {
 
   _newTodoListEvent(e) {
     this.push("lists", TodoList.new());
-    this.set("selected", this.lists.length - 1);
+    this.set("route.path", `/lists/${this.lists.length - 1}`);
   }
 
   _renameTodoListEvent(e) {
-    const model = this.$.list.modelForElement(this.$.dropdown.positionTarget);
-    const id = model.get("item.id");
-    const index = this.lists.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      this.set("selected", index);
-      const element =
-        this.$.dropdown.positionTarget.querySelector("todo-editlabel");
-      element.setEditable(true);
-    }
+    this.$.dropdown.close();
+  }
+
+  _printTodoListEvent(e) {
     this.$.dropdown.close();
   }
 
@@ -152,27 +152,15 @@ class TodoSideBar extends TodoBaseImpl {
     const index = this.lists.findIndex((item) => item.id === id);
     if (index !== -1) {
       this.splice("lists", index, 1);
-      if (index === this.selected) {
-        this.set("selected", this.lists.length - 1);
-      }
     }
     this.$.dropdown.close();
   }
 
   _handleContextMenuOpen(e) {
     e.preventDefault();
+    e.currentTarget.click();
     this.$.dropdown.positionTarget = e.currentTarget;
     this.$.dropdown.open();
-  }
-
-  _todoListNameChanged(e) {
-    if (
-      this.selected >= 0 &&
-      this.selected < this.lists.length &&
-      e.detail.value
-    ) {
-      this.set(`lists.${this.selected}.name`, e.detail.value);
-    }
   }
 }
 

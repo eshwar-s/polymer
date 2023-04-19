@@ -16,11 +16,6 @@ class TodoMainPanel extends TodoBaseImpl {
 
   static get properties() {
     return {
-      currentRoute: {
-        type: Object,
-        value: { page: null, id: 0 },
-        reflectToAttribute: true
-      },
       todoLists: {
         type: Array,
         value: [],
@@ -63,7 +58,7 @@ class TodoMainPanel extends TodoBaseImpl {
       <iron-pages
         id="page-selector"
         role="main"
-        selected="[[currentRoute.page]]"
+        selected="[[routeData.page]]"
         attr-for-selected="name"
       >
         <todo-listview name="lists" list="{{selectedTodoList}}">
@@ -72,26 +67,13 @@ class TodoMainPanel extends TodoBaseImpl {
     `;
   }
 
-  _routeChanged(page, id) {
-    this.currentRoute = this._resolveRoute(page, id);
-
-    switch (this.currentRoute.page) {
+  _routeChanged() {
+    switch (this.routeData.page) {
       case "lists":
-        if (this.currentRoute.id < this.todoLists.length) {
-          this.$.selector.select(this.todoLists[this.currentRoute.id]);
+        if (this.subrouteData.id < this.todoLists.length) {
+          this.$.selector.select(this.todoLists[this.subrouteData.id]);
         }
         break;
-    }
-  }
-
-  _resolveRoute(page, id) {
-    switch (page) {
-      case "lists":
-        return { page: page, id: id || 0 };
-
-      default:
-        // default route to use as fallback
-        return { page: "lists", id: 0 };
     }
   }
 }
