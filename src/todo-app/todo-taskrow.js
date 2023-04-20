@@ -43,6 +43,11 @@ class TodoTaskRow extends TodoBaseImpl {
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
         }
+        paper-menu-button {
+          --paper-menu-button: {
+            padding: 6px;
+          }
+        }
         div [slot="dropdown-content"] {
           background-color: var(--primary-background-color);
           @apply --shadow-elevation-3dp;
@@ -51,22 +56,22 @@ class TodoTaskRow extends TodoBaseImpl {
       <paper-item class="todo-item">
         <div class="left-wrapper">
           <paper-checkbox checked="{{item.isCompleted}}">
-            <template is="dom-if" if="{{!item.isCompleted}}">
-              {{item.title}}
+            <template is="dom-if" if="[[!item.isCompleted]]">
+              [[item.title]]
             </template>
-            <template is="dom-if" if="{{item.isCompleted}}">
-              <del>{{item.title}}</del>
+            <template is="dom-if" if="[[item.isCompleted]]">
+              <del>[[item.title]]</del>
             </template>
           </paper-checkbox>
         </div>
         <div class="right-wrapper">
-          <template is="dom-if" if="{{!item.isImportant}}">
+          <template is="dom-if" if="[[!item.isImportant]]">
             <paper-icon-button
               icon="star-border"
               on-click="_toggleMarkAsImportantEvent"
             ></paper-icon-button>
           </template>
-          <template is="dom-if" if="{{item.isImportant}}">
+          <template is="dom-if" if="[[item.isImportant]]">
             <paper-icon-button
               icon="star"
               on-click="_toggleMarkAsImportantEvent"
@@ -83,28 +88,28 @@ class TodoTaskRow extends TodoBaseImpl {
               alt="menu"
             ></paper-icon-button>
             <div slot="dropdown-content">
-              <template is="dom-if" if="{{!item.isImportant}}">
+              <template is="dom-if" if="[[!item.isImportant]]">
                 <todo-menuitem
                   icon="star"
                   text="[[localize('markAsImportant')]]"
                   on-tap="_toggleMarkAsImportantEvent"
                 ></todo-menuitem>
               </template>
-              <template is="dom-if" if="{{item.isImportant}}">
+              <template is="dom-if" if="[[item.isImportant]]">
                 <todo-menuitem
                   icon="star-border"
                   text="[[localize('removeImportance')]]"
                   on-tap="_toggleMarkAsImportantEvent"
                 ></todo-menuitem>
               </template>
-              <template is="dom-if" if="{{!item.isCompleted}}">
+              <template is="dom-if" if="[[!item.isCompleted]]">
                 <todo-menuitem
                   icon="check-circle"
                   text="[[localize('markAsCompleted')]]"
                   on-tap="_toggledMarkAsCompletedEvent"
                 ></todo-menuitem>
               </template>
-              <template is="dom-if" if="{{item.isCompleted}}">
+              <template is="dom-if" if="[[item.isCompleted]]">
                 <todo-menuitem
                   icon="radio-button-unchecked"
                   text="[[localize('markAsNotCompleted')]]"

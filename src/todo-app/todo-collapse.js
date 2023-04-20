@@ -46,7 +46,7 @@ class TodoCollapse extends PolymerElement {
       </style>
       <paper-button on-click="_toggleCollapse"
         ><iron-icon id="icon" icon="[[startIcon]]"></iron-icon
-        >{{text}}</paper-button
+        >[[text]]</paper-button
       >
       <iron-collapse id="collapse" opened="[[opened]]">
         <slot></slot>

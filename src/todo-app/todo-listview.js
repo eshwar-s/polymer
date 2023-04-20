@@ -62,7 +62,7 @@ class TodoListView extends TodoBaseImpl {
         ></todo-editlabel>
         <todo-tasklist items="{{list.items}}" filter="1"></todo-tasklist>
         <template is="dom-if" if="[[_showCompletedTasks(list, list.*)]]">
-          <todo-collapse id="collapse" text="{{localize('completedTasks')}}">
+          <todo-collapse id="collapse" text="[[localize('completedTasks')]]">
             <todo-tasklist items="{{list.items}}" filter="0"></todo-tasklist>
           </todo-collapse>
         </template>

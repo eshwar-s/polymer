@@ -47,14 +47,16 @@ class TodoSideBar extends TodoBaseImpl {
           flex-direction: column;
           justify-content: space-between;
           height: 100%;
+          padding: 12px;
+        }
+        paper-item {
+          --paper-item-min-height: 42px;
+          --paper-item-selected-weight: none;
         }
         .list-item {
           display: flex;
           justify-content: space-between;
           user-select: none;
-          --todo-edit-label: {
-            display: inline-block;
-          }
         }
         iron-dropdown [slot="dropdown-content"] {
           min-width: 200px;
@@ -87,7 +89,7 @@ class TodoSideBar extends TodoBaseImpl {
                 <iron-icon icon="list"></iron-icon>
                 [[item.name]]
               </div>
-              <todo-badge count="{{_getBadgeCount(item, item.*)}}">
+              <todo-badge count="[[_getBadgeCount(item, item.*)]]">
               </todo-badge>
             </paper-item>
           </template>
@@ -121,7 +123,7 @@ class TodoSideBar extends TodoBaseImpl {
       </nav>
       <paper-button on-tap="_newTodoListEvent">
         <iron-icon icon="add"></iron-icon>
-        {{localize('newList')}}
+        [[localize('newList')]]
       </paper-button>
     `;
   }

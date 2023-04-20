@@ -37,7 +37,7 @@ class TodoApp extends TodoBaseImpl {
     return html`
       <style is="custom-style" include="paper-material-styles">
         :host {
-          font-family: "Roboto", "Noto", sans-serif;
+          font-family: "Roboto", "Helvetica", "Arial", sans-serif;
           -webkit-font-smoothing: antialiased;
         }
         * {
@@ -53,7 +53,6 @@ class TodoApp extends TodoBaseImpl {
         .sidebar {
           width: 250px;
           height: 100%;
-          padding: 12px;
         }
         @media only screen and (max-width: 800px) {
           .sidebar {

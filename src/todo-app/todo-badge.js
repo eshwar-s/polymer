@@ -15,6 +15,11 @@ class TodoBadge extends PolymerElement {
         type: Number,
         value: 0,
         reflectToAttribute: true
+      },
+      maxCount: {
+        type: Number,
+        value: 99,
+        reflectToAttribute: true
       }
     };
   }
@@ -22,18 +27,16 @@ class TodoBadge extends PolymerElement {
   static get template() {
     return html`
       <style>
-        .count-badge {
+        .badge {
           font-size: 12px;
           font-weight: normal !important;
           min-width: 24px;
           min-height: 24px;
           text-align: center;
-          border-radius: 50%;
-          background-color: var(--paper-grey-300);
         }
       </style>
       <template is="dom-if" if="{{_isVisible(count)}}">
-        <div class="count-badge">{{count}}</div>
+        <span class="badge">[[_getValue(count)]]</span>
       </template>
     `;
   }
@@ -48,6 +51,10 @@ class TodoBadge extends PolymerElement {
 
   _isVisible() {
     return this.count > 0;
+  }
+
+  _getValue() {
+    return Math.min(this.count, this.maxCount);
   }
 }
 

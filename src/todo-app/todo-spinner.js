@@ -21,10 +21,10 @@ class TodoSpinner extends PolymerElement {
 
   static get template() {
     return html`
-      <template is="dom-if" if="{{loading}}">
+      <template is="dom-if" if="[[loading]]">
         <paper-spinner active></paper-spinner>
       </template>
-      <template is="dom-if" if="{{!loading}}">
+      <template is="dom-if" if="[[!loading]]">
         <slot></slot>
       </template>
     `;
