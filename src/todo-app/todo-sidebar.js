@@ -4,14 +4,14 @@ import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/app-route/app-location.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-button/paper-button.js";
-import "@polymer/paper-ripple/paper-ripple.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/image-icons.js";
+import { TodoList } from "../model/todo-list.js";
 import { TodoBaseImpl } from "./todo-base.js";
+import "./todo-menuitem.js";
 import "./todo-editlabel.js";
 import "./todo-badge.js";
-import { TodoList } from "../model/todo-list.js";
 
 class TodoSideBar extends TodoBaseImpl {
   constructor() {
@@ -57,11 +57,9 @@ class TodoSideBar extends TodoBaseImpl {
           }
         }
         iron-dropdown [slot="dropdown-content"] {
-          width: 200px;
+          min-width: 200px;
+          background-color: var(--primary-background-color);
           @apply --shadow-elevation-3dp;
-        }
-        paper-item:hover {
-          background-color: var(--paper-grey-100);
         }
         paper-button {
           text-transform: none;
@@ -72,7 +70,8 @@ class TodoSideBar extends TodoBaseImpl {
           margin-right: 10px;
         }
       </style>
-      <nav class="list">
+      <nav>
+        <app-location route="{{route}}"></app-location>
         <paper-listbox
           selected="{{selected}}"
           attr-for-selected="link"
@@ -90,31 +89,33 @@ class TodoSideBar extends TodoBaseImpl {
               </div>
               <todo-badge count="{{_getBadgeCount(item, item.*)}}">
               </todo-badge>
-              <paper-ripple></paper-ripple>
             </paper-item>
           </template>
         </paper-listbox>
-        <app-location route="{{route}}"></app-location>
         <iron-dropdown
           id="dropdown"
           horizontal-align="left"
           vertical-align="top"
         >
           <div class="dropdown-content" slot="dropdown-content">
-            <paper-listbox>
-              <paper-item on-tap="_renameTodoListEvent">
-                <iron-icon class="menu-icon" icon="image:flip"></iron-icon
-                >{{localize('renameList')}}
-              </paper-item>
-              <paper-item on-tap="_printTodoListEvent">
-                <iron-icon class="menu-icon" icon="print"></iron-icon
-                >{{localize('printList')}}
-              </paper-item>
-              <paper-item on-tap="_deleteTodoListEvent">
-                <iron-icon class="menu-icon" icon="delete-forever"></iron-icon
-                >{{localize('deleteList')}}
-              </paper-item>
-            </paper-listbox>
+            <todo-menuitem
+              on-tap="_renameTodoListEvent"
+              icon="image:flip"
+              text="[[localize('renameList')]]"
+            >
+            </todo-menuitem>
+            <todo-menuitem
+              on-tap="_printTodoListEvent"
+              icon="print"
+              text="[[localize('printList')]]"
+            >
+            </todo-menuitem>
+            <todo-menuitem
+              on-tap="_deleteTodoListEvent"
+              icon="delete-forever"
+              text="[[localize('deleteList')]]"
+            >
+            </todo-menuitem>
           </div>
         </iron-dropdown>
       </nav>

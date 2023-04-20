@@ -53,7 +53,7 @@ class TodoAddTask extends TodoBaseImpl {
           --paper-input-container-input-color: var(--primary-background-color);
         }
         iron-icon {
-          margin-right: 6px;
+          margin-right: 10px;
           color: var(--primary-background-color);
         }
       </style>

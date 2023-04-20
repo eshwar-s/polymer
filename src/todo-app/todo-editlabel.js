@@ -37,7 +37,6 @@ class TodoEditLabel extends PolymerElement {
           @apply --todo-edit-label;
         }
         paper-input.custom {
-          border: 1px solid #bdbdbd;
           border-radius: 3px;
 
           --paper-input-container-input: {

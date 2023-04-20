@@ -43,8 +43,9 @@ class TodoTaskRow extends TodoBaseImpl {
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
         }
-        .menu-icon {
-          margin-right: 10px;
+        div [slot="dropdown-content"] {
+          background-color: var(--primary-background-color);
+          @apply --shadow-elevation-3dp;
         }
       </style>
       <paper-item class="todo-item">
@@ -82,33 +83,39 @@ class TodoTaskRow extends TodoBaseImpl {
               alt="menu"
             ></paper-icon-button>
             <div slot="dropdown-content">
-              <paper-item on-tap="_toggleMarkAsImportantEvent">
-                <template is="dom-if" if="{{!item.isImportant}}">
-                  <iron-icon class="menu-icon" icon="star"></iron-icon
-                  >{{localize('markAsImportant')}}
-                </template>
-                <template is="dom-if" if="{{item.isImportant}}">
-                  <iron-icon class="menu-icon" icon="star-border"></iron-icon
-                  >{{localize('removeImportance')}}
-                </template>
-              </paper-item>
-              <paper-item on-tap="_toggledMarkAsCompletedEvent">
-                <template is="dom-if" if="{{!item.isCompleted}}">
-                  <iron-icon class="menu-icon" icon="check-circle"></iron-icon
-                  >{{localize('markAsCompleted')}}
-                </template>
-                <template is="dom-if" if="{{item.isCompleted}}">
-                  <iron-icon
-                    class="menu-icon"
-                    icon="radio-button-unchecked"
-                  ></iron-icon
-                  >{{localize('markAsNotCompleted')}}
-                </template>
-              </paper-item>
-              <paper-item on-tap="_handleDeleteItemEvent"
-                ><iron-icon class="menu-icon" icon="delete-forever"></iron-icon
-                >{{localize('deleteForever')}}
-              </paper-item>
+              <template is="dom-if" if="{{!item.isImportant}}">
+                <todo-menuitem
+                  icon="star"
+                  text="[[localize('markAsImportant')]]"
+                  on-tap="_toggleMarkAsImportantEvent"
+                ></todo-menuitem>
+              </template>
+              <template is="dom-if" if="{{item.isImportant}}">
+                <todo-menuitem
+                  icon="star-border"
+                  text="[[localize('removeImportance')]]"
+                  on-tap="_toggleMarkAsImportantEvent"
+                ></todo-menuitem>
+              </template>
+              <template is="dom-if" if="{{!item.isCompleted}}">
+                <todo-menuitem
+                  icon="check-circle"
+                  text="[[localize('markAsCompleted')]]"
+                  on-tap="_toggledMarkAsCompletedEvent"
+                ></todo-menuitem>
+              </template>
+              <template is="dom-if" if="{{item.isCompleted}}">
+                <todo-menuitem
+                  icon="radio-button-unchecked"
+                  text="[[localize('markAsNotCompleted')]]"
+                  on-tap="_toggledMarkAsCompletedEvent"
+                ></todo-menuitem>
+              </template>
+              <todo-menuitem
+                icon="delete-forever"
+                text="[[localize('deleteForever')]]"
+                on-tap="_handleDeleteItemEvent"
+              ></todo-menuitem>
             </div>
           </paper-menu-button>
         </div>

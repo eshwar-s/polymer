@@ -83,7 +83,7 @@ class TodoListView extends TodoBaseImpl {
 
   _showCompletedTasks() {
     if (this.list) {
-      let completedItems = this.list.items.filter((item) => item.isCompleted);
+      const completedItems = this.list.items.filter((item) => item.isCompleted);
       return completedItems.length > 0;
     }
     return false;
