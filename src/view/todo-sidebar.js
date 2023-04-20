@@ -51,7 +51,7 @@ class TodoSideBar extends TodoBaseImpl {
         }
         paper-item {
           --paper-item-min-height: 42px;
-          --paper-item-selected-weight: none;
+          --paper-item-selected-weight: normal;
         }
         .list-item {
           display: flex;
