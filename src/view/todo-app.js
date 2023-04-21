@@ -1,6 +1,7 @@
 import { html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import { TodoBaseImpl } from "./todo-base.js";
+import "./todo-styles.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
@@ -35,7 +36,10 @@ class TodoApp extends TodoBaseImpl {
 
   static get template() {
     return html`
-      <style is="custom-style" include="paper-material-styles">
+      <style
+        is="custom-style"
+        include="paper-material-styles todo-shared-styles"
+      >
         :host {
           font-family: "Roboto", "Helvetica", "Arial", sans-serif;
           -webkit-font-smoothing: antialiased;
@@ -51,10 +55,10 @@ class TodoApp extends TodoBaseImpl {
           flex-grow: 1;
         }
         .sidebar {
-          width: 250px;
+          width: var(--sidebar-width);
           height: 100%;
         }
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: 600px) {
           .sidebar {
             display: none;
           }

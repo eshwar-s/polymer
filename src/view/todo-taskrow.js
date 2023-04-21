@@ -6,6 +6,7 @@ import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
 import { TodoBaseImpl } from "./todo-base.js";
+import "./todo-styles.js";
 
 class TodoTaskRow extends TodoBaseImpl {
   constructor() {
@@ -28,8 +29,8 @@ class TodoTaskRow extends TodoBaseImpl {
 
   static get template() {
     return html`
-      <style>
-        .todo-item {
+      <style include="todo-shared-styles">
+        .list-item {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
@@ -37,7 +38,7 @@ class TodoTaskRow extends TodoBaseImpl {
           margin-bottom: 2px;
           border-radius: 4px;
         }
-        .todo-item:hover {
+        .list-item:hover {
           background-color: var(--paper-grey-100);
         }
         paper-checkbox {
@@ -53,7 +54,7 @@ class TodoTaskRow extends TodoBaseImpl {
           @apply --shadow-elevation-3dp;
         }
       </style>
-      <paper-item class="todo-item">
+      <paper-item class="list-item">
         <div class="left-wrapper">
           <paper-checkbox checked="{{item.isCompleted}}">
             <template is="dom-if" if="[[!item.isCompleted]]">

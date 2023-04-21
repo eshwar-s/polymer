@@ -9,6 +9,7 @@ import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/image-icons.js";
 import { TodoList } from "../model/todo-list.js";
 import { TodoBaseImpl } from "./todo-base.js";
+import "./todo-styles.js";
 import "./todo-menuitem.js";
 import "./todo-editlabel.js";
 import "./todo-badge.js";
@@ -41,22 +42,22 @@ class TodoSideBar extends TodoBaseImpl {
 
   static get template() {
     return html`
-      <style include="paper-material-styles">
+      <style include="paper-material-styles todo-shared-styles">
         :host {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           height: 100%;
           padding: 12px;
-        }
-        paper-item {
-          --paper-item-min-height: 42px;
-          --paper-item-selected-weight: normal;
+          background-color: var(--secondary-color);
         }
         .list-item {
           display: flex;
           justify-content: space-between;
-          user-select: none;
+          --paper-item-min-height: 36px;
+        }
+        .list-item .start-icon {
+          color: var(--primary-color);
         }
         iron-dropdown [slot="dropdown-content"] {
           min-width: 200px;
@@ -64,12 +65,9 @@ class TodoSideBar extends TodoBaseImpl {
           @apply --shadow-elevation-3dp;
         }
         paper-button {
-          text-transform: none;
           width: 100%;
+          font-size: 15px;
           justify-content: flex-start;
-        }
-        iron-icon {
-          margin-right: 10px;
         }
       </style>
       <nav>
@@ -85,8 +83,8 @@ class TodoSideBar extends TodoBaseImpl {
               link="/lists/{{index}}"
               on-contextmenu="_handleContextMenuOpen"
             >
-              <div class="list-name">
-                <iron-icon icon="list"></iron-icon>
+              <div>
+                <iron-icon class="start-icon" icon="list"></iron-icon>
                 [[item.name]]
               </div>
               <todo-badge count="[[_getBadgeCount(item, item.*)]]">
@@ -121,8 +119,8 @@ class TodoSideBar extends TodoBaseImpl {
           </div>
         </iron-dropdown>
       </nav>
-      <paper-button on-tap="_newTodoListEvent">
-        <iron-icon icon="add"></iron-icon>
+      <paper-button noink on-tap="_newTodoListEvent">
+        <iron-icon class="start-icon" icon="add"></iron-icon>
         [[localize('newList')]]
       </paper-button>
     `;

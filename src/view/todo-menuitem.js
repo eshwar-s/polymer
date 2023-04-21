@@ -1,6 +1,7 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/iron-icons/iron-icons.js";
+import "./todo-styles.js";
 
 class TodoMenuItem extends PolymerElement {
   constructor() {
@@ -26,19 +27,13 @@ class TodoMenuItem extends PolymerElement {
 
   static get template() {
     return html`
-      <style>
-        .menu-icon {
-          margin-right: 10px;
-        }
-        paper-item {
-          user-select: none;
-        }
-        paper-item:hover {
+      <style include="todo-shared-styles">
+        .menu-item:hover {
           background-color: var(--paper-grey-100);
         }
       </style>
-      <paper-item
-        ><iron-icon class="menu-icon" icon="[[icon]]"></iron-icon>[[text]]
+      <paper-item class="menu-item"
+        ><iron-icon class="start-icon" icon="[[icon]]"></iron-icon>[[text]]
       </paper-item>
     `;
   }

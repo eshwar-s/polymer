@@ -2,6 +2,7 @@ import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/iron-collapse/iron-collapse.js";
 import "@polymer/iron-icons/iron-icons.js";
+import "./todo-styles.js";
 
 class TodoCollapse extends PolymerElement {
   constructor() {
@@ -34,19 +35,18 @@ class TodoCollapse extends PolymerElement {
 
   static get template() {
     return html`
-      <style>
+      <style include="todo-shared-styles">
         paper-button {
-          text-transform: none;
+          padding: 0px;
+          font-size: 14px;
           font-weight: bold;
-          padding: 7px;
         }
         iron-icon {
           margin-right: 5px;
         }
       </style>
-      <paper-button on-click="_toggleCollapse"
-        ><iron-icon id="icon" icon="[[startIcon]]"></iron-icon
-        >[[text]]</paper-button
+      <paper-button noink on-click="_toggleCollapse"
+        ><iron-icon icon="[[startIcon]]"></iron-icon>[[text]]</paper-button
       >
       <iron-collapse id="collapse" opened="[[opened]]">
         <slot></slot>
@@ -63,7 +63,7 @@ class TodoCollapse extends PolymerElement {
   }
 
   _computeIcon(opened) {
-    return opened ? "chevron-right" : "expand-more";
+    return opened ? "expand-more" : "chevron-right";
   }
 }
 

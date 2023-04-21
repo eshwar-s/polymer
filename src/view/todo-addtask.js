@@ -5,6 +5,7 @@ import "@polymer/paper-styles/color.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-input/paper-input.js";
 import { TodoBaseImpl } from "./todo-base.js";
+import "./todo-styles.js";
 
 class TodoAddTask extends TodoBaseImpl {
   constructor() {
@@ -34,7 +35,7 @@ class TodoAddTask extends TodoBaseImpl {
 
   static get template() {
     return html`
-      <style>
+      <style include="todo-shared-styles">
         paper-input {
           background-color: rgba(0, 0, 0, 0.15);
           padding-left: 10px;
@@ -53,7 +54,6 @@ class TodoAddTask extends TodoBaseImpl {
           --paper-input-container-input-color: var(--primary-background-color);
         }
         iron-icon {
-          margin-right: 10px;
           color: var(--primary-background-color);
         }
       </style>
@@ -67,7 +67,11 @@ class TodoAddTask extends TodoBaseImpl {
         on-focusout="_handleFocusLostEvent"
         label="[[placeholder]]"
       >
-        <iron-icon id="icon" icon="[[startIcon]]" slot="prefix"></iron-icon>
+        <iron-icon
+          class="start-icon"
+          icon="[[startIcon]]"
+          slot="prefix"
+        ></iron-icon>
       </paper-input>
     `;
   }

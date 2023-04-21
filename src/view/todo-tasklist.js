@@ -1,6 +1,7 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
+import "./todo-styles.js";
 import "./todo-taskrow.js";
 
 export const Filter = { Completed: 0, NotCompleted: 1 };
@@ -38,12 +39,9 @@ class TodoTaskList extends PolymerElement {
 
   static get template() {
     return html`
-      <style>
+      <style include="todo-shared-styles">
         :host {
           margin-bottom: 10px;
-        }
-        paper-listbox {
-          background-color: transparent;
         }
       </style>
       <paper-listbox selected="{{selected}}">

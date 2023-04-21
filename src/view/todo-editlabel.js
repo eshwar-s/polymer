@@ -1,5 +1,6 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-input/paper-input.js";
+import "./todo-styles.js";
 
 class TodoEditLabel extends PolymerElement {
   constructor() {
@@ -36,7 +37,7 @@ class TodoEditLabel extends PolymerElement {
         :host {
           @apply --todo-edit-label;
         }
-        paper-input.custom {
+        paper-input {
           border-radius: 3px;
 
           --paper-input-container-input: {
@@ -64,7 +65,6 @@ class TodoEditLabel extends PolymerElement {
       </template>
       <template is="dom-if" if="{{editable}}">
         <paper-input
-          class="custom"
           value="{{value}}"
           autofocus
           on-change="_handleChangeEvent"
