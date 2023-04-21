@@ -1,11 +1,11 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import { TodoItem } from "../model/todo-item.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 import "./todo-addtask.js";
 import "./todo-editlabel.js";
 import "./todo-tasklist.js";
 import "./todo-collapse.js";
-import LocalizeMixin from "../common/localize-mixin.js";
 
 class TodoListView extends LocalizeMixin(PolymerElement) {
   constructor() {

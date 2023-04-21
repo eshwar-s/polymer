@@ -1,12 +1,12 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
+import { loadTodoLists, saveTodoLists } from "../model/todo-store.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 import "./todo-styles.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-mainpanel.js";
-import { loadTodoLists, saveTodoLists } from "../model/todo-store.js";
-import LocalizeMixin from "../common/localize-mixin.js";
 
 class TodoApp extends LocalizeMixin(PolymerElement) {
   constructor() {
