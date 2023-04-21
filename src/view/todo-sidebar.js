@@ -1,4 +1,4 @@
-import { html } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import { afterNextRender } from "@polymer/polymer/lib/utils/render-status.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/app-route/app-location.js";
@@ -8,13 +8,13 @@ import "@polymer/paper-item/paper-item.js";
 import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/image-icons.js";
 import { TodoList } from "../model/todo-list.js";
-import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-styles.js";
 import "./todo-menuitem.js";
 import "./todo-editlabel.js";
 import "./todo-badge.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 
-class TodoSideBar extends TodoBaseImpl {
+class TodoSideBar extends LocalizeMixin(PolymerElement) {
   constructor() {
     super();
   }

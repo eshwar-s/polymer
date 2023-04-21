@@ -1,11 +1,11 @@
-import { html } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/app-route/app-location.js";
 import "@polymer/app-route/app-route.js";
 import "@polymer/iron-pages/iron-pages.js";
-import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-listview.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 
-class TodoMainPanel extends TodoBaseImpl {
+class TodoMainPanel extends LocalizeMixin(PolymerElement) {
   constructor() {
     super();
   }

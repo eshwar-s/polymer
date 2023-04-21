@@ -108,12 +108,7 @@ class TodoEditLabel extends PolymerElement {
 
   _handleChangeEvent() {
     if (this.value) {
-      const customEvent = new CustomEvent("updated", {
-        bubbles: true,
-        composed: true,
-        detail: { value: this.value }
-      });
-      this.dispatchEvent(customEvent);
+      this.fire("updated", { value: this.value });
     }
   }
 }

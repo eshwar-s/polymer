@@ -1,13 +1,13 @@
-import { html } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
-import { TodoBaseImpl } from "./todo-base.js";
 import { TodoItem } from "../model/todo-item.js";
 import "./todo-addtask.js";
 import "./todo-editlabel.js";
 import "./todo-tasklist.js";
 import "./todo-collapse.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 
-class TodoListView extends TodoBaseImpl {
+class TodoListView extends LocalizeMixin(PolymerElement) {
   constructor() {
     super();
   }

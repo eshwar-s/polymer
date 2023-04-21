@@ -1,14 +1,14 @@
-import { html } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-ripple/paper-ripple.js";
 import "@polymer/paper-checkbox/paper-checkbox.js";
 import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
-import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-styles.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 
-class TodoTaskRow extends TodoBaseImpl {
+class TodoTaskRow extends LocalizeMixin(PolymerElement) {
   constructor() {
     super();
   }
@@ -141,12 +141,7 @@ class TodoTaskRow extends TodoBaseImpl {
   }
 
   _handleDeleteItemEvent() {
-    const customEvent = new CustomEvent("remove", {
-      bubbles: true,
-      composed: true,
-      detail: { id: this.item.id }
-    });
-    this.dispatchEvent(customEvent);
+    this.fire("remove", { id: this.item.id });
     this.$.dropdown.close();
   }
 }

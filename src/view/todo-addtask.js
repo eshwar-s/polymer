@@ -1,13 +1,13 @@
-import { html } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/iron-icons/iron-icons.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import "@polymer/paper-styles/color.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-input/paper-input.js";
-import { TodoBaseImpl } from "./todo-base.js";
 import "./todo-styles.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 
-class TodoAddTask extends TodoBaseImpl {
+class TodoAddTask extends LocalizeMixin(PolymerElement) {
   constructor() {
     super();
   }
@@ -86,12 +86,7 @@ class TodoAddTask extends TodoBaseImpl {
   _handleKeyPressEvent(event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      const customEvent = new CustomEvent("add", {
-        bubbles: true,
-        composed: true,
-        detail: { task: this.value }
-      });
-      this.dispatchEvent(customEvent);
+      this.fire("add", { task: this.value });
       this.value = "";
     }
   }
