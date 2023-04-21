@@ -39,11 +39,7 @@ class TodoTaskList extends PolymerElement {
 
   static get template() {
     return html`
-      <style include="todo-shared-styles">
-        :host {
-          margin-bottom: 10px;
-        }
-      </style>
+      <style include="todo-shared-styles"></style>
       <paper-listbox selected="{{selected}}">
         <template
           is="dom-repeat"
