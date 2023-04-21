@@ -27,6 +27,11 @@ styleMod.appendChild(
         .start-icon {
           margin-right: 10px;
         }
+
+        .menu-item .start-icon {
+          width: 20px;
+          height: 20px;
+        }
       </style>
     </template>
   `.content

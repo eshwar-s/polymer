@@ -82,6 +82,7 @@ class TodoTaskRow extends TodoBaseImpl {
             id="dropdown"
             vertical-align="top"
             horizontal-align="right"
+            vertical-offset="36"
           >
             <paper-icon-button
               icon="more-horiz"
