@@ -1,8 +1,9 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-input/paper-input.js";
 import "./todo-styles.js";
+import EventsMixin from "../common/events-mixin.js";
 
-class TodoEditLabel extends PolymerElement {
+class TodoEditLabel extends EventsMixin(PolymerElement) {
   constructor() {
     super();
   }

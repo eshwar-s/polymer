@@ -6,8 +6,9 @@ import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-input/paper-input.js";
 import "./todo-styles.js";
 import LocalizeMixin from "../common/localize-mixin.js";
+import EventsMixin from "../common/events-mixin.js";
 
-class TodoAddTask extends LocalizeMixin(PolymerElement) {
+class TodoAddTask extends EventsMixin(LocalizeMixin(PolymerElement)) {
   constructor() {
     super();
   }

@@ -6,9 +6,10 @@ import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
 import "./todo-styles.js";
+import EventsMixin from "../common/events-mixin.js";
 import LocalizeMixin from "../common/localize-mixin.js";
 
-class TodoTaskRow extends LocalizeMixin(PolymerElement) {
+class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
   constructor() {
     super();
   }
