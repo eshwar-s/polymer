@@ -41,14 +41,6 @@ class TodoBadge extends PolymerElement {
     `;
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-  }
-
   _isVisible() {
     return this.count > 0;
   }

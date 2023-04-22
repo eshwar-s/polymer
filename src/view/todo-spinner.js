@@ -29,14 +29,6 @@ class TodoSpinner extends PolymerElement {
       </template>
     `;
   }
-
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-  }
 }
 
 window.customElements.define(TodoSpinner.is, TodoSpinner);

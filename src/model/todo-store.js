@@ -1,6 +1,8 @@
 import { TodoList } from "./todo-list.js";
+import { TodoSettings } from "./todo-settings.js";
 
 const TODO_LIST_STORAGE_ID = "todo-lists";
+const TODO_SETTINGS_STORAGE_ID = "todo-settings";
 const TODO_LIST_LOAD_TIMEOUT = 300;
 
 export async function loadTodoLists() {
@@ -33,4 +35,11 @@ export function saveTodoLists(todoLists) {
   for (const todoList of todoLists) {
     window.localStorage.setItem(todoList.id, todoList.serialize());
   }
+}
+
+export function saveTodoSettings(todoSettings) {
+  window.localStorage.setItem(
+    TODO_SETTINGS_STORAGE_ID,
+    Object.assign(new TodoSettings(), todoSettings).serialize()
+  );
 }

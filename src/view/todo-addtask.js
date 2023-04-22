@@ -41,6 +41,7 @@ class TodoAddTask extends EventsMixin(LocalizeMixin(PolymerElement)) {
           background-color: rgba(0, 0, 0, 0.15);
           padding-left: 10px;
           border-radius: 4px;
+          line-height: 1.5;
           color: var(--primary-background-color);
 
           --paper-input-container-underline: {

@@ -77,14 +77,6 @@ class TodoEditLabel extends EventsMixin(PolymerElement) {
     `;
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-  }
-
   setEditable(isEditable) {
     this.editable = isEditable;
   }

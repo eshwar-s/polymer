@@ -1,12 +1,12 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
+import LocalizeMixin from "../common/localize-mixin.js";
 import "./todo-styles.js";
 import "./todo-taskrow.js";
+import { TodoSortOrder } from "../model/todo-settings.js";
 
-export const Filter = { Completed: 0, NotCompleted: 1 };
-
-class TodoTaskList extends PolymerElement {
+class TodoTaskList extends LocalizeMixin(PolymerElement) {
   constructor() {
     super();
   }
@@ -23,29 +23,42 @@ class TodoTaskList extends PolymerElement {
         notify: true,
         reflectToAttribute: true
       },
-      selected: {
+      sortOrder: {
         type: Number,
-        value: undefined,
-        notify: true,
+        value: TodoSortOrder.IMPORTANCE,
         reflectToAttribute: true
       },
       filter: {
-        type: Number,
-        value: undefined,
-        observer: "_validateFilter"
+        type: Object,
+        value: {
+          INCOMPLETE: 0,
+          COMPLETED: 1
+        },
+        readOnly: true,
+        reflectToAttribute: true
       }
     };
   }
 
   static get template() {
     return html`
-      <style include="todo-shared-styles"></style>
-      <paper-listbox selected="{{selected}}">
+      <style include="todo-shared-styles">
+        .list {
+          margin: 10px 0;
+        }
+        #completed-label > * {
+          font-size: 14px;
+          font-weight: bold;
+          user-select: none;
+          color: var(--primary-background-color);
+        }
+      </style>
+      <div class="list">
         <template
           is="dom-repeat"
           items="{{items}}"
-          sort="{{_computeSort(filter)}}"
-          filter="{{_computeFilter(filter)}}"
+          filter="[[_computeFilter(filter.INCOMPLETE)]]"
+          sort="[[_computeSort()]]"
           observe="isImportant isCompleted"
         >
           <todo-taskrow
@@ -53,43 +66,67 @@ class TodoTaskList extends PolymerElement {
             on-remove="_removeTodoItem"
           ></todo-taskrow>
         </template>
-      </paper-listbox>
+      </div>
+      <div
+        id="completed-label"
+        hidden$="[[!_showCompletedTasks(items, items.*)]]"
+      >
+        <iron-icon icon="expand-more"></iron-icon>
+        <span>[[localize('completedTasks')]]</span>
+      </div>
+      <div class="list">
+        <template
+          is="dom-repeat"
+          items="{{items}}"
+          filter="[[_computeFilter(filter.COMPLETED)]]"
+          sort="[[_computeSort()]]"
+          observe="isImportant isCompleted"
+        >
+          <todo-taskrow
+            item="{{item}}"
+            on-remove="_removeTodoItem"
+          ></todo-taskrow>
+        </template>
+      </div>
     `;
   }
 
-  ready() {
-    super.ready();
-  }
-
-  _validateFilter(newValue, oldValue) {
-    if (newValue !== Filter.Completed && newValue !== Filter.NotCompleted) {
-      this.filter = undefined;
+  _computeSort() {
+    if (this.sortOrder === TodoSortOrder.IMPORTANCE) {
+      return function (item1, item2) {
+        return item2.isImportant - item1.isImportant;
+      };
+    } else if (this.sortOrder === TodoSortOrder.ALPHABETICAL) {
+      return function (item1, item2) {
+        return item1.title.localeCompare(item2.title);
+      };
+    } else if (this.sortOrder === TodoSortOrder.CREATION_DATE) {
+      return function (item1, item2) {
+        return Date.parse(item1.creationTime) - Date.parse(item2.creationTime);
+      };
     }
+    return null;
   }
 
   _computeFilter(filter) {
-    // No filter is applied when undefined, otherwise if 'true' return completed
-    // items or if 'false' return not completed items
-    if (filter !== undefined) {
+    if (filter === this.filter.INCOMPLETE) {
       return function (item) {
-        return filter === Filter.Completed
-          ? item.isCompleted
-          : !item.isCompleted;
+        return !item.isCompleted;
+      };
+    } else if (filter === this.filter.COMPLETED) {
+      return function (item) {
+        return item.isCompleted;
       };
     }
     return null;
   }
 
-  _computeSort(filter) {
-    if (filter === Filter.NotCompleted) {
-      return function (item1, item2) {
-        if (item1.isImportant !== item2.isImportant) {
-          return item1.isImportant ? -1 : 1;
-        }
-        return 0;
-      };
+  _showCompletedTasks() {
+    if (this.items) {
+      const completedItems = this.items.filter((item) => item.isCompleted);
+      return completedItems.length > 0;
     }
-    return null;
+    return false;
   }
 
   _removeTodoItem(e) {

@@ -52,7 +52,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
         }
         div [slot="dropdown-content"] {
           background-color: var(--primary-background-color);
-          @apply --shadow-elevation-3dp;
+          @apply --shadow-elevation-2dp;
         }
       </style>
       <paper-item class="list-item">
@@ -107,7 +107,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
               </template>
               <template is="dom-if" if="[[!item.isCompleted]]">
                 <todo-menuitem
-                  icon="check-circle"
+                  icon="check-box"
                   text="[[localize('markAsCompleted')]]"
                   on-tap="_toggledMarkAsCompletedEvent"
                 ></todo-menuitem>

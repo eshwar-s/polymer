@@ -62,7 +62,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         iron-dropdown [slot="dropdown-content"] {
           min-width: 200px;
           background-color: var(--primary-background-color);
-          @apply --shadow-elevation-3dp;
+          @apply --shadow-elevation-2dp;
         }
         paper-button {
           width: 100%;
@@ -142,15 +142,15 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     });
   }
 
-  _renameTodoListEvent(e) {
+  _renameTodoListEvent() {
     this.$.dropdown.close();
   }
 
-  _printTodoListEvent(e) {
+  _printTodoListEvent() {
     this.$.dropdown.close();
   }
 
-  _deleteTodoListEvent(e) {
+  _deleteTodoListEvent() {
     const id = this.$.list
       .modelForElement(this.$.dropdown.positionTarget)
       .get("item.id");
@@ -161,10 +161,10 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     this.$.dropdown.close();
   }
 
-  _handleContextMenuOpen(e) {
-    e.preventDefault();
-    e.currentTarget.click();
-    this.$.dropdown.positionTarget = e.currentTarget;
+  _handleContextMenuOpen(evt) {
+    evt.preventDefault();
+    evt.currentTarget.click();
+    this.$.dropdown.positionTarget = evt.currentTarget;
     this.$.dropdown.open();
   }
 }

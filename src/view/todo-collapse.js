@@ -54,10 +54,6 @@ class TodoCollapse extends PolymerElement {
     `;
   }
 
-  ready() {
-    super.ready();
-  }
-
   _toggleCollapse() {
     this.opened = !this.opened;
   }
