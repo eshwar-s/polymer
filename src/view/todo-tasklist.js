@@ -40,9 +40,6 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
   static get template() {
     return html`
       <style include="todo-shared-styles">
-        .list {
-          margin: 10px 0;
-        }
         #completed-label > * {
           font-size: 14px;
           font-weight: bold;
@@ -50,7 +47,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           color: var(--primary-background-color);
         }
       </style>
-      <div class="list">
+      <paper-listbox>
         <template
           is="dom-repeat"
           items="{{items}}"
@@ -63,7 +60,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
             on-remove="_removeTodoItem"
           ></todo-taskrow>
         </template>
-      </div>
+      </paper-listbox>
       <div
         id="completed-label"
         hidden$="[[!_showCompletedTasks(items, items.*)]]"
@@ -71,7 +68,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         <iron-icon icon="expand-more"></iron-icon>
         <span>[[localize('completedTasks')]]</span>
       </div>
-      <div class="list">
+      <paper-listbox>
         <template
           is="dom-repeat"
           items="{{items}}"
@@ -84,7 +81,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
             on-remove="_removeTodoItem"
           ></todo-taskrow>
         </template>
-      </div>
+      </paper-listbox>
     `;
   }
 

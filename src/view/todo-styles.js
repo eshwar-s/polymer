@@ -11,7 +11,7 @@ styleMod.appendChild(
 
         paper-listbox {
           --paper-listbox-background-color: transparent;
-          margin-bottom: 10px;
+          margin-bottom: 4px;
         }
 
         .list-item,
