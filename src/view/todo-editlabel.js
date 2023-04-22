@@ -16,18 +16,16 @@ class TodoEditLabel extends EventsMixin(PolymerElement) {
     return {
       value: {
         type: String,
-        reflectToAttribute: true
+        notify: true
       },
       editable: {
         type: Boolean,
         value: false,
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       },
       clickToEdit: {
         type: Boolean,
-        value: false,
-        reflectToAttribute: true
+        value: false
       }
     };
   }

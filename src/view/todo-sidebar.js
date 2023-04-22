@@ -28,13 +28,11 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
       lists: {
         type: Array,
         value: [],
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       },
       selected: {
         type: String,
         notify: true,
-        reflectToAttribute: true,
         observer: "_selectionChanged"
       }
     };

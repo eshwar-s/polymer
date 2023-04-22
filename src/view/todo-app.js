@@ -22,14 +22,12 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
     return {
       loading: {
         type: Boolean,
-        value: true,
-        reflectToAttribute: true
+        value: true
       },
       todoLists: {
         type: Array,
         value: [],
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       }
     };
   }

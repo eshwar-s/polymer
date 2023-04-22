@@ -20,13 +20,11 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
       items: {
         type: Array,
         value: [],
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       },
       sortOrder: {
         type: Number,
-        value: TodoSortOrder.IMPORTANCE,
-        reflectToAttribute: true
+        value: TodoSortOrder.IMPORTANCE
       },
       filter: {
         type: Object,
@@ -34,8 +32,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           INCOMPLETE: 0,
           COMPLETED: 1
         },
-        readOnly: true,
-        reflectToAttribute: true
+        readOnly: true
       }
     };
   }

@@ -16,19 +16,15 @@ class TodoCollapse extends PolymerElement {
   static get properties() {
     return {
       text: {
-        type: String,
-        notify: true,
-        reflectToAttribute: true
+        type: String
       },
       opened: {
         type: Boolean,
-        value: true,
-        reflectToAttribute: true
+        value: true
       },
       startIcon: {
         type: String,
-        computed: "_computeIcon(opened)",
-        reflectToAttribute: true
+        computed: "_computeIcon(opened)"
       }
     };
   }

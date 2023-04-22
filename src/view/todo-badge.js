@@ -13,13 +13,11 @@ class TodoBadge extends PolymerElement {
     return {
       count: {
         type: Number,
-        value: 0,
-        reflectToAttribute: true
+        value: 0
       },
       maxCount: {
         type: Number,
-        value: 99,
-        reflectToAttribute: true
+        value: 99
       }
     };
   }

@@ -22,8 +22,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
     return {
       item: {
         type: Object,
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       }
     };
   }

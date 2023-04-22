@@ -19,8 +19,7 @@ class TodoMainPanel extends LocalizeMixin(PolymerElement) {
       todoLists: {
         type: Array,
         value: [],
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       }
     };
   }

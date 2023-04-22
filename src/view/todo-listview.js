@@ -20,8 +20,7 @@ class TodoListView extends PolymerElement {
       list: {
         type: Object,
         value: null,
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       }
     };
   }
