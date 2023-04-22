@@ -1,10 +1,10 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
-import LocalizeMixin from "../common/localize-mixin.js";
+import { LocalizeMixin } from "../common/localize-mixin.js";
+import { TodoSortOrder } from "../model/todo-settings.js";
 import "./todo-styles.js";
 import "./todo-taskrow.js";
-import { TodoSortOrder } from "../model/todo-settings.js";
 
 class TodoTaskList extends LocalizeMixin(PolymerElement) {
   constructor() {

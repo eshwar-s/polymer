@@ -12,6 +12,7 @@
     "markAsNotCompleted": "Mark as not completed",
     "markAsImportant": "Mark as important",
     "removeImportance": "Remove importance",
-    "deleteForever": "Delete task"
+    "deleteForever": "Delete task",
+    "addNote": "Add Notes"
   }
 }

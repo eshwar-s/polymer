@@ -1,6 +1,6 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-input/paper-input.js";
-import EventsMixin from "../common/events-mixin.js";
+import { EventsMixin } from "../common/events-mixin.js";
 import "./todo-styles.js";
 
 class TodoEditLabel extends EventsMixin(PolymerElement) {

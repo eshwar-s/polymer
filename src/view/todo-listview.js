@@ -4,7 +4,6 @@ import { TodoItem } from "../model/todo-item.js";
 import "./todo-addtask.js";
 import "./todo-editlabel.js";
 import "./todo-tasklist.js";
-import "./todo-collapse.js";
 
 class TodoListView extends PolymerElement {
   constructor() {
@@ -31,12 +30,13 @@ class TodoListView extends PolymerElement {
         :host {
           height: 100%;
           display: flex;
-          flex-direction: column;
-          padding: 12px;
-          background-color: var(--primary-color);
         }
-        .content {
+        div[role="main"] {
+          display: flex;
+          flex-direction: column;
           flex-grow: 1;
+          background-color: var(--primary-color);
+          padding: 12px;
         }
         .heading {
           --todo-edit-label: {
@@ -47,29 +47,34 @@ class TodoListView extends PolymerElement {
             margin-bottom: 8px;
           }
         }
+        #task-list {
+          flex-grow: 1;
+        }
       </style>
-      <div class="content" style="overflow-y:auto">
-        <todo-editlabel
-          id="listName"
-          class="heading"
-          value="[[list.name]]"
-          on-updated="_todoListNameChanged"
-          click-to-edit
-        ></todo-editlabel>
-        <todo-tasklist items="{{list.items}}"></todo-tasklist>
-      </div>
-      <div class="footer">
-        <todo-addtask on-add="_addTodoItem"></todo-addtask>
+      <div id="main" role="main">
+        <div id="task-list" style="overflow-y:auto">
+          <todo-editlabel
+            id="listName"
+            class="heading"
+            value="[[list.name]]"
+            on-updated="_todoListNameChanged"
+            click-to-edit
+          ></todo-editlabel>
+          <todo-tasklist items="{{list.items}}"></todo-tasklist>
+        </div>
+        <div id="add-task">
+          <todo-addtask on-add="_addTodoItem"></todo-addtask>
+        </div>
       </div>
     `;
   }
 
   _addTodoItem(e) {
-    this.push(`list.items`, new TodoItem(e.detail.task));
+    this.push("list.items", new TodoItem(e.detail.task));
   }
 
   _todoListNameChanged(e) {
-    this.set(`list.name`, e.detail.value);
+    this.set("list.name", e.detail.value);
   }
 }
 
