@@ -29,16 +29,18 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
   static get template() {
     return html`
       <style include="todo-shared-styles">
-        .list-item {
+        :host {
           display: flex;
-          flex-direction: row;
           justify-content: space-between;
+          align-items: center;
           background-color: var(--primary-background-color);
           margin-bottom: 2px;
           border-radius: 4px;
+          padding: 0px 16px;
+          @apply --paper-font-subhead;
         }
-        .list-item:hover {
-          background-color: var(--paper-grey-100);
+        :host([selected]) {
+          background-color: var(--light-primary-color);
         }
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
@@ -53,79 +55,77 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
           @apply --shadow-elevation-2dp;
         }
       </style>
-      <paper-item class="list-item">
-        <div class="left-wrapper">
-          <paper-checkbox checked="{{item.isCompleted}}">
+      <div class="left-wrapper">
+        <paper-checkbox checked="{{item.isCompleted}}">
+          <template is="dom-if" if="[[!item.isCompleted]]">
+            [[item.title]]
+          </template>
+          <template is="dom-if" if="[[item.isCompleted]]">
+            <del>[[item.title]]</del>
+          </template>
+        </paper-checkbox>
+      </div>
+      <div class="right-wrapper">
+        <template is="dom-if" if="[[!item.isImportant]]">
+          <paper-icon-button
+            icon="star-border"
+            on-click="_toggleMarkAsImportantEvent"
+          ></paper-icon-button>
+        </template>
+        <template is="dom-if" if="[[item.isImportant]]">
+          <paper-icon-button
+            icon="star"
+            on-click="_toggleMarkAsImportantEvent"
+          ></paper-icon-button>
+        </template>
+        <paper-menu-button
+          id="dropdown"
+          vertical-align="top"
+          horizontal-align="right"
+          vertical-offset="36"
+        >
+          <paper-icon-button
+            icon="more-horiz"
+            slot="dropdown-trigger"
+            alt="menu"
+          ></paper-icon-button>
+          <div slot="dropdown-content">
+            <template is="dom-if" if="[[!item.isImportant]]">
+              <todo-menuitem
+                icon="star"
+                text="[[localize('markAsImportant')]]"
+                on-tap="_toggleMarkAsImportantEvent"
+              ></todo-menuitem>
+            </template>
+            <template is="dom-if" if="[[item.isImportant]]">
+              <todo-menuitem
+                icon="star-border"
+                text="[[localize('removeImportance')]]"
+                on-tap="_toggleMarkAsImportantEvent"
+              ></todo-menuitem>
+            </template>
             <template is="dom-if" if="[[!item.isCompleted]]">
-              [[item.title]]
+              <todo-menuitem
+                icon="check-box"
+                text="[[localize('markAsCompleted')]]"
+                on-tap="_toggledMarkAsCompletedEvent"
+              ></todo-menuitem>
             </template>
             <template is="dom-if" if="[[item.isCompleted]]">
-              <del>[[item.title]]</del>
-            </template>
-          </paper-checkbox>
-        </div>
-        <div class="right-wrapper">
-          <template is="dom-if" if="[[!item.isImportant]]">
-            <paper-icon-button
-              icon="star-border"
-              on-click="_toggleMarkAsImportantEvent"
-            ></paper-icon-button>
-          </template>
-          <template is="dom-if" if="[[item.isImportant]]">
-            <paper-icon-button
-              icon="star"
-              on-click="_toggleMarkAsImportantEvent"
-            ></paper-icon-button>
-          </template>
-          <paper-menu-button
-            id="dropdown"
-            vertical-align="top"
-            horizontal-align="right"
-            vertical-offset="36"
-          >
-            <paper-icon-button
-              icon="more-horiz"
-              slot="dropdown-trigger"
-              alt="menu"
-            ></paper-icon-button>
-            <div slot="dropdown-content">
-              <template is="dom-if" if="[[!item.isImportant]]">
-                <todo-menuitem
-                  icon="star"
-                  text="[[localize('markAsImportant')]]"
-                  on-tap="_toggleMarkAsImportantEvent"
-                ></todo-menuitem>
-              </template>
-              <template is="dom-if" if="[[item.isImportant]]">
-                <todo-menuitem
-                  icon="star-border"
-                  text="[[localize('removeImportance')]]"
-                  on-tap="_toggleMarkAsImportantEvent"
-                ></todo-menuitem>
-              </template>
-              <template is="dom-if" if="[[!item.isCompleted]]">
-                <todo-menuitem
-                  icon="check-box"
-                  text="[[localize('markAsCompleted')]]"
-                  on-tap="_toggledMarkAsCompletedEvent"
-                ></todo-menuitem>
-              </template>
-              <template is="dom-if" if="[[item.isCompleted]]">
-                <todo-menuitem
-                  icon="radio-button-unchecked"
-                  text="[[localize('markAsNotCompleted')]]"
-                  on-tap="_toggledMarkAsCompletedEvent"
-                ></todo-menuitem>
-              </template>
               <todo-menuitem
-                icon="delete-forever"
-                text="[[localize('deleteForever')]]"
-                on-tap="_handleDeleteItemEvent"
+                icon="radio-button-unchecked"
+                text="[[localize('markAsNotCompleted')]]"
+                on-tap="_toggledMarkAsCompletedEvent"
               ></todo-menuitem>
-            </div>
-          </paper-menu-button>
-        </div>
-      </paper-item>
+            </template>
+            <todo-menuitem
+              icon="delete-forever"
+              text="[[localize('deleteForever')]]"
+              on-tap="_handleDeleteItemEvent"
+            ></todo-menuitem>
+          </div>
+        </paper-menu-button>
+      </div>
     `;
   }
 

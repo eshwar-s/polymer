@@ -1,4 +1,6 @@
 import { html } from "@polymer/polymer/polymer-element.js";
+import "@polymer/paper-styles/color.js";
+import "@polymer/paper-styles/default-theme.js";
 
 const styleMod = document.createElement("dom-module");
 styleMod.appendChild(

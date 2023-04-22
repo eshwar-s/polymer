@@ -22,6 +22,11 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         value: [],
         notify: true
       },
+      selected: {
+        type: String,
+        value: "",
+        notify: true
+      },
       sortOrder: {
         type: Number,
         value: TodoSortOrder.IMPORTANCE
@@ -47,7 +52,11 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           color: var(--primary-background-color);
         }
       </style>
-      <paper-listbox>
+      <paper-listbox
+        selected="{{selected}}"
+        attr-for-selected="task-id"
+        selected-attribute="selected"
+      >
         <template
           is="dom-repeat"
           items="{{items}}"
@@ -56,6 +65,9 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           observe="isImportant isCompleted"
         >
           <todo-taskrow
+            task-id="{{item.id}}"
+            class="list-item"
+            role="listitem"
             item="{{item}}"
             on-remove="_removeTodoItem"
           ></todo-taskrow>
@@ -68,7 +80,11 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         <iron-icon icon="expand-more"></iron-icon>
         <span>[[localize('completedTasks')]]</span>
       </div>
-      <paper-listbox>
+      <paper-listbox
+        selected="{{selected}}"
+        attr-for-selected="task-id"
+        selected-attribute="selected"
+      >
         <template
           is="dom-repeat"
           items="{{items}}"
@@ -77,6 +93,9 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           observe="isImportant isCompleted"
         >
           <todo-taskrow
+            task-id="{{item.id}}"
+            class="list-item"
+            role="listitem"
             item="{{item}}"
             on-remove="_removeTodoItem"
           ></todo-taskrow>

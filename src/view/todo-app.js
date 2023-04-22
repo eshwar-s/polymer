@@ -53,7 +53,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
           flex-grow: 1;
         }
         .sidebar {
-          width: var(--sidebar-width);
+          width: 250px;
           height: 100%;
         }
         @media only screen and (max-width: 600px) {

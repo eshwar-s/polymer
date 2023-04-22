@@ -53,6 +53,10 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
           display: flex;
           justify-content: space-between;
           --paper-item-min-height: 36px;
+          --paper-item-selected: {
+            background-color: var(--secondary-color);
+            filter: brightness(90%);
+          }
         }
         .list-item .start-icon {
           color: var(--primary-color);
