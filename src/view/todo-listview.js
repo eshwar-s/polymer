@@ -4,6 +4,7 @@ import { TodoItem } from "../model/todo-item.js";
 import "./todo-addtask.js";
 import "./todo-editlabel.js";
 import "./todo-tasklist.js";
+import "./todo-taskdetails.js";
 
 class TodoListView extends PolymerElement {
   constructor() {
@@ -16,10 +17,20 @@ class TodoListView extends PolymerElement {
 
   static get properties() {
     return {
+      route: {
+        type: Object,
+        observer: "_routeChanged"
+      },
       list: {
         type: Object,
         value: null,
         notify: true
+      },
+      selectedItem: {
+        type: Object,
+        value: null,
+        notify: true,
+        observer: "_selectedItemChanged"
       }
     };
   }
@@ -47,34 +58,75 @@ class TodoListView extends PolymerElement {
             margin-bottom: 8px;
           }
         }
-        #task-list {
-          flex-grow: 1;
+        todo-taskdetails {
+          width: 300px;
+          height: 100%;
         }
       </style>
       <div role="main">
-        <div id="task-list" style="overflow-y:auto">
+        <div style="overflow-y:auto; flex-grow: 1">
           <todo-editlabel
-            id="listName"
+            id="list-name"
             class="heading"
             value="[[list.name]]"
             on-updated="_todoListNameChanged"
-            click-to-edit
           ></todo-editlabel>
-          <todo-tasklist items="{{list.items}}"></todo-tasklist>
+          <todo-tasklist
+            items="{{list.items}}"
+            selected-item="{{selectedItem}}"
+          ></todo-tasklist>
         </div>
         <div id="add-task">
           <todo-addtask on-add="_addTodoItem"></todo-addtask>
         </div>
       </div>
+      <template is="dom-if" if="{{selectedItem}}">
+        <todo-taskdetails
+          id="task-details"
+          role="complementary"
+          item="{{selectedItem}}"
+          on-close="_unselectedTodoItem"
+          on-delete="_deleteTodoItem"
+        ></todo-taskdetails>
+      </template>
     `;
+  }
+
+  _routeChanged() {
+    this.selectedItem = null;
+  }
+
+  _todoListNameChanged(e) {
+    this.set("list.name", e.detail.value);
   }
 
   _addTodoItem(e) {
     this.push("list.items", new TodoItem(e.detail.task));
   }
 
-  _todoListNameChanged(e) {
-    this.set("list.name", e.detail.value);
+  _deleteTodoItem() {
+    const index = this.list.items.findIndex(
+      (item) => item.id === this.selectedItem.id
+    );
+    if (index !== -1) {
+      this.splice("list.items", index, 1);
+    }
+    this.selectedItem = null;
+  }
+
+  _unselectedTodoItem() {
+    this.selectedItem = null;
+  }
+
+  _selectedItemChanged() {
+    if (this.selectedItem) {
+      const index = this.list.items.findIndex(
+        (item) => item.id === this.selectedItem.id
+      );
+      this.linkPaths("selectedItem", `list.items.${index}`);
+    } else {
+      this.unlinkPaths("selectedItem");
+    }
   }
 }
 

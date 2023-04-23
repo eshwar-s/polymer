@@ -33,7 +33,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
       selected: {
         type: String,
         notify: true,
-        observer: "_selectionChanged"
+        observer: "_handleSelectionChanged"
       }
     };
   }
@@ -42,10 +42,10 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     return html`
       <style include="paper-material-styles todo-shared-styles">
         :host {
+          height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          height: 100%;
           padding: 12px;
           background-color: var(--secondary-color);
         }
@@ -75,6 +75,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
       <nav>
         <app-location route="{{route}}"></app-location>
         <paper-listbox
+          id="navigation-pane"
           selected="{{selected}}"
           attr-for-selected="link"
           fallback-selection="/lists/0"
@@ -83,7 +84,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
             <paper-item
               class="list-item"
               link="/lists/{{index}}"
-              on-contextmenu="_handleContextMenuOpen"
+              on-contextmenu="_handleContextMenuEvent"
             >
               <div>
                 <iron-icon class="start-icon" icon="list"></iron-icon>
@@ -101,19 +102,19 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         >
           <div class="dropdown-content" slot="dropdown-content">
             <todo-menuitem
-              on-tap="_renameTodoListEvent"
+              on-tap="_renameTodoList"
               icon="image:flip"
               text="[[localize('renameList')]]"
             >
             </todo-menuitem>
             <todo-menuitem
-              on-tap="_printTodoListEvent"
+              on-tap="_printTodoList"
               icon="print"
               text="[[localize('printList')]]"
             >
             </todo-menuitem>
             <todo-menuitem
-              on-tap="_deleteTodoListEvent"
+              on-tap="_deleteTodoList"
               icon="delete-forever"
               text="[[localize('deleteList')]]"
             >
@@ -121,14 +122,14 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
           </div>
         </iron-dropdown>
       </nav>
-      <paper-button noink on-tap="_newTodoListEvent">
+      <paper-button noink on-tap="_newTodoList">
         <iron-icon class="start-icon" icon="add"></iron-icon>
         [[localize('newList')]]
       </paper-button>
     `;
   }
 
-  _selectionChanged() {
+  _handleSelectionChanged() {
     this.set("route.path", this.selected);
   }
 
@@ -136,7 +137,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     return item ? item.items.filter((task) => !task.isCompleted).length : 0;
   }
 
-  _newTodoListEvent(e) {
+  _newTodoList() {
     this.push("lists", TodoList.new());
 
     afterNextRender(this, () => {
@@ -144,15 +145,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     });
   }
 
-  _renameTodoListEvent() {
-    this.$.dropdown.close();
-  }
-
-  _printTodoListEvent() {
-    this.$.dropdown.close();
-  }
-
-  _deleteTodoListEvent() {
+  _deleteTodoList() {
     const id = this.$.list
       .modelForElement(this.$.dropdown.positionTarget)
       .get("item.id");
@@ -163,10 +156,18 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     this.$.dropdown.close();
   }
 
-  _handleContextMenuOpen(evt) {
-    evt.preventDefault();
-    evt.currentTarget.click();
-    this.$.dropdown.positionTarget = evt.currentTarget;
+  _renameTodoList() {
+    this.$.dropdown.close();
+  }
+
+  _printTodoList() {
+    this.$.dropdown.close();
+  }
+
+  _handleContextMenuEvent(e) {
+    e.preventDefault();
+    e.currentTarget.click();
+    this.$.dropdown.positionTarget = e.currentTarget;
     this.$.dropdown.open();
   }
 }

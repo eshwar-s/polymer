@@ -23,6 +23,9 @@ styleMod.appendChild(
             font-size: 14px;
             font-weight: normal;
           }
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
           user-select: none;
         }
 
@@ -33,6 +36,13 @@ styleMod.appendChild(
         .menu-item .start-icon {
           width: 20px;
           height: 20px;
+        }
+
+        .text {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
         }
       </style>
     </template>

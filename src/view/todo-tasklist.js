@@ -22,14 +22,14 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         value: [],
         notify: true
       },
-      selected: {
-        type: String,
-        value: "",
+      selectedItem: {
+        type: Object,
+        value: null,
         notify: true
       },
       sortOrder: {
         type: Number,
-        value: TodoSortOrder.IMPORTANCE
+        value: TodoSortOrder.CREATION_DATE
       },
       filter: {
         type: Object,
@@ -53,8 +53,9 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         }
       </style>
       <paper-listbox
-        selected="{{selected}}"
-        attr-for-selected="task-id"
+        id="incomplete-tasks"
+        selected="{{selectedItem}}"
+        attr-for-selected="item"
         selected-attribute="selected"
       >
         <template
@@ -65,11 +66,10 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           observe="isImportant isCompleted"
         >
           <todo-taskrow
-            task-id="{{item.id}}"
             class="list-item"
             role="listitem"
             item="{{item}}"
-            on-remove="_removeTodoItem"
+            on-delete="_deleteTodoItemEvent"
           ></todo-taskrow>
         </template>
       </paper-listbox>
@@ -81,8 +81,9 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         <span>[[localize('completedTasks')]]</span>
       </div>
       <paper-listbox
-        selected="{{selected}}"
-        attr-for-selected="task-id"
+        id="completed-tasks"
+        selected="{{selectedItem}}"
+        attr-for-selected="item"
         selected-attribute="selected"
       >
         <template
@@ -93,11 +94,10 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           observe="isImportant isCompleted"
         >
           <todo-taskrow
-            task-id="{{item.id}}"
             class="list-item"
             role="listitem"
             item="{{item}}"
-            on-remove="_removeTodoItem"
+            on-delete="_deleteTodoItem"
           ></todo-taskrow>
         </template>
       </paper-listbox>
@@ -142,7 +142,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
     return false;
   }
 
-  _removeTodoItem(e) {
+  _deleteTodoItem(e) {
     const index = this.items.findIndex((item) => item.id === e.detail.id);
     if (index !== -1) {
       this.splice("items", index, 1);

@@ -13,6 +13,9 @@
     "markAsImportant": "Mark as important",
     "removeImportance": "Remove importance",
     "deleteForever": "Delete task",
-    "addNote": "Add Notes"
+    "addNote": "Add Notes",
+    "dismissDetails": "Dismiss Details View",
+    "createdDate": "Created {date}",
+    "deleteTask": "Delete Task"
   }
 }

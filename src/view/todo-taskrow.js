@@ -1,7 +1,6 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-checkbox/paper-checkbox.js";
-import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
 import { EventsMixin } from "../common/events-mixin.js";
@@ -30,6 +29,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
     return html`
       <style include="todo-shared-styles">
         :host {
+          min-height: 52px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -45,18 +45,13 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
         }
-        paper-menu-button {
-          --paper-menu-button: {
-            padding: 6px;
-          }
-        }
-        div [slot="dropdown-content"] {
-          background-color: var(--primary-background-color);
-          @apply --shadow-elevation-2dp;
-        }
       </style>
-      <div class="left-wrapper">
-        <paper-checkbox checked="{{item.isCompleted}}">
+      <div>
+        <paper-checkbox
+          checked="{{item.isCompleted}}"
+          noink
+          on-tap="_handleClickEvent"
+        >
           <template is="dom-if" if="[[!item.isCompleted]]">
             [[item.title]]
           </template>
@@ -65,83 +60,32 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
           </template>
         </paper-checkbox>
       </div>
-      <div class="right-wrapper">
+      <div>
         <template is="dom-if" if="[[!item.isImportant]]">
           <paper-icon-button
             icon="star-border"
-            on-click="_toggleMarkAsImportantEvent"
+            alt="[[localize('markAsImportant')]]"
+            on-tap="_toggleMarkAsImportant"
           ></paper-icon-button>
         </template>
         <template is="dom-if" if="[[item.isImportant]]">
           <paper-icon-button
             icon="star"
-            on-click="_toggleMarkAsImportantEvent"
+            alt="[[localize('removeImportance')]]"
+            on-tap="_toggleMarkAsImportant"
           ></paper-icon-button>
         </template>
-        <paper-menu-button
-          id="dropdown"
-          vertical-align="top"
-          horizontal-align="right"
-          vertical-offset="36"
-        >
-          <paper-icon-button
-            icon="more-horiz"
-            slot="dropdown-trigger"
-            alt="menu"
-          ></paper-icon-button>
-          <div slot="dropdown-content">
-            <template is="dom-if" if="[[!item.isImportant]]">
-              <todo-menuitem
-                icon="star"
-                text="[[localize('markAsImportant')]]"
-                on-tap="_toggleMarkAsImportantEvent"
-              ></todo-menuitem>
-            </template>
-            <template is="dom-if" if="[[item.isImportant]]">
-              <todo-menuitem
-                icon="star-border"
-                text="[[localize('removeImportance')]]"
-                on-tap="_toggleMarkAsImportantEvent"
-              ></todo-menuitem>
-            </template>
-            <template is="dom-if" if="[[!item.isCompleted]]">
-              <todo-menuitem
-                icon="check-box"
-                text="[[localize('markAsCompleted')]]"
-                on-tap="_toggledMarkAsCompletedEvent"
-              ></todo-menuitem>
-            </template>
-            <template is="dom-if" if="[[item.isCompleted]]">
-              <todo-menuitem
-                icon="radio-button-unchecked"
-                text="[[localize('markAsNotCompleted')]]"
-                on-tap="_toggledMarkAsCompletedEvent"
-              ></todo-menuitem>
-            </template>
-            <todo-menuitem
-              icon="delete-forever"
-              text="[[localize('deleteForever')]]"
-              on-tap="_handleDeleteItemEvent"
-            ></todo-menuitem>
-          </div>
-        </paper-menu-button>
       </div>
     `;
   }
 
-  _toggleMarkAsImportantEvent() {
+  _handleClickEvent(e) {
+    e.stopPropagation();
+  }
+
+  _toggleMarkAsImportant(e) {
     this.set("item.isImportant", !this.item.isImportant);
-    this.$.dropdown.close();
-  }
-
-  _toggledMarkAsCompletedEvent() {
-    this.set("item.isCompleted", !this.item.isCompleted);
-    this.$.dropdown.close();
-  }
-
-  _handleDeleteItemEvent() {
-    this.fire("remove", { id: this.item.id });
-    this.$.dropdown.close();
+    e.stopPropagation();
   }
 }
 

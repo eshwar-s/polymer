@@ -64,7 +64,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
       </style>
 
       <todo-spinner id="spinner" loading="[[loading]]">
-        <div class="container">
+        <div class="container" on-contextmenu="_handleContextMenuEvent">
           <todo-sidebar
             id="sidebar"
             lists="{{todoLists}}"
@@ -109,6 +109,11 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
     if (!this.loading) {
       saveTodoLists(this.todoLists);
     }
+  }
+
+  _handleContextMenuEvent(e) {
+    // Disable default context menu
+    e.preventDefault();
   }
 }
 

@@ -58,7 +58,11 @@ class TodoMainPanel extends PolymerElement {
         selected="[[routeData.page]]"
         attr-for-selected="name"
       >
-        <todo-listview name="lists" list="{{selectedTodoList}}">
+        <todo-listview
+          name="lists"
+          route="{{route}}"
+          list="{{selectedTodoList}}"
+        >
         </todo-listview>
       </iron-pages>
     `;

@@ -41,7 +41,7 @@ class TodoCollapse extends PolymerElement {
           margin-right: 5px;
         }
       </style>
-      <paper-button noink on-click="_toggleCollapse"
+      <paper-button id="button" noink on-tap="_toggleCollapse"
         ><iron-icon icon="[[startIcon]]"></iron-icon>[[text]]</paper-button
       >
       <iron-collapse id="collapse" opened="[[opened]]">

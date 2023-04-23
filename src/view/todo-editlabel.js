@@ -19,13 +19,9 @@ class TodoEditLabel extends EventsMixin(PolymerElement) {
         notify: true
       },
       editable: {
-        type: Boolean,
-        value: false,
+        type: String,
+        value: "false",
         notify: true
-      },
-      clickToEdit: {
-        type: Boolean,
-        value: false
       }
     };
   }
@@ -36,70 +32,46 @@ class TodoEditLabel extends EventsMixin(PolymerElement) {
         :host {
           @apply --todo-edit-label;
         }
-        paper-input {
-          border-radius: 3px;
-
-          --paper-input-container-input: {
-            box-sizing: border-box;
-            font: inherit;
-            color: inherit;
-          }
-          --paper-input-container: {
-            padding: 0;
-          }
-          --paper-input-container-underline: {
-            display: none;
-            height: 0;
-          }
-          --paper-input-container-underline-focus: {
-            display: none;
-          }
-          --paper-font-caption: {
-            display: none;
-          }
+        [contenteditable] {
+          outline: 0px solid transparent;
         }
       </style>
-      <template is="dom-if" if="{{!editable}}">
-        <div on-tap="_handleClick">{{value}}</div>
-      </template>
-      <template is="dom-if" if="{{editable}}">
-        <paper-input
-          value="{{value}}"
-          autofocus
-          on-change="_handleChangeEvent"
-          on-keydown="_handleKeyDownEvent"
-          on-focusout="_handleFocusLostEvent"
-        >
-        </paper-input>
-      </template>
+      <div
+        id="input"
+        on-tap="_handleClickEvent"
+        on-keydown="_handleKeyDownEvent"
+        on-blur="_handleFocusLostEvent"
+        contenteditable$="[[editable]]"
+        spellcheck="false"
+      >
+        [[value]]
+      </div>
     `;
   }
 
-  setEditable(isEditable) {
-    this.editable = isEditable;
-  }
-
-  _handleClick(e) {
-    if (this.clickToEdit) {
-      this.editable = true;
-    }
+  _handleClickEvent() {
+    this.editable = "true";
   }
 
   _handleKeyDownEvent(e) {
     if (e.key === "Enter" || e.key === "Escape") {
-      this.editable = false;
+      if (e.key === "Escape") {
+        this.$.input.innerText = this.value;
+      }
+      this._handleFocusLostEvent();
       e.preventDefault();
       e.stopPropagation();
     }
   }
 
   _handleFocusLostEvent() {
-    this.editable = false;
-  }
+    this.editable = "false";
+    const newValue = this.$.input.innerText;
 
-  _handleChangeEvent() {
-    if (this.value) {
-      this.fire("updated", { value: this.value });
+    if (newValue) {
+      this.fire("updated", { value: newValue });
+    } else {
+      this.$.input.innerText = this.value;
     }
   }
 }
