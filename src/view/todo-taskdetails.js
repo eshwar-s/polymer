@@ -5,7 +5,7 @@ import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/paper-input/paper-textarea.js";
 import { EventsMixin } from "../common/events-mixin.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
-import "./todo-styles.js";
+import "../common/shared-styles.js";
 
 class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
   constructor() {

@@ -21,7 +21,17 @@ export async function loadTodoLists() {
         todoLists.push(TodoList.new());
       }
 
-      resolve(todoLists);
+      const settingsData = window.localStorage.getItem(
+        TODO_SETTINGS_STORAGE_ID
+      );
+
+      let settings = new TodoSettings();
+
+      if (settingsData) {
+        settings = new TodoSettings().deserialize(settingsData);
+      }
+
+      resolve({ lists: todoLists, settings: settings });
     }, TODO_LIST_LOAD_TIMEOUT);
   });
 }

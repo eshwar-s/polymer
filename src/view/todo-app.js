@@ -1,12 +1,17 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
-import { loadTodoLists, saveTodoLists } from "../model/todo-store.js";
+import {
+  loadTodoLists,
+  saveTodoLists,
+  saveTodoSettings
+} from "../model/todo-store.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
-import "./todo-styles.js";
+import "../common/shared-styles.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-mainpanel.js";
+import { TodoSettings } from "../model/todo-settings.js";
 
 class TodoApp extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -27,6 +32,11 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
       todoLists: {
         type: Array,
         value: [],
+        notify: true
+      },
+      todoSettings: {
+        type: Object,
+        value: new TodoSettings(),
         notify: true
       }
     };
@@ -73,6 +83,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
           <todo-mainpanel
             id="main-panel"
             todo-lists="{{todoLists}}"
+            todo-settings="{{todoSettings}}"
           ></todo-mainpanel>
         </div>
       </todo-spinner>
@@ -96,18 +107,20 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
 
   async _load() {
     try {
-      this.todoLists = await loadTodoLists();
+      let { lists, settings } = await loadTodoLists();
+      this.set("todoLists", lists);
+      this.set("todoSettings", settings);
     } catch (error) {
       alert(`Failed encountered when loading lists: ${error.message}`);
+    } finally {
+      this.loading = false;
     }
-
-    this.set("todoLists", this.todoLists);
-    this.loading = false;
   }
 
   _unload() {
     if (!this.loading) {
       saveTodoLists(this.todoLists);
+      saveTodoSettings(this.todoSettings);
     }
   }
 

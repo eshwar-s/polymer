@@ -31,6 +31,10 @@ class TodoListView extends PolymerElement {
         value: null,
         notify: true,
         observer: "_selectedItemChanged"
+      },
+      settings: {
+        type: Object,
+        notify: true
       }
     };
   }
@@ -74,6 +78,8 @@ class TodoListView extends PolymerElement {
           <todo-tasklist
             items="{{list.items}}"
             selected-item="{{selectedItem}}"
+            sort-order="{{settings.sortOrder}}"
+            show-completed="{{settings.showCompleted}}"
           ></todo-tasklist>
         </div>
         <div id="add-task">

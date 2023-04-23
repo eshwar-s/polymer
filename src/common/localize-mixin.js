@@ -12,8 +12,7 @@ export const LocalizeMixin = dedupingMixin((superClass) => {
       return {
         language: {
           type: String,
-          value: "en",
-          reflectToAttribute: true
+          value: "en"
         }
       };
     }

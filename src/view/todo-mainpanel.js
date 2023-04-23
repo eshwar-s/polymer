@@ -19,6 +19,10 @@ class TodoMainPanel extends PolymerElement {
         type: Array,
         value: [],
         notify: true
+      },
+      todoSettings: {
+        type: Object,
+        notify: true
       }
     };
   }
@@ -62,6 +66,7 @@ class TodoMainPanel extends PolymerElement {
           name="lists"
           route="{{route}}"
           list="{{selectedTodoList}}"
+          settings="{{todoSettings}}"
         >
         </todo-listview>
       </iron-pages>

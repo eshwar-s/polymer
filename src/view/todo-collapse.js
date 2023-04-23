@@ -2,7 +2,7 @@ import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/iron-collapse/iron-collapse.js";
 import "@polymer/iron-icons/iron-icons.js";
-import "./todo-styles.js";
+import "../common/shared-styles.js";
 
 class TodoCollapse extends PolymerElement {
   constructor() {

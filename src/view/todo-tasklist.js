@@ -3,7 +3,7 @@ import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import { TodoSortOrder } from "../model/todo-settings.js";
-import "./todo-styles.js";
+import "../common/shared-styles.js";
 import "./todo-taskrow.js";
 
 class TodoTaskList extends LocalizeMixin(PolymerElement) {
@@ -29,7 +29,13 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
       },
       sortOrder: {
         type: Number,
-        value: TodoSortOrder.CREATION_DATE
+        value: TodoSortOrder.CREATION_DATE,
+        reflectToAttribute: true
+      },
+      showCompleted: {
+        type: Boolean,
+        value: true,
+        reflectToAttribute: true
       },
       filter: {
         type: Object,
@@ -73,34 +79,36 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           ></todo-taskrow>
         </template>
       </paper-listbox>
-      <div
-        id="completed-label"
-        hidden$="[[!_showCompletedTasks(items, items.*)]]"
-      >
-        <iron-icon icon="expand-more"></iron-icon>
-        <span>[[localize('completedTasks')]]</span>
-      </div>
-      <paper-listbox
-        id="completed-tasks"
-        selected="{{selectedItem}}"
-        attr-for-selected="item"
-        selected-attribute="selected"
-      >
-        <template
-          is="dom-repeat"
-          items="{{items}}"
-          filter="[[_computeFilter(filter.COMPLETED)]]"
-          sort="[[_computeSort()]]"
-          observe="isImportant isCompleted"
+      <template is="dom-if" if="[[showCompleted]]">
+        <div
+          id="completed-label"
+          hidden$="[[!_hasCompletedTasks(items, items.*)]]"
         >
-          <todo-taskrow
-            class="list-item"
-            role="listitem"
-            item="{{item}}"
-            on-delete="_deleteTodoItem"
-          ></todo-taskrow>
-        </template>
-      </paper-listbox>
+          <iron-icon icon="expand-more"></iron-icon>
+          <span>[[localize('completedTasks')]]</span>
+        </div>
+        <paper-listbox
+          id="completed-tasks"
+          selected="{{selectedItem}}"
+          attr-for-selected="item"
+          selected-attribute="selected"
+        >
+          <template
+            is="dom-repeat"
+            items="{{items}}"
+            filter="[[_computeFilter(filter.COMPLETED)]]"
+            sort="[[_computeSort()]]"
+            observe="isImportant isCompleted"
+          >
+            <todo-taskrow
+              class="list-item"
+              role="listitem"
+              item="{{item}}"
+              on-delete="_deleteTodoItem"
+            ></todo-taskrow>
+          </template>
+        </paper-listbox>
+      </template>
     `;
   }
 
@@ -134,7 +142,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
     return null;
   }
 
-  _showCompletedTasks() {
+  _hasCompletedTasks() {
     if (this.items) {
       const completedItems = this.items.filter((item) => item.isCompleted);
       return completedItems.length > 0;

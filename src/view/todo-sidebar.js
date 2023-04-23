@@ -9,7 +9,7 @@ import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/image-icons.js";
 import { TodoList } from "../model/todo-list.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
-import "./todo-styles.js";
+import "../common/shared-styles.js";
 import "./todo-menuitem.js";
 import "./todo-editlabel.js";
 import "./todo-badge.js";

@@ -1,7 +1,7 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/iron-icons/iron-icons.js";
-import "./todo-styles.js";
+import "../common/shared-styles.js";
 
 class TodoMenuItem extends PolymerElement {
   constructor() {
