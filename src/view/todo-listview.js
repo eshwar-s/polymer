@@ -51,7 +51,7 @@ class TodoListView extends PolymerElement {
           flex-grow: 1;
         }
       </style>
-      <div id="main" role="main">
+      <div role="main">
         <div id="task-list" style="overflow-y:auto">
           <todo-editlabel
             id="listName"

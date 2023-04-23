@@ -49,15 +49,15 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
           display: flex;
           height: 100%;
         }
-        .main {
+        todo-mainpanel {
           flex-grow: 1;
         }
-        .sidebar {
+        todo-sidebar {
           width: 250px;
           height: 100%;
         }
         @media only screen and (max-width: 600px) {
-          .sidebar {
+          todo-sidebar {
             display: none;
           }
         }
@@ -65,16 +65,15 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
 
       <todo-spinner id="spinner" loading="[[loading]]">
         <div class="container">
-          <div class="sidebar">
-            <todo-sidebar
-              id="sidebar"
-              lists="{{todoLists}}"
-              selected="{{selectedList}}"
-            ></todo-sidebar>
-          </div>
-          <div class="main">
-            <todo-mainpanel todo-lists="{{todoLists}}"></todo-mainpanel>
-          </div>
+          <todo-sidebar
+            id="sidebar"
+            lists="{{todoLists}}"
+            selected="{{selectedList}}"
+          ></todo-sidebar>
+          <todo-mainpanel
+            id="main-panel"
+            todo-lists="{{todoLists}}"
+          ></todo-mainpanel>
         </div>
       </todo-spinner>
     `;
