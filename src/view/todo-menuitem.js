@@ -14,26 +14,20 @@ class TodoMenuItem extends PolymerElement {
 
   static get properties() {
     return {
-      icon: {
-        type: String,
-        reflectToAttribute: true
+      startIcon: {
+        type: String
       },
       text: {
-        type: String,
-        reflectToAttribute: true
+        type: String
       }
     };
   }
 
   static get template() {
     return html`
-      <style include="todo-shared-styles">
-        .menu-item:hover {
-          background-color: var(--paper-grey-100);
-        }
-      </style>
+      <style include="todo-shared-styles"></style>
       <paper-item class="menu-item"
-        ><iron-icon class="start-icon" icon="[[icon]]"></iron-icon>[[text]]
+        ><iron-icon class="start-icon" icon="[[startIcon]]"></iron-icon>[[text]]
       </paper-item>
     `;
   }

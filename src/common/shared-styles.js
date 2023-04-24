@@ -38,11 +38,19 @@ styleMod.appendChild(
           height: 20px;
         }
 
+        .menu-item:hover {
+          background-color: var(--paper-grey-100);
+        }
+
         .text {
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
           user-select: none;
+        }
+
+        .divider {
+          border-top: 1px solid var(--secondary-color);
         }
       </style>
     </template>

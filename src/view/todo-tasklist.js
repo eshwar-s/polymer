@@ -29,13 +29,11 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
       },
       sortOrder: {
         type: Number,
-        value: TodoSortOrder.CREATION_DATE,
-        reflectToAttribute: true
+        value: TodoSortOrder.CREATION_DATE
       },
       showCompleted: {
         type: Boolean,
-        value: true,
-        reflectToAttribute: true
+        value: true
       },
       filter: {
         type: Object,

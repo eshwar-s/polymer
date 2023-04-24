@@ -49,8 +49,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
       <div>
         <paper-checkbox
           checked="{{item.isCompleted}}"
-          noink
-          on-tap="_handleClickEvent"
+          on-tap="_stopClickEventPropogation"
         >
           <template is="dom-if" if="[[!item.isCompleted]]">
             [[item.title]]
@@ -79,7 +78,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
     `;
   }
 
-  _handleClickEvent(e) {
+  _stopClickEventPropogation(e) {
     e.stopPropagation();
   }
 

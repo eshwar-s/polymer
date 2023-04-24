@@ -20,16 +20,13 @@ class TodoAddTask extends EventsMixin(LocalizeMixin(PolymerElement)) {
   static get properties() {
     return {
       value: {
-        type: String,
-        reflectToAttribute: true
+        type: String
       },
       startIcon: {
-        type: String,
-        reflectToAttribute: true
+        type: String
       },
       placeholder: {
-        type: String,
-        reflectToAttribute: true
+        type: String
       }
     };
   }
