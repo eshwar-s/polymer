@@ -5,6 +5,7 @@ import "./todo-addtask.js";
 import "./todo-editlabel.js";
 import "./todo-tasklist.js";
 import "./todo-taskdetails.js";
+import "./todo-listmenu.js";
 
 class TodoListView extends PolymerElement {
   constructor() {
@@ -53,6 +54,11 @@ class TodoListView extends PolymerElement {
           background-color: var(--primary-color);
           padding: 12px;
         }
+        #list-heading {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
         .heading {
           --todo-edit-label: {
             display: block;
@@ -69,12 +75,16 @@ class TodoListView extends PolymerElement {
       </style>
       <div role="main">
         <div style="overflow-y:auto; flex-grow: 1">
-          <todo-editlabel
-            id="list-name"
-            class="heading"
-            value="[[list.name]]"
-            on-updated="_todoListNameChanged"
-          ></todo-editlabel>
+          <div id="list-heading">
+            <todo-editlabel
+              id="list-name"
+              class="heading"
+              value="[[list.name]]"
+              on-updated="_todoListNameChanged"
+            ></todo-editlabel>
+            <todo-listmenu list="{{list}}" settings="{{settings}}">
+            </todo-listmenu>
+          </div>
           <todo-tasklist
             items="{{list.items}}"
             selected-item="{{selectedItem}}"
