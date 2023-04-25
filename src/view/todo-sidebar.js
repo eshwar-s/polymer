@@ -10,6 +10,7 @@ import "@polymer/iron-icons/image-icons.js";
 import { TodoList } from "../model/todo-list.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
+import "./todo-deletelist.js";
 import "./todo-menuitem.js";
 import "./todo-editlabel.js";
 import "./todo-badge.js";
@@ -34,6 +35,10 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         type: String,
         notify: true,
         observer: "_handleSelectionChanged"
+      },
+      openDeleteDialog: {
+        type: Boolean,
+        notify: true
       }
     };
   }
@@ -110,13 +115,18 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
             </todo-menuitem>
             <div class="divider"></div>
             <todo-menuitem
-              on-tap="_deleteTodoList"
+              on-tap="_openDeleteListDialog"
               start-icon="delete-forever"
               text="[[localize('deleteList')]]"
             >
             </todo-menuitem>
           </div>
         </iron-dropdown>
+        <todo-deletelist
+          id="deleteDialog"
+          opened="{{openDeleteDialog}}"
+          on-delete-list="_deleteTodoList"
+        ></todo-deletelist>
       </nav>
       <paper-button noink on-tap="_newTodoList">
         <iron-icon class="start-icon" icon="add"></iron-icon>
@@ -141,15 +151,12 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     });
   }
 
-  _deleteTodoList() {
-    const listId = this.$.list
-      .modelForElement(this.$.dropdown.positionTarget)
-      .get("item.id");
+  _deleteTodoList(e) {
+    const listId = e.detail.list;
     const index = this.lists.findIndex((list) => list.id === listId);
     if (index !== -1) {
       this.splice("lists", index, 1);
     }
-    this.$.dropdown.close();
   }
 
   _renameTodoList() {
@@ -157,6 +164,14 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
   }
 
   _printTodoList() {
+    this.$.dropdown.close();
+  }
+
+  _openDeleteListDialog() {
+    const model = this.$.list.modelForElement(this.$.dropdown.positionTarget);
+    this.$.deleteDialog.listId = model.get("item.id");
+    this.$.deleteDialog.listName = model.get("item.name");
+    this.openDeleteDialog = true;
     this.$.dropdown.close();
   }
 

@@ -106,7 +106,7 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
           id="dismiss-button"
           icon="chevron-right"
           alt="[[localize('dismissDetails')]]"
-          on-tap="_closeTodoItem"
+          on-tap="_dismissDetailsPanel"
         ></paper-icon-button>
         <span class="text"
           >[[localize('createdDate', 'date', item.creationTime)]]</span
@@ -133,12 +133,12 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
     this.set("item.isCompleted", !this.item.isCompleted);
   }
 
-  _closeTodoItem() {
-    this.fire("close", null);
-  }
-
   _deleteTodoItem() {
     this.fire("delete", null);
+  }
+
+  _dismissDetailsPanel() {
+    this.item = null;
   }
 }
 

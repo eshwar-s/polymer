@@ -3,10 +3,10 @@ import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/iron-icons/iron-icons.js";
 import "@polymer/iron-icons/image-icons.js";
-import "../common/shared-styles.js";
-import "../view/todo-menuitem.js";
-import "../view/todo-deletelist.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
+import "../common/shared-styles.js";
+import "./todo-menuitem.js";
+import "./todo-deletelist.js";
 
 class TodoListMenu extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -27,7 +27,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
         type: Object,
         notify: true
       },
-      deleteList: {
+      openDeleteDialog: {
         type: Boolean,
         value: false
       }
@@ -100,8 +100,9 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
         </div>
       </paper-menu-button>
       <todo-deletelist
-        opened="{{deleteList}}"
-        list="{{list}}"
+        opened="{{openDeleteDialog}}"
+        list-id="[[list.id]]"
+        list-name="[[list.name]]"
       ></todo-deletelist>
     `;
   }
@@ -112,7 +113,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
   }
 
   _openDeleteListDialog() {
-    this.deleteList = true;
+    this.openDeleteDialog = true;
     this.$.dropdown.close();
   }
 }

@@ -21,9 +21,13 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
         value: false,
         notify: true
       },
-      list: {
-        type: Object,
-        notify: true
+      listId: {
+        type: String,
+        reflectToAttribute: true
+      },
+      listName: {
+        type: String,
+        reflectToAttribute: true
       }
     };
   }
@@ -47,7 +51,7 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
         with-backdrop
       >
         <img src="/images/favicon.png" aria-hidden />
-        <h2>[[localize('deleteDialogTitle', 'listName', list.name)]]</h2>
+        <h2>[[localize('deleteDialogTitle', 'listName', listName)]]</h2>
         <div style="text-align:center">
           [[localize('deleteDialogDescription')]]
         </div>
@@ -72,7 +76,7 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
   }
 
   _handleDialogAccept() {
-    this.fire("delete-list", { list: this.list.id });
+    this.fire("delete-list", { list: this.listId });
     this.opened = false;
   }
 

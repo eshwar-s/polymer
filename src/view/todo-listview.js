@@ -101,7 +101,6 @@ class TodoListView extends PolymerElement {
           id="task-details"
           role="complementary"
           item="{{selectedItem}}"
-          on-close="_unselectedTodoItem"
           on-delete="_deleteTodoItem"
         ></todo-taskdetails>
       </template>
@@ -127,10 +126,6 @@ class TodoListView extends PolymerElement {
     if (index !== -1) {
       this.splice("list.items", index, 1);
     }
-    this.selectedItem = null;
-  }
-
-  _unselectedTodoItem() {
     this.selectedItem = null;
   }
 
