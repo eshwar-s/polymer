@@ -5,6 +5,7 @@ import "@polymer/iron-icons/iron-icons.js";
 import "@polymer/iron-icons/image-icons.js";
 import "../common/shared-styles.js";
 import "../view/todo-menuitem.js";
+import "../view/todo-deletelist.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 
 class TodoListMenu extends LocalizeMixin(PolymerElement) {
@@ -25,6 +26,10 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
       settings: {
         type: Object,
         notify: true
+      },
+      deleteList: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -42,9 +47,6 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             color: var(--primary-background-color);
           }
         }
-        div [slot="dropdown-content"] {
-          @apply --shadow-elevation-3dp;
-        }
       </style>
       <paper-menu-button
         id="dropdown"
@@ -58,7 +60,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           slot="dropdown-trigger"
           alt="menu"
         ></paper-icon-button>
-        <div slot="dropdown-content">
+        <div class="dropdown-content" slot="dropdown-content">
           <todo-menuitem
             start-icon="image:flip"
             text="[[localize('renameList')]]"
@@ -79,28 +81,38 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             <todo-menuitem
               start-icon="check-circle"
               text="[[localize('hideCompletedTasks')]]"
-              on-tap="toggleShowCompletedTasks_"
+              on-tap="_toggleShowCompletedTasks"
             ></todo-menuitem>
           </template>
           <template is="dom-if" if="[[!settings.showCompleted]]">
             <todo-menuitem
               start-icon="check-circle"
               text="[[localize('showCompletedTasks')]]"
-              on-tap="toggleShowCompletedTasks_"
+              on-tap="_toggleShowCompletedTasks"
             ></todo-menuitem>
           </template>
           <div class="divider"></div>
           <todo-menuitem
             start-icon="delete-forever"
-            text="[[localize('deleteForever')]]"
+            text="[[localize('deleteList')]]"
+            on-tap="_openDeleteListDialog"
           ></todo-menuitem>
         </div>
       </paper-menu-button>
+      <todo-deletelist
+        opened="{{deleteList}}"
+        list="{{list}}"
+      ></todo-deletelist>
     `;
   }
 
-  toggleShowCompletedTasks_() {
+  _toggleShowCompletedTasks() {
     this.set("settings.showCompleted", !this.settings.showCompleted);
+    this.$.dropdown.close();
+  }
+
+  _openDeleteListDialog() {
+    this.deleteList = true;
     this.$.dropdown.close();
   }
 }

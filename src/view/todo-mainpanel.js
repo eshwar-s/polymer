@@ -7,6 +7,7 @@ import "./todo-listview.js";
 class TodoMainPanel extends PolymerElement {
   constructor() {
     super();
+    this._deleteListListener = this._deleteTodoList.bind(this);
   }
 
   static get is() {
@@ -73,6 +74,16 @@ class TodoMainPanel extends PolymerElement {
     `;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener("delete-list", this._deleteListListener);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener("delete-list", this._deleteListListener);
+  }
+
   _routeChanged() {
     switch (this.routeData.page) {
       case "lists":
@@ -80,6 +91,14 @@ class TodoMainPanel extends PolymerElement {
           this.$.selector.select(this.todoLists[this.subrouteData.id]);
         }
         break;
+    }
+  }
+
+  _deleteTodoList(e) {
+    const listId = e.detail.list;
+    const index = this.todoLists.findIndex((list) => list.id === listId);
+    if (index !== -1) {
+      this.splice("todoLists", index, 1);
     }
   }
 }

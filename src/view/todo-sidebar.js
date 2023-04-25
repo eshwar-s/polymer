@@ -61,11 +61,6 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         .list-item .start-icon {
           color: var(--primary-color);
         }
-        iron-dropdown [slot="dropdown-content"] {
-          min-width: 200px;
-          background-color: var(--primary-background-color);
-          @apply --shadow-elevation-2dp;
-        }
         paper-button {
           width: 100%;
           font-size: 15px;
@@ -147,10 +142,10 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
   }
 
   _deleteTodoList() {
-    const id = this.$.list
+    const listId = this.$.list
       .modelForElement(this.$.dropdown.positionTarget)
       .get("item.id");
-    const index = this.lists.findIndex((item) => item.id === id);
+    const index = this.lists.findIndex((list) => list.id === listId);
     if (index !== -1) {
       this.splice("lists", index, 1);
     }

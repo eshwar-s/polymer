@@ -20,10 +20,13 @@
     "markAsNotCompleted": "Mark as not completed",
     "markAsImportant": "Mark as important",
     "removeImportance": "Remove importance",
-    "deleteForever": "Delete task",
     "addNote": "Add Notes",
     "dismissDetails": "Dismiss Details View",
     "createdDate": "Created {date}",
-    "deleteTask": "Delete Task"
+    "deleteTask": "Delete Task",
+    "deleteDialogTitle": "\"{listName}\" will be permanently deleted.",
+    "deleteDialogDescription": "You won't be able to undo this action.",
+    "deleteDialogConfirm": "Delete list",
+    "deleteDialogCancel": "Cancel"
   }
 }
