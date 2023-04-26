@@ -34,7 +34,7 @@ class TodoBadge extends PolymerElement {
         }
       </style>
       <template is="dom-if" if="{{_isVisible(count)}}">
-        <span class="badge">[[_getValue(count)]]</span>
+        <span class="badge" aria-hidden>[[_getValue(count)]]</span>
       </template>
     `;
   }

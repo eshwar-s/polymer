@@ -71,6 +71,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <todo-menuitem
             start-icon="image:flip"
             text="[[localize('renameList')]]"
+            on-tap="_renameTodoList"
           ></todo-menuitem>
           <todo-menuitem
             start-icon="sort"
@@ -84,6 +85,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <todo-menuitem
             start-icon="print"
             text="[[localize('printList')]]"
+            on-tap="_printTodoList"
           ></todo-menuitem>
           <template is="dom-if" if="[[settings.showCompleted]]">
             <todo-menuitem
@@ -124,6 +126,14 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
   _handleMenuOpenEvent(e) {
     this.$.dropdown.positionTarget = e.currentTarget;
     this.$.dropdown.open();
+  }
+
+  _renameTodoList() {
+    this.$.dropdown.close();
+  }
+
+  _printTodoList() {
+    this.$.dropdown.close();
   }
 
   _toggleShowCompletedTasks() {

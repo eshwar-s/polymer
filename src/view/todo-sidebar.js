@@ -102,22 +102,22 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         >
           <div role="menu" class="dropdown-content" slot="dropdown-content">
             <todo-menuitem
-              on-tap="_renameTodoList"
               start-icon="image:flip"
               text="[[localize('renameList')]]"
+              on-tap="_renameTodoList"
             >
             </todo-menuitem>
             <todo-menuitem
-              on-tap="_printTodoList"
               start-icon="print"
               text="[[localize('printList')]]"
+              on-tap="_printTodoList"
             >
             </todo-menuitem>
             <div class="divider"></div>
             <todo-menuitem
-              on-tap="_openDeleteListDialog"
               start-icon="delete-forever"
               text="[[localize('deleteList')]]"
+              on-tap="_openDeleteListDialog"
             >
             </todo-menuitem>
           </div>

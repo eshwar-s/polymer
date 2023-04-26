@@ -80,11 +80,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
 
       <todo-spinner id="spinner" loading="[[loading]]">
         <div class="container" on-contextmenu="_handleContextMenuEvent">
-          <todo-sidebar
-            id="sidebar"
-            lists="{{todoLists}}"
-            selected="{{selectedList}}"
-          ></todo-sidebar>
+          <todo-sidebar id="sidebar" lists="{{todoLists}}"></todo-sidebar>
           <todo-mainpanel
             id="main-panel"
             todo-lists="{{todoLists}}"
@@ -112,7 +108,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
 
   async _load() {
     try {
-      let { lists, settings } = await loadTodoLists();
+      const { lists, settings } = await loadTodoLists();
       this.set("todoLists", lists);
       this.set("todoSettings", settings);
     } catch (error) {
