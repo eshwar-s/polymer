@@ -26,7 +26,7 @@ class TodoMenuItem extends PolymerElement {
   static get template() {
     return html`
       <style include="todo-shared-styles"></style>
-      <paper-item class="menu-item"
+      <paper-item role="menuitem" class="menu-item"
         ><iron-icon class="start-icon" icon="[[startIcon]]"></iron-icon>[[text]]
       </paper-item>
     `;

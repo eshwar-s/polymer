@@ -57,7 +57,8 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
         id="menu-icon-button"
         icon="more-horiz"
         slot="dropdown-trigger"
-        alt="menu"
+        alt="[[localize('menu')]]"
+        aria-haspopup="true"
         on-tap="_handleMenuOpenEvent"
       ></paper-icon-button>
       <iron-dropdown
@@ -66,7 +67,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
         vertical-align="top"
         vertical-offset="36"
       >
-        <div class="dropdown-content" slot="dropdown-content">
+        <div role="menu" class="dropdown-content" slot="dropdown-content">
           <todo-menuitem
             start-icon="image:flip"
             text="[[localize('renameList')]]"

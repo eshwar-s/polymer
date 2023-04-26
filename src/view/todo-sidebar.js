@@ -100,7 +100,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
           horizontal-align="left"
           vertical-align="top"
         >
-          <div class="dropdown-content" slot="dropdown-content">
+          <div role="menu" class="dropdown-content" slot="dropdown-content">
             <todo-menuitem
               on-tap="_renameTodoList"
               start-icon="image:flip"
