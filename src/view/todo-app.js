@@ -6,13 +6,13 @@ import {
   saveTodoSettings
 } from "../model/todo-store.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
+import { TodoSettings } from "../model/todo-settings.js";
+import getThemeColors from "../common/theme-colors.js";
 import "../common/shared-styles.js";
 import "./todo-sidebar.js";
 import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-mainpanel.js";
-import { TodoSettings } from "../model/todo-settings.js";
-import getThemeColors from "../common/theme-colors.js";
 
 class TodoApp extends LocalizeMixin(PolymerElement) {
   constructor() {
