@@ -68,6 +68,7 @@ class TodoThemeColor extends EventsMixin(PolymerElement) {
         <paper-icon-button
           icon="image:brightness-1"
           alt="[[themeColor]]"
+          aria-pressed="false"
           on-tap="_handleSelectionChanged"
         ></paper-icon-button>
       </template>
@@ -75,8 +76,8 @@ class TodoThemeColor extends EventsMixin(PolymerElement) {
         <paper-icon-button
           icon="check-circle"
           alt="[[themeColor]]"
+          aria-pressed="true"
           on-tap="_handleSelectionChanged"
-          aria-pressed
         ></paper-icon-button>
       </template>
     `;
