@@ -27,6 +27,9 @@
     "deleteDialogTitle": "\"{listName}\" will be permanently deleted.",
     "deleteDialogDescription": "You won't be able to undo this action.",
     "deleteDialogConfirm": "Delete list",
-    "deleteDialogCancel": "Cancel"
+    "deleteDialogCancel": "Cancel",
+    "themeDialogTitle": "Pick a Theme Color",
+    "themeDialogConfirm": "Select theme",
+    "themeDialogCancel": "Cancel"
   }
 }

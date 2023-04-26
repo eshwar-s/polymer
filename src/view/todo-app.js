@@ -12,6 +12,7 @@ import "./todo-spinner.js";
 import "./todo-collapse.js";
 import "./todo-mainpanel.js";
 import { TodoSettings } from "../model/todo-settings.js";
+import getThemeColors from "../common/theme-colors.js";
 
 class TodoApp extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -40,6 +41,10 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
         notify: true
       }
     };
+  }
+
+  static get observers() {
+    return ["_themeChanged(todoSettings.theme)"];
   }
 
   static get template() {
@@ -122,6 +127,11 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
       saveTodoLists(this.todoLists);
       saveTodoSettings(this.todoSettings);
     }
+  }
+
+  _themeChanged() {
+    const properties = getThemeColors(this.todoSettings.theme);
+    this.updateStyles(properties);
   }
 
   _handleContextMenuEvent(e) {

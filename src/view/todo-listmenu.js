@@ -1,12 +1,13 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
-import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
+import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/iron-icons.js";
 import "@polymer/iron-icons/image-icons.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
 import "./todo-menuitem.js";
 import "./todo-deletelist.js";
+import "./todo-themepicker.js";
 
 class TodoListMenu extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -30,6 +31,10 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
       openDeleteDialog: {
         type: Boolean,
         value: false
+      },
+      openThemeDialog: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -48,18 +53,19 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           }
         }
       </style>
-      <paper-menu-button
+      <paper-icon-button
+        id="menu-icon-button"
+        icon="more-horiz"
+        slot="dropdown-trigger"
+        alt="menu"
+        on-tap="_handleMenuOpenEvent"
+      ></paper-icon-button>
+      <iron-dropdown
         id="dropdown"
-        vertical-align="top"
         horizontal-align="right"
+        vertical-align="top"
         vertical-offset="36"
       >
-        <paper-icon-button
-          id="menu-icon-button"
-          icon="more-horiz"
-          slot="dropdown-trigger"
-          alt="menu"
-        ></paper-icon-button>
         <div class="dropdown-content" slot="dropdown-content">
           <todo-menuitem
             start-icon="image:flip"
@@ -72,6 +78,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <todo-menuitem
             start-icon="image:color-lens"
             text="[[localize('changeTheme')]]"
+            on-tap="_openThemePickerDialog"
           ></todo-menuitem>
           <todo-menuitem
             start-icon="print"
@@ -98,13 +105,24 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             on-tap="_openDeleteListDialog"
           ></todo-menuitem>
         </div>
-      </paper-menu-button>
+      </iron-dropdown>
       <todo-deletelist
         opened="{{openDeleteDialog}}"
         list-id="[[list.id]]"
         list-name="[[list.name]]"
       ></todo-deletelist>
+      <todo-themepicker
+        opened="{{openThemeDialog}}"
+        settings="{{settings}}"
+        selected-theme="[[settings.theme]]"
+      >
+      </todo-themepicker>
     `;
+  }
+
+  _handleMenuOpenEvent(e) {
+    this.$.dropdown.positionTarget = e.currentTarget;
+    this.$.dropdown.open();
   }
 
   _toggleShowCompletedTasks() {
@@ -114,6 +132,11 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
 
   _openDeleteListDialog() {
     this.openDeleteDialog = true;
+    this.$.dropdown.close();
+  }
+
+  _openThemePickerDialog() {
+    this.openThemeDialog = true;
     this.$.dropdown.close();
   }
 }
