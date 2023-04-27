@@ -70,6 +70,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
         todo-sidebar {
           width: 250px;
           height: 100%;
+          flex-shrink: 0;
         }
         @media only screen and (max-width: 600px) {
           todo-sidebar {

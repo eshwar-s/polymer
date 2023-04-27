@@ -108,7 +108,7 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
           alt="[[localize('dismissDetails')]]"
           on-tap="_dismissDetailsPanel"
         ></paper-icon-button>
-        <span class="text"
+        <span class="no-select"
           >[[localize('createdDate', 'date', item.creationTime)]]</span
         >
         <paper-icon-button

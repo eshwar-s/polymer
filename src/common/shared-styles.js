@@ -7,6 +7,19 @@ styleMod.appendChild(
   html`
     <template>
       <style>
+        .no-select {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+
+        .truncate {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
         paper-button {
           text-transform: none;
         }
@@ -46,13 +59,6 @@ styleMod.appendChild(
         }
         .menu-item:hover {
           background-color: var(--paper-grey-100);
-        }
-
-        .text {
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
         }
 
         .divider {

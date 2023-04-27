@@ -71,6 +71,12 @@ class TodoListView extends PolymerElement {
         todo-taskdetails {
           width: 300px;
           height: 100%;
+          flex-shrink: 1;
+        }
+        @media only screen and (max-width: 800px) {
+          todo-taskdetails {
+            display: none;
+          }
         }
       </style>
       <div role="main">
