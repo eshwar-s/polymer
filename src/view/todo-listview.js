@@ -51,6 +51,8 @@ class TodoListView extends PolymerElement {
           display: flex;
           flex-direction: column;
           flex-grow: 1;
+          overflow: hidden;
+          justify-content: space-between;
           background-color: var(--primary-color);
           padding: 12px;
         }
@@ -71,7 +73,7 @@ class TodoListView extends PolymerElement {
         todo-taskdetails {
           width: 300px;
           height: 100%;
-          flex-shrink: 1;
+          flex-shrink: 0;
         }
         @media only screen and (max-width: 800px) {
           todo-taskdetails {
@@ -80,7 +82,7 @@ class TodoListView extends PolymerElement {
         }
       </style>
       <div role="main">
-        <div style="overflow-y:auto; flex-grow: 1">
+        <div style="overflow-y:scroll">
           <div id="list-heading">
             <todo-editlabel
               id="list-name"

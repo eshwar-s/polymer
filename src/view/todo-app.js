@@ -66,6 +66,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
         }
         todo-mainpanel {
           flex-grow: 1;
+          overflow: hidden;
         }
         todo-sidebar {
           width: 250px;

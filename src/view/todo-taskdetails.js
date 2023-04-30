@@ -44,7 +44,7 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
           display: flex;
           flex-direction: column;
         }
-        #task-details {
+        #top-row {
           display: flex;
           align-items: center;
         }
@@ -70,10 +70,26 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
           align-items: center;
           font-size: 14px;
         }
+        paper-icon-button {
+          flex-shrink: 0;
+        }
       </style>
       <div id="top-wrapper">
-        <div id="task-details">
-          <paper-checkbox checked="{{item.isCompleted}}"> </paper-checkbox>
+        <div id="top-row">
+          <template is="dom-if" if="[[!item.isCompleted]]">
+            <paper-icon-button
+              icon="check-box-outline-blank"
+              alt="[[localize('markAsCompleted')]]"
+              on-tap="_toggledMarkAsCompleted"
+            ></paper-icon-button>
+          </template>
+          <template is="dom-if" if="[[item.isCompleted]]">
+            <paper-icon-button
+              icon="check-box"
+              alt="[[localize('markAsNotCompleted')]]"
+              on-tap="_toggledMarkAsCompleted"
+            ></paper-icon-button>
+          </template>
           <todo-editlabel
             id="task-title"
             value="{{item.title}}"

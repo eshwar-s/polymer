@@ -86,7 +86,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
               link="/lists/{{index}}"
               on-contextmenu="_handleContextMenuEvent"
             >
-              <div>
+              <div class="truncate">
                 <iron-icon class="start-icon" icon="list"></iron-icon>
                 [[item.name]]
               </div>
