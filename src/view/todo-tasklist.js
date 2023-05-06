@@ -74,7 +74,6 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
             class="list-item"
             role="listitem"
             item="{{item}}"
-            on-delete="_deleteTodoItemEvent"
           ></todo-taskrow>
         </template>
       </paper-listbox>
@@ -104,7 +103,6 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
               class="list-item"
               role="listitem"
               item="{{item}}"
-              on-delete="_deleteTodoItem"
             ></todo-taskrow>
           </template>
         </paper-listbox>
@@ -148,13 +146,6 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
       return completedItems.length > 0;
     }
     return false;
-  }
-
-  _deleteTodoItem(e) {
-    const index = this.items.findIndex((item) => item.id === e.detail.id);
-    if (index !== -1) {
-      this.splice("items", index, 1);
-    }
   }
 }
 
