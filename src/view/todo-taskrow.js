@@ -33,6 +33,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          flex-grow: 1;
           padding: 0px 16px;
         }
         paper-checkbox {

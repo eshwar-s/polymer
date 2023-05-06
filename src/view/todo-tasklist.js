@@ -50,7 +50,6 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
     return html`
       <style include="todo-shared-styles">
         .list-item {
-          display: block;
           padding: 0;
           margin-bottom: 2px;
           border-radius: 4px;
