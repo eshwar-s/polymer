@@ -13,7 +13,7 @@ class TodoListView extends PolymerElement {
   }
 
   static get is() {
-    return "todo-listview";
+    return "todo-list-view";
   }
 
   static get properties() {
@@ -70,13 +70,13 @@ class TodoListView extends PolymerElement {
             margin-bottom: 8px;
           }
         }
-        todo-taskdetails {
+        todo-task-details {
           width: 300px;
           height: 100%;
           flex-shrink: 0;
         }
         @media only screen and (max-width: 800px) {
-          todo-taskdetails {
+          todo-task-details {
             display: none;
           }
         }
@@ -90,8 +90,8 @@ class TodoListView extends PolymerElement {
               value="[[list.name]]"
               on-updated="_todoListNameChanged"
             ></todo-edit-label>
-            <todo-listmenu list="{{list}}" settings="{{settings}}">
-            </todo-listmenu>
+            <todo-list-menu list="{{list}}" settings="{{settings}}">
+            </todo-list-menu>
           </div>
           <todo-task-list
             items="{{list.items}}"
@@ -105,12 +105,12 @@ class TodoListView extends PolymerElement {
         </div>
       </div>
       <template is="dom-if" if="{{selectedItem}}">
-        <todo-taskdetails
+        <todo-task-details
           id="task-details"
           role="complementary"
           item="{{selectedItem}}"
           on-delete="_deleteTodoItem"
-        ></todo-taskdetails>
+        ></todo-task-details>
       </template>
     `;
   }

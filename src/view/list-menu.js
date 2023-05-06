@@ -15,7 +15,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
   }
 
   static get is() {
-    return "todo-listmenu";
+    return "todo-list-menu";
   }
 
   static get properties() {
