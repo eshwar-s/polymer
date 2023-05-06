@@ -80,14 +80,14 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
             <paper-icon-button
               icon="check-box-outline-blank"
               alt="[[localize('markAsCompleted')]]"
-              on-tap="_toggledMarkAsCompleted"
+              on-click="_toggledMarkAsCompleted"
             ></paper-icon-button>
           </template>
           <template is="dom-if" if="[[item.isCompleted]]">
             <paper-icon-button
               icon="check-box"
               alt="[[localize('markAsNotCompleted')]]"
-              on-tap="_toggledMarkAsCompleted"
+              on-click="_toggledMarkAsCompleted"
             ></paper-icon-button>
           </template>
           <todo-editlabel
@@ -99,14 +99,14 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
             <paper-icon-button
               icon="star-border"
               alt="[[localize('markAsImportant')]]"
-              on-tap="_toggleMarkAsImportant"
+              on-click="_toggleMarkAsImportant"
             ></paper-icon-button>
           </template>
           <template is="dom-if" if="[[item.isImportant]]">
             <paper-icon-button
               icon="star"
               alt="[[localize('removeImportance')]]"
-              on-tap="_toggleMarkAsImportant"
+              on-click="_toggleMarkAsImportant"
             ></paper-icon-button>
           </template>
         </div>
@@ -122,7 +122,7 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
           id="dismiss-button"
           icon="chevron-right"
           alt="[[localize('dismissDetails')]]"
-          on-tap="_dismissDetailsPanel"
+          on-click="_dismissDetailsPanel"
         ></paper-icon-button>
         <span class="no-select"
           >[[localize('createdDate', 'date', item.creationTime)]]</span
@@ -131,7 +131,7 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
           id="delete-button"
           icon="delete-forever"
           alt="[[localize('deleteTask')]]"
-          on-tap="_deleteTodoItem"
+          on-click="_deleteTodoItem"
         ></paper-icon-button>
       </div>
     `;

@@ -95,7 +95,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         <todo-sidebar-menu id="contextmenu" lists="{{lists}}">
         </todo-sidebar-menu>
       </nav>
-      <paper-button noink on-tap="_newTodoList">
+      <paper-button noink on-click="_newTodoList">
         <iron-icon class="start-icon" icon="add"></iron-icon>
         [[localize('newList')]]
       </paper-button>

@@ -75,7 +75,7 @@ class TodoThemePicker extends LocalizeMixin(PolymerElement) {
             class="dialog-cancel"
             raised
             noink
-            on-tap="_handleDialogCancel"
+            on-click="_handleDialogCancel"
             >[[localize('themeDialogCancel')]]</paper-button
           >
           <paper-button
@@ -83,7 +83,7 @@ class TodoThemePicker extends LocalizeMixin(PolymerElement) {
             raised
             noink
             autofocus
-            on-tap="_handleDialogAccept"
+            on-click="_handleDialogAccept"
             >[[localize('themeDialogConfirm')]]</paper-button
           >
         </div>

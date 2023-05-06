@@ -60,7 +60,7 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
             class="dialog-cancel"
             raised
             noink
-            on-tap="_handleDialogCancel"
+            on-click="_handleDialogCancel"
             >[[localize('deleteDialogCancel')]]</paper-button
           >
           <paper-button
@@ -68,7 +68,7 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
             raised
             noink
             autofocus
-            on-tap="_handleDialogAccept"
+            on-click="_handleDialogAccept"
             >[[localize('deleteDialogConfirm')]]</paper-button
           >
         </div>

@@ -80,7 +80,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <paper-item
             role="menuitem"
             class="menu-item"
-            on-tap="_renameTodoList"
+            on-click="_renameTodoList"
           >
             <todo-menuitem
               start-icon="image:flip"
@@ -96,14 +96,18 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <paper-item
             role="menuitem"
             class="menu-item"
-            on-tap="_openThemePickerDialog"
+            on-click="_openThemePickerDialog"
           >
             <todo-menuitem
               start-icon="image:color-lens"
               text="[[localize('changeTheme')]]"
             ></todo-menuitem>
           </paper-item>
-          <paper-item role="menuitem" class="menu-item" on-tap="_printTodoList">
+          <paper-item
+            role="menuitem"
+            class="menu-item"
+            on-click="_printTodoList"
+          >
             <todo-menuitem
               start-icon="print"
               text="[[localize('printList')]]"
@@ -112,7 +116,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <paper-item
             role="menuitem"
             class="menu-item"
-            on-tap="_toggleShowCompletedTasks"
+            on-click="_toggleShowCompletedTasks"
           >
             <template is="dom-if" if="[[settings.showCompleted]]">
               <todo-menuitem
@@ -131,7 +135,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           <paper-item
             role="menuitem"
             class="menu-item"
-            on-tap="_openDeleteListDialog"
+            on-click="_openDeleteListDialog"
           >
             <todo-menuitem
               start-icon="delete-forever"
@@ -155,13 +159,11 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
   }
 
   _handleMenuOpenChanged() {
-    if (!this.menuOpen) {
-      this.$.dropdown.selected = -1;
-    }
+    this.$.dropdown.selected = -1;
   }
 
   _renameTodoList() {
-    // TODO: Implementation for rename list
+    // TODO: Implementation for renaming list
   }
 
   _printTodoList() {

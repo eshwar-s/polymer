@@ -69,7 +69,7 @@ class TodoThemeColor extends EventsMixin(PolymerElement) {
           icon="image:brightness-1"
           alt="[[themeColor]]"
           aria-pressed="false"
-          on-tap="_handleSelectionChanged"
+          on-click="_handleSelectionChanged"
         ></paper-icon-button>
       </template>
       <template is="dom-if" if="[[_isSelected(themeColor, selectedTheme)]]">
@@ -77,7 +77,7 @@ class TodoThemeColor extends EventsMixin(PolymerElement) {
           icon="check-circle"
           alt="[[themeColor]]"
           aria-pressed="true"
-          on-tap="_handleSelectionChanged"
+          on-click="_handleSelectionChanged"
         ></paper-icon-button>
       </template>
     `;

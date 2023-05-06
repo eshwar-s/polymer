@@ -65,14 +65,18 @@ class TodoSideBarMenu extends LocalizeMixin(PolymerElement) {
             role="menuitem"
             class="menu-item"
             disabled="[[!selectedList]]"
-            on-tap="_renameTodoList"
+            on-click="_renameTodoList"
           >
             <todo-menuitem
               start-icon="image:flip"
               text="[[localize('renameList')]]"
             ></todo-menuitem>
           </paper-item>
-          <paper-item role="menuitem" class="menu-item" on-tap="_printTodoList">
+          <paper-item
+            role="menuitem"
+            class="menu-item"
+            on-click="_printTodoList"
+          >
             <todo-menuitem start-icon="print" text="[[localize('printList')]]">
             </todo-menuitem>
           </paper-item>
@@ -81,7 +85,7 @@ class TodoSideBarMenu extends LocalizeMixin(PolymerElement) {
             role="menuitem"
             class="menu-item"
             disabled="[[!selectedList]]"
-            on-tap="_openDeleteListDialog"
+            on-click="_openDeleteListDialog"
           >
             <todo-menuitem
               start-icon="delete-forever"

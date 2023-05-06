@@ -38,7 +38,7 @@ class TodoEditLabel extends EventsMixin(PolymerElement) {
       </style>
       <div
         id="input"
-        on-tap="_handleClickEvent"
+        on-click="_handleClickEvent"
         on-keydown="_handleKeyDownEvent"
         on-blur="_handleFocusLostEvent"
         contenteditable$="[[editable]]"
