@@ -37,19 +37,17 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
         }
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
+          --paper-checkbox-label-checked: {
+            text-decoration: line-through;
+          }
         }
       </style>
       <div>
         <paper-checkbox
           checked="{{item.isCompleted}}"
-          on-click="_stopClickEventPropogation"
+          on-tap="_stopClickEventPropogation"
         >
-          <template is="dom-if" if="[[!item.isCompleted]]">
-            [[item.title]]
-          </template>
-          <template is="dom-if" if="[[item.isCompleted]]">
-            <del>[[item.title]]</del>
-          </template>
+          [[item.title]]
         </paper-checkbox>
       </div>
       <div>
@@ -57,14 +55,14 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
           <paper-icon-button
             icon="star-border"
             alt="[[localize('markAsImportant')]]"
-            on-click="_toggleMarkAsImportant"
+            on-tap="_toggleMarkAsImportant"
           ></paper-icon-button>
         </template>
         <template is="dom-if" if="[[item.isImportant]]">
           <paper-icon-button
             icon="star"
             alt="[[localize('removeImportance')]]"
-            on-click="_toggleMarkAsImportant"
+            on-tap="_toggleMarkAsImportant"
           ></paper-icon-button>
         </template>
       </div>
