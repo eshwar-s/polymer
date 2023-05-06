@@ -2,13 +2,13 @@ import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/iron-icons/iron-icons.js";
 import "../common/shared-styles.js";
 
-class TodoMenuItem extends PolymerElement {
+class TodoIconLabel extends PolymerElement {
   constructor() {
     super();
   }
 
   static get is() {
-    return "todo-menuitem";
+    return "todo-icon-label";
   }
 
   static get properties() {
@@ -19,9 +19,9 @@ class TodoMenuItem extends PolymerElement {
       text: {
         type: String
       },
-      subMenu: {
+      endIcon: {
         type: Boolean,
-        value: false
+        value: null
       }
     };
   }
@@ -45,13 +45,13 @@ class TodoMenuItem extends PolymerElement {
         <iron-icon class="start-icon" icon="[[startIcon]]"></iron-icon>
         <span class="label">[[text]]</span>
       </div>
-      <template is="dom-if" if="[[subMenu]]">
+      <template is="dom-if" if="[[endIcon]]">
         <div>
-          <iron-icon icon="chevron-right"></iron-icon>
+          <iron-icon icon="[[endIcon]]"></iron-icon>
         </div>
       </template>
     `;
   }
 }
 
-window.customElements.define(TodoMenuItem.is, TodoMenuItem);
+window.customElements.define(TodoIconLabel.is, TodoIconLabel);

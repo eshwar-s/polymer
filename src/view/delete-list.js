@@ -11,7 +11,7 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
   }
 
   static get is() {
-    return "todo-deletelist";
+    return "todo-delete-list";
   }
 
   static get properties() {

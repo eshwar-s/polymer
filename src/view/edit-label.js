@@ -9,7 +9,7 @@ class TodoEditLabel extends EventsMixin(PolymerElement) {
   }
 
   static get is() {
-    return "todo-editlabel";
+    return "todo-edit-label";
   }
 
   static get properties() {

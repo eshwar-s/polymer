@@ -11,7 +11,7 @@ class TodoThemeColor extends EventsMixin(PolymerElement) {
   }
 
   static get is() {
-    return "todo-themecolor";
+    return "todo-theme-color";
   }
 
   static get properties() {

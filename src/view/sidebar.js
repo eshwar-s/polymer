@@ -8,8 +8,8 @@ import "@polymer/paper-item/paper-item.js";
 import { TodoList } from "../model/todo-list.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
-import "./todo-badge.js";
-import "./todo-sidebarmenu.js";
+import "./badge.js";
+import "./sidebar-menu.js";
 
 class TodoSideBar extends LocalizeMixin(PolymerElement) {
   constructor() {

@@ -4,7 +4,7 @@ import "@polymer/paper-item/paper-item.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import { TodoSortOrder } from "../model/todo-settings.js";
 import "../common/shared-styles.js";
-import "./todo-taskrow.js";
+import "./task-row.js";
 
 class TodoTaskList extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -12,7 +12,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
   }
 
   static get is() {
-    return "todo-tasklist";
+    return "todo-task-list";
   }
 
   static get properties() {
@@ -84,7 +84,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           observe="isImportant isCompleted"
         >
           <paper-item class="list-item" role="listitem" item="{{item}}">
-            <todo-taskrow item="{{item}}"></todo-taskrow>
+            <todo-task-row item="{{item}}"></todo-task-row>
           </paper-item>
         </template>
       </paper-listbox>
@@ -111,7 +111,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
             observe="isImportant isCompleted"
           >
             <paper-item class="list-item" role="listitem" item="{{item}}">
-              <todo-taskrow item="{{item}}"></todo-taskrow>
+              <todo-task-row item="{{item}}"></todo-task-row>
             </paper-item>
           </template>
         </paper-listbox>

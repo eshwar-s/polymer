@@ -2,7 +2,7 @@ import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/app-route/app-location.js";
 import "@polymer/app-route/app-route.js";
 import "@polymer/iron-pages/iron-pages.js";
-import "./todo-listview.js";
+import "./list-view.js";
 
 class TodoMainPanel extends PolymerElement {
   constructor() {
@@ -11,7 +11,7 @@ class TodoMainPanel extends PolymerElement {
   }
 
   static get is() {
-    return "todo-mainpanel";
+    return "todo-main-panel";
   }
 
   static get properties() {

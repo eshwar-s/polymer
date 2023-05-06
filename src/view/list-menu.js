@@ -5,9 +5,9 @@ import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
-import "./todo-menuitem.js";
-import "./todo-deletelist.js";
-import "./todo-themepicker.js";
+import "./icon-label.js";
+import "./delete-list.js";
+import "./theme-picker.js";
 
 class TodoListMenu extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -78,32 +78,34 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           selectable="paper-item"
         >
           <paper-item role="menuitem" class="menu-item">
-            <todo-menuitem
+            <todo-icon-label
               start-icon="image:flip"
               text="[[localize('renameList')]]"
-            ></todo-menuitem>
+            ></todo-icon-label>
           </paper-item>
           <paper-item role="menuitem" class="menu-item">
-            <todo-menuitem
+            <todo-icon-label
               start-icon="sort"
               text="[[localize('sortList')]]"
-            ></todo-menuitem>
+              sub-menu
+            >
+            </todo-icon-label>
           </paper-item>
           <paper-item
             role="menuitem"
             class="menu-item"
             on-click="_openThemePickerDialog"
           >
-            <todo-menuitem
+            <todo-icon-label
               start-icon="image:color-lens"
               text="[[localize('changeTheme')]]"
-            ></todo-menuitem>
+            ></todo-icon-label>
           </paper-item>
           <paper-item role="menuitem" class="menu-item">
-            <todo-menuitem
+            <todo-icon-label
               start-icon="print"
               text="[[localize('printList')]]"
-            ></todo-menuitem>
+            ></todo-icon-label>
           </paper-item>
           <paper-item
             role="menuitem"
@@ -111,16 +113,16 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             on-click="_toggleShowCompletedTasks"
           >
             <template is="dom-if" if="[[settings.showCompleted]]">
-              <todo-menuitem
+              <todo-icon-label
                 start-icon="check-circle"
                 text="[[localize('hideCompletedTasks')]]"
-              ></todo-menuitem>
+              ></todo-icon-label>
             </template>
             <template is="dom-if" if="[[!settings.showCompleted]]">
-              <todo-menuitem
+              <todo-icon-label
                 start-icon="check-circle"
                 text="[[localize('showCompletedTasks')]]"
-              ></todo-menuitem>
+              ></todo-icon-label>
             </template>
           </paper-item>
           <div class="divider"></div>
@@ -129,24 +131,24 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             class="menu-item"
             on-click="_openDeleteListDialog"
           >
-            <todo-menuitem
+            <todo-icon-label
               start-icon="delete-forever"
               text="[[localize('deleteList')]]"
-            ></todo-menuitem>
+            ></todo-icon-label>
           </paper-item>
         </paper-listbox>
       </paper-menu-button>
-      <todo-deletelist
+      <todo-delete-list
         opened="{{openDeleteDialog}}"
         list-id="[[list.id]]"
         list-name="[[list.name]]"
-      ></todo-deletelist>
-      <todo-themepicker
+      ></todo-delete-list>
+      <todo-theme-picker
         opened="{{openThemeDialog}}"
         settings="{{settings}}"
         selected-theme="[[settings.theme]]"
       >
-      </todo-themepicker>
+      </todo-theme-picker>
     `;
   }
 

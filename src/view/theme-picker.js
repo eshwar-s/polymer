@@ -1,7 +1,7 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
-import "./todo-themecolor.js";
+import "./theme-color.js";
 
 class TodoThemePicker extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -9,7 +9,7 @@ class TodoThemePicker extends LocalizeMixin(PolymerElement) {
   }
 
   static get is() {
-    return "todo-themepicker";
+    return "todo-theme-picker";
   }
 
   static get properties() {
@@ -45,30 +45,30 @@ class TodoThemePicker extends LocalizeMixin(PolymerElement) {
       >
         <h2>[[localize('themeDialogTitle')]]</h2>
         <div id="theme-container">
-          <todo-themecolor
+          <todo-theme-color
             theme-color="indigo"
             selected-theme="{{selectedTheme}}"
-          ></todo-themecolor>
-          <todo-themecolor
+          ></todo-theme-color>
+          <todo-theme-color
             theme-color="blue"
             selected-theme="{{selectedTheme}}"
-          ></todo-themecolor>
-          <todo-themecolor
+          ></todo-theme-color>
+          <todo-theme-color
             theme-color="purple"
             selected-theme="{{selectedTheme}}"
-          ></todo-themecolor>
-          <todo-themecolor
+          ></todo-theme-color>
+          <todo-theme-color
             theme-color="red"
             selected-theme="{{selectedTheme}}"
-          ></todo-themecolor>
-          <todo-themecolor
+          ></todo-theme-color>
+          <todo-theme-color
             theme-color="green"
             selected-theme="{{selectedTheme}}"
-          ></todo-themecolor>
-          <todo-themecolor
+          ></todo-theme-color>
+          <todo-theme-color
             theme-color="teal"
             selected-theme="{{selectedTheme}}"
-          ></todo-themecolor>
+          ></todo-theme-color>
         </div>
         <div class="dialog-button-container">
           <paper-button

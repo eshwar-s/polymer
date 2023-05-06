@@ -6,8 +6,8 @@ import "@polymer/iron-dropdown/iron-dropdown.js";
 import "@polymer/iron-icons/image-icons.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
-import "./todo-deletelist.js";
-import "./todo-menuitem.js";
+import "./delete-list.js";
+import "./icon-label.js";
 
 class TodoSideBarMenu extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -67,18 +67,21 @@ class TodoSideBarMenu extends LocalizeMixin(PolymerElement) {
             disabled="[[!selectedList]]"
             on-click="_renameTodoList"
           >
-            <todo-menuitem
+            <todo-icon-label
               start-icon="image:flip"
               text="[[localize('renameList')]]"
-            ></todo-menuitem>
+            ></todo-icon-label>
           </paper-item>
           <paper-item
             role="menuitem"
             class="menu-item"
             on-click="_printTodoList"
           >
-            <todo-menuitem start-icon="print" text="[[localize('printList')]]">
-            </todo-menuitem>
+            <todo-icon-label
+              start-icon="print"
+              text="[[localize('printList')]]"
+            >
+            </todo-icon-label>
           </paper-item>
           <div class="divider"></div>
           <paper-item
@@ -87,21 +90,21 @@ class TodoSideBarMenu extends LocalizeMixin(PolymerElement) {
             disabled="[[!selectedList]]"
             on-click="_openDeleteListDialog"
           >
-            <todo-menuitem
+            <todo-icon-label
               start-icon="delete-forever"
               text="[[localize('deleteList')]]"
             >
-            </todo-menuitem>
+            </todo-icon-label>
           </paper-item>
         </paper-listbox>
       </iron-dropdown>
-      <todo-deletelist
+      <todo-delete-list
         id="deleteDialog"
         opened="{{openDeleteDialog}}"
         list-id="[[selectedList.id]]"
         list-name="[[selectedList.name]]"
         on-delete-list="_deleteTodoList"
-      ></todo-deletelist>
+      ></todo-delete-list>
     `;
   }
 

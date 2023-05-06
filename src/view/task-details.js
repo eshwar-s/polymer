@@ -90,11 +90,11 @@ class TodoTaskDetails extends EventsMixin(LocalizeMixin(PolymerElement)) {
               on-click="_toggledMarkAsCompleted"
             ></paper-icon-button>
           </template>
-          <todo-editlabel
+          <todo-edit-label
             id="task-title"
             value="{{item.title}}"
             on-updated="_todoItemChanged"
-          ></todo-editlabel>
+          ></todo-edit-label>
           <template is="dom-if" if="[[!item.isImportant]]">
             <paper-icon-button
               icon="star-border"

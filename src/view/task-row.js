@@ -13,7 +13,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
   }
 
   static get is() {
-    return "todo-taskrow";
+    return "todo-task-row";
   }
 
   static get properties() {

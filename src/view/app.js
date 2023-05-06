@@ -9,10 +9,10 @@ import { LocalizeMixin } from "../common/localize-mixin.js";
 import { TodoSettings } from "../model/todo-settings.js";
 import getThemeColors from "../common/theme-colors.js";
 import "../common/shared-styles.js";
-import "./todo-sidebar.js";
-import "./todo-spinner.js";
-import "./todo-collapse.js";
-import "./todo-mainpanel.js";
+import "./sidebar.js";
+import "./spinner.js";
+import "./collapse.js";
+import "./main-panel.js";
 
 class TodoApp extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -64,7 +64,7 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
           display: flex;
           height: 100%;
         }
-        todo-mainpanel {
+        todo-main-panel {
           flex-grow: 1;
           overflow: hidden;
         }
@@ -83,11 +83,11 @@ class TodoApp extends LocalizeMixin(PolymerElement) {
       <todo-spinner id="spinner" loading="[[loading]]">
         <div class="container" on-contextmenu="_handleContextMenuEvent">
           <todo-sidebar id="sidebar" lists="{{todoLists}}"></todo-sidebar>
-          <todo-mainpanel
+          <todo-main-panel
             id="main-panel"
             todo-lists="{{todoLists}}"
             todo-settings="{{todoSettings}}"
-          ></todo-mainpanel>
+          ></todo-main-panel>
         </div>
       </todo-spinner>
     `;

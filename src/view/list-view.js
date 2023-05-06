@@ -1,11 +1,11 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-styles/element-styles/paper-material-styles.js";
 import { TodoItem } from "../model/todo-item.js";
-import "./todo-addtask.js";
-import "./todo-editlabel.js";
-import "./todo-tasklist.js";
-import "./todo-taskdetails.js";
-import "./todo-listmenu.js";
+import "./add-task.js";
+import "./edit-label.js";
+import "./task-list.js";
+import "./task-details.js";
+import "./list-menu.js";
 
 class TodoListView extends PolymerElement {
   constructor() {
@@ -84,24 +84,24 @@ class TodoListView extends PolymerElement {
       <div role="main">
         <div style="overflow-y:scroll">
           <div id="list-heading">
-            <todo-editlabel
+            <todo-edit-label
               id="list-name"
               class="heading"
               value="[[list.name]]"
               on-updated="_todoListNameChanged"
-            ></todo-editlabel>
+            ></todo-edit-label>
             <todo-listmenu list="{{list}}" settings="{{settings}}">
             </todo-listmenu>
           </div>
-          <todo-tasklist
+          <todo-task-list
             items="{{list.items}}"
             selected-item="{{selectedItem}}"
             sort-order="{{settings.sortOrder}}"
             show-completed="{{settings.showCompleted}}"
-          ></todo-tasklist>
+          ></todo-task-list>
         </div>
         <div id="add-task">
-          <todo-addtask on-add="_addTodoItem"></todo-addtask>
+          <todo-add-task on-add="_addTodoItem"></todo-add-task>
         </div>
       </div>
       <template is="dom-if" if="{{selectedItem}}">

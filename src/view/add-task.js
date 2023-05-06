@@ -14,7 +14,7 @@ class TodoAddTask extends EventsMixin(LocalizeMixin(PolymerElement)) {
   }
 
   static get is() {
-    return "todo-addtask";
+    return "todo-add-task";
   }
 
   static get properties() {
