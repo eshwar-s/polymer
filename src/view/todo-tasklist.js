@@ -58,6 +58,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
       </style>
       <paper-listbox
         id="incomplete-tasks"
+        class="listbox"
         selected="{{selectedItem}}"
         attr-for-selected="item"
         selected-attribute="selected"
@@ -66,7 +67,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           is="dom-repeat"
           items="{{items}}"
           filter="[[_computeFilter(filter.INCOMPLETE)]]"
-          sort="[[_computeSort()]]"
+          sort="[[_computeSort(sortOrder)]]"
           observe="isImportant isCompleted"
         >
           <todo-taskrow
@@ -87,6 +88,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
         </div>
         <paper-listbox
           id="completed-tasks"
+          class="listbox"
           selected="{{selectedItem}}"
           attr-for-selected="item"
           selected-attribute="selected"
@@ -95,7 +97,7 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
             is="dom-repeat"
             items="{{items}}"
             filter="[[_computeFilter(filter.COMPLETED)]]"
-            sort="[[_computeSort()]]"
+            sort="[[_computeSort(sortOrder)]]"
             observe="isImportant isCompleted"
           >
             <todo-taskrow

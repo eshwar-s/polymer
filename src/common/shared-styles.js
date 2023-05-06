@@ -7,6 +7,10 @@ styleMod.appendChild(
   html`
     <template>
       <style>
+        paper-button {
+          text-transform: none;
+        }
+
         .no-select {
           -webkit-user-select: none;
           -moz-user-select: none;
@@ -20,11 +24,7 @@ styleMod.appendChild(
           text-overflow: ellipsis;
         }
 
-        paper-button {
-          text-transform: none;
-        }
-
-        paper-listbox {
+        .listbox {
           --paper-listbox-background-color: transparent;
           margin-bottom: 4px;
         }
@@ -53,14 +53,6 @@ styleMod.appendChild(
           margin-right: 10px;
         }
 
-        .menu-item .start-icon {
-          width: 20px;
-          height: 20px;
-        }
-        .menu-item:hover {
-          background-color: var(--paper-grey-100);
-        }
-
         .divider {
           border-top: 1px solid var(--secondary-color);
         }
@@ -68,6 +60,7 @@ styleMod.appendChild(
         .dialog {
           --paper-dialog: {
             min-width: 300px;
+            max-width: 500px;
             border-radius: 8px;
           }
         }

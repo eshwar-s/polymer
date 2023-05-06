@@ -5,15 +5,11 @@ import "@polymer/app-route/app-location.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-button/paper-button.js";
 import "@polymer/paper-item/paper-item.js";
-import "@polymer/iron-dropdown/iron-dropdown.js";
-import "@polymer/iron-icons/image-icons.js";
 import { TodoList } from "../model/todo-list.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
-import "./todo-deletelist.js";
-import "./todo-menuitem.js";
-import "./todo-editlabel.js";
 import "./todo-badge.js";
+import "./todo-sidebarmenu.js";
 
 class TodoSideBar extends LocalizeMixin(PolymerElement) {
   constructor() {
@@ -76,6 +72,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         <app-location route="{{route}}"></app-location>
         <paper-listbox
           id="navigation-pane"
+          class="listbox"
           selected="{{selected}}"
           attr-for-selected="link"
           fallback-selection="/lists/0"
@@ -95,38 +92,8 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
             </paper-item>
           </template>
         </paper-listbox>
-        <iron-dropdown
-          id="dropdown"
-          horizontal-align="left"
-          vertical-align="top"
-        >
-          <div role="menu" class="dropdown-content" slot="dropdown-content">
-            <todo-menuitem
-              start-icon="image:flip"
-              text="[[localize('renameList')]]"
-              on-tap="_renameTodoList"
-            >
-            </todo-menuitem>
-            <todo-menuitem
-              start-icon="print"
-              text="[[localize('printList')]]"
-              on-tap="_printTodoList"
-            >
-            </todo-menuitem>
-            <div class="divider"></div>
-            <todo-menuitem
-              start-icon="delete-forever"
-              text="[[localize('deleteList')]]"
-              on-tap="_openDeleteListDialog"
-            >
-            </todo-menuitem>
-          </div>
-        </iron-dropdown>
-        <todo-deletelist
-          id="deleteDialog"
-          opened="{{openDeleteDialog}}"
-          on-delete-list="_deleteTodoList"
-        ></todo-deletelist>
+        <todo-sidebar-menu id="contextmenu" lists="{{lists}}">
+        </todo-sidebar-menu>
       </nav>
       <paper-button noink on-tap="_newTodoList">
         <iron-icon class="start-icon" icon="add"></iron-icon>
@@ -151,35 +118,11 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
     });
   }
 
-  _deleteTodoList(e) {
-    const listId = e.detail.list;
-    const index = this.lists.findIndex((list) => list.id === listId);
-    if (index !== -1) {
-      this.splice("lists", index, 1);
-    }
-  }
-
-  _renameTodoList() {
-    this.$.dropdown.close();
-  }
-
-  _printTodoList() {
-    this.$.dropdown.close();
-  }
-
-  _openDeleteListDialog() {
-    const model = this.$.list.modelForElement(this.$.dropdown.positionTarget);
-    this.$.deleteDialog.listId = model.get("item.id");
-    this.$.deleteDialog.listName = model.get("item.name");
-    this.openDeleteDialog = true;
-    this.$.dropdown.close();
-  }
-
   _handleContextMenuEvent(e) {
     e.preventDefault();
     e.currentTarget.click();
-    this.$.dropdown.positionTarget = e.currentTarget;
-    this.$.dropdown.open();
+    const model = this.$.list.modelForElement(e.currentTarget);
+    this.$.contextmenu.openMenu(e.currentTarget, model.get("item"));
   }
 }
 

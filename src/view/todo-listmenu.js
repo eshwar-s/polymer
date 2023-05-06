@@ -1,8 +1,8 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
+import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
-import "@polymer/iron-dropdown/iron-dropdown.js";
-import "@polymer/iron-icons/iron-icons.js";
-import "@polymer/iron-icons/image-icons.js";
+import "@polymer/paper-listbox/paper-listbox.js";
+import "@polymer/paper-item/paper-item.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
 import "../common/shared-styles.js";
 import "./todo-menuitem.js";
@@ -20,6 +20,11 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
 
   static get properties() {
     return {
+      menuOpen: {
+        type: Boolean,
+        notify: true,
+        observer: "_handleMenuOpenChanged"
+      },
       list: {
         type: Object,
         notify: true
@@ -53,62 +58,88 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           }
         }
       </style>
-      <paper-icon-button
-        id="menu-icon-button"
-        icon="more-horiz"
-        slot="dropdown-trigger"
-        alt="[[localize('menu')]]"
-        aria-haspopup="true"
-        on-tap="_handleMenuOpenEvent"
-      ></paper-icon-button>
-      <iron-dropdown
-        id="dropdown"
+      <paper-menu-button
         horizontal-align="right"
         vertical-align="top"
         vertical-offset="36"
+        opened="{{menuOpen}}"
       >
-        <div role="menu" class="dropdown-content" slot="dropdown-content">
-          <todo-menuitem
-            start-icon="image:flip"
-            text="[[localize('renameList')]]"
+        <paper-icon-button
+          icon="more-horiz"
+          slot="dropdown-trigger"
+          alt="[[localize('menu')]]"
+          aria-haspopup="true"
+        ></paper-icon-button>
+        <paper-listbox
+          id="dropdown"
+          role="menu"
+          class="dropdown-content"
+          slot="dropdown-content"
+          selectable="paper-item"
+        >
+          <paper-item
+            role="menuitem"
+            class="menu-item"
             on-tap="_renameTodoList"
-          ></todo-menuitem>
-          <todo-menuitem
-            start-icon="sort"
-            text="[[localize('sortList')]]"
-          ></todo-menuitem>
-          <todo-menuitem
-            start-icon="image:color-lens"
-            text="[[localize('changeTheme')]]"
+          >
+            <todo-menuitem
+              start-icon="image:flip"
+              text="[[localize('renameList')]]"
+            ></todo-menuitem>
+          </paper-item>
+          <paper-item role="menuitem" class="menu-item">
+            <todo-menuitem
+              start-icon="sort"
+              text="[[localize('sortList')]]"
+            ></todo-menuitem>
+          </paper-item>
+          <paper-item
+            role="menuitem"
+            class="menu-item"
             on-tap="_openThemePickerDialog"
-          ></todo-menuitem>
-          <todo-menuitem
-            start-icon="print"
-            text="[[localize('printList')]]"
-            on-tap="_printTodoList"
-          ></todo-menuitem>
-          <template is="dom-if" if="[[settings.showCompleted]]">
+          >
             <todo-menuitem
-              start-icon="check-circle"
-              text="[[localize('hideCompletedTasks')]]"
-              on-tap="_toggleShowCompletedTasks"
+              start-icon="image:color-lens"
+              text="[[localize('changeTheme')]]"
             ></todo-menuitem>
-          </template>
-          <template is="dom-if" if="[[!settings.showCompleted]]">
+          </paper-item>
+          <paper-item role="menuitem" class="menu-item" on-tap="_printTodoList">
             <todo-menuitem
-              start-icon="check-circle"
-              text="[[localize('showCompletedTasks')]]"
-              on-tap="_toggleShowCompletedTasks"
+              start-icon="print"
+              text="[[localize('printList')]]"
             ></todo-menuitem>
-          </template>
+          </paper-item>
+          <paper-item
+            role="menuitem"
+            class="menu-item"
+            on-tap="_toggleShowCompletedTasks"
+          >
+            <template is="dom-if" if="[[settings.showCompleted]]">
+              <todo-menuitem
+                start-icon="check-circle"
+                text="[[localize('hideCompletedTasks')]]"
+              ></todo-menuitem>
+            </template>
+            <template is="dom-if" if="[[!settings.showCompleted]]">
+              <todo-menuitem
+                start-icon="check-circle"
+                text="[[localize('showCompletedTasks')]]"
+              ></todo-menuitem>
+            </template>
+          </paper-item>
           <div class="divider"></div>
-          <todo-menuitem
-            start-icon="delete-forever"
-            text="[[localize('deleteList')]]"
+          <paper-item
+            role="menuitem"
+            class="menu-item"
             on-tap="_openDeleteListDialog"
-          ></todo-menuitem>
-        </div>
-      </iron-dropdown>
+          >
+            <todo-menuitem
+              start-icon="delete-forever"
+              text="[[localize('deleteList')]]"
+            ></todo-menuitem>
+          </paper-item>
+        </paper-listbox>
+      </paper-menu-button>
       <todo-deletelist
         opened="{{openDeleteDialog}}"
         list-id="[[list.id]]"
@@ -123,32 +154,30 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
     `;
   }
 
-  _handleMenuOpenEvent(e) {
-    this.$.dropdown.positionTarget = e.currentTarget;
-    this.$.dropdown.open();
+  _handleMenuOpenChanged() {
+    if (!this.menuOpen) {
+      this.$.dropdown.selected = -1;
+    }
   }
 
   _renameTodoList() {
-    this.$.dropdown.close();
+    // TODO: Implementation for rename list
   }
 
   _printTodoList() {
-    this.$.dropdown.close();
+    // TODO: Implementation for printing list
   }
 
   _toggleShowCompletedTasks() {
     this.set("settings.showCompleted", !this.settings.showCompleted);
-    this.$.dropdown.close();
   }
 
   _openDeleteListDialog() {
     this.openDeleteDialog = true;
-    this.$.dropdown.close();
   }
 
   _openThemePickerDialog() {
     this.openThemeDialog = true;
-    this.$.dropdown.close();
   }
 }
 
