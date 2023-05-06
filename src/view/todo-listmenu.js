@@ -77,11 +77,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           slot="dropdown-content"
           selectable="paper-item"
         >
-          <paper-item
-            role="menuitem"
-            class="menu-item"
-            on-click="_renameTodoList"
-          >
+          <paper-item role="menuitem" class="menu-item">
             <todo-menuitem
               start-icon="image:flip"
               text="[[localize('renameList')]]"
@@ -103,11 +99,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
               text="[[localize('changeTheme')]]"
             ></todo-menuitem>
           </paper-item>
-          <paper-item
-            role="menuitem"
-            class="menu-item"
-            on-click="_printTodoList"
-          >
+          <paper-item role="menuitem" class="menu-item">
             <todo-menuitem
               start-icon="print"
               text="[[localize('printList')]]"
@@ -160,14 +152,6 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
 
   _handleMenuOpenChanged() {
     this.$.dropdown.selected = -1;
-  }
-
-  _renameTodoList() {
-    // TODO: Implementation for renaming list
-  }
-
-  _printTodoList() {
-    // TODO: Implementation for printing list
   }
 
   _toggleShowCompletedTasks() {
