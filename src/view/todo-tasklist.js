@@ -49,6 +49,20 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
   static get template() {
     return html`
       <style include="todo-shared-styles">
+        .list-item {
+          display: block;
+          padding: 0;
+          margin-bottom: 2px;
+          border-radius: 4px;
+
+          --paper-item: {
+            background-color: var(--primary-background-color);
+          }
+          --paper-item-selected: {
+            background-color: var(--light-primary-color);
+          }
+        }
+
         #completed-label > * {
           font-size: 14px;
           font-weight: bold;
@@ -70,11 +84,9 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
           sort="[[_computeSort(sortOrder)]]"
           observe="isImportant isCompleted"
         >
-          <todo-taskrow
-            class="list-item"
-            role="listitem"
-            item="{{item}}"
-          ></todo-taskrow>
+          <paper-item class="list-item" role="listitem" item="{{item}}">
+            <todo-taskrow item="{{item}}"></todo-taskrow>
+          </paper-item>
         </template>
       </paper-listbox>
       <template is="dom-if" if="[[showCompleted]]">
@@ -99,11 +111,9 @@ class TodoTaskList extends LocalizeMixin(PolymerElement) {
             sort="[[_computeSort(sortOrder)]]"
             observe="isImportant isCompleted"
           >
-            <todo-taskrow
-              class="list-item"
-              role="listitem"
-              item="{{item}}"
-            ></todo-taskrow>
+            <paper-item class="list-item" role="listitem" item="{{item}}">
+              <todo-taskrow item="{{item}}"></todo-taskrow>
+            </paper-item>
           </template>
         </paper-listbox>
       </template>

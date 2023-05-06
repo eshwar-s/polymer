@@ -29,13 +29,6 @@ styleMod.appendChild(
           margin-bottom: 4px;
         }
 
-        .dropdown-content {
-          background-color: var(--primary-background-color);
-          min-width: 200px;
-          @apply --shadow-elevation-3dp;
-          border-radius: 4px;
-        }
-
         .list-item,
         .menu-item {
           --paper-item-selected-weight: normal;
@@ -55,6 +48,13 @@ styleMod.appendChild(
 
         .divider {
           border-top: 1px solid var(--secondary-color);
+        }
+
+        .dropdown-content {
+          background-color: var(--primary-background-color);
+          min-width: 200px;
+          @apply --shadow-elevation-3dp;
+          border-radius: 4px;
         }
 
         .dialog {

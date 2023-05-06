@@ -33,14 +33,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: var(--primary-background-color);
-          margin-bottom: 2px;
-          border-radius: 4px;
           padding: 0px 16px;
-          @apply --paper-font-subhead;
-        }
-        :host([selected]) {
-          background-color: var(--light-primary-color);
         }
         paper-checkbox {
           --paper-checkbox-label-spacing: 16px;
