@@ -87,7 +87,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             <todo-icon-label
               start-icon="sort"
               text="[[localize('sortList')]]"
-              sub-menu
+              end-icon="chevron-right"
             >
             </todo-icon-label>
           </paper-item>

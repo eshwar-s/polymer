@@ -20,7 +20,7 @@ class TodoIconLabel extends PolymerElement {
         type: String
       },
       endIcon: {
-        type: Boolean,
+        type: String,
         value: null
       }
     };
