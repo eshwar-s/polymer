@@ -125,7 +125,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
               <paper-item
                 role="menuitem"
                 class="menu-item"
-                on-tap="_sortTasksByAphabetically"
+                on-tap="_sortTasksAphabetically"
               >
                 <todo-icon-label
                   start-icon="av:sort-by-alpha"
@@ -214,7 +214,7 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
     this.set("settings.sortOrder", TodoSortOrder.IMPORTANCE);
   }
 
-  _sortTasksByAphabetically() {
+  _sortTasksAphabetically() {
     this.set("settings.sortOrder", TodoSortOrder.ALPHABETICAL);
   }
 
