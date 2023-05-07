@@ -1,11 +1,15 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
-import { beforeNextRender } from "@polymer/polymer/lib/utils/render-status.js";
+import {
+  afterNextRender,
+  beforeNextRender
+} from "@polymer/polymer/lib/utils/render-status.js";
 import "@polymer/iron-dropdown/iron-dropdown.js";
 import "../common/shared-styles.js";
 
 class TodoSubmenu extends PolymerElement {
   constructor() {
     super();
+    this._boundsListener = this._handleBoundsChanged.bind(this);
   }
 
   static get is() {
@@ -40,7 +44,7 @@ class TodoSubmenu extends PolymerElement {
   static get template() {
     return html`
       <style include="todo-shared-styles"></style>
-      <div on-tap="_handleTapEvent">
+      <div id="menuitem" on-tap="_handleTapEvent">
         <slot id="menutrigger" name="menu-trigger"></slot>
       </div>
       <iron-dropdown
@@ -66,6 +70,7 @@ class TodoSubmenu extends PolymerElement {
     super.ready();
     this.addEventListener("keydown", this._handleKeyDownEvent);
     this.addEventListener("focus", this._handleFocusEvent);
+    this.$.dropdown.positionTarget = this.$.menuitem;
   }
 
   _handleTapEvent(event) {
@@ -95,9 +100,12 @@ class TodoSubmenu extends PolymerElement {
   _handleMenuOpened() {
     const triggerNode = this.$.menutrigger.assignedNodes()[0];
     triggerNode.classList.add("iron-selected");
+    window.addEventListener("resize", this._boundsListener);
   }
 
   _handleMenuClosed() {
+    window.removeEventListener("resize", this._boundsListener);
+
     const triggerNode = this.$.menutrigger.assignedNodes()[0];
     triggerNode.classList.remove("iron-selected");
 
@@ -109,6 +117,12 @@ class TodoSubmenu extends PolymerElement {
 
   _parentMenuOpenChanged() {
     this.$.dropdown.close();
+  }
+
+  _handleBoundsChanged() {
+    afterNextRender(this, () => {
+      this.$.dropdown.refit();
+    });
   }
 }
 
