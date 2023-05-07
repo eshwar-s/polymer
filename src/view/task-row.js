@@ -29,7 +29,7 @@ class TodoTaskRow extends EventsMixin(LocalizeMixin(PolymerElement)) {
     return html`
       <style include="todo-shared-styles">
         :host {
-          min-height: 52px;
+          min-height: 50px;
           display: flex;
           justify-content: space-between;
           align-items: center;

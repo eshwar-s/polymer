@@ -50,7 +50,7 @@ class TodoDeleteList extends EventsMixin(LocalizeMixin(PolymerElement)) {
         modal="true"
         with-backdrop
       >
-        <img src="/images/favicon.png" aria-hidden />
+        <img src="/images/favicon.png" aria-hidden="true" />
         <h2>[[localize('deleteDialogTitle', 'listName', listName)]]</h2>
         <div style="text-align:center">
           [[localize('deleteDialogDescription')]]

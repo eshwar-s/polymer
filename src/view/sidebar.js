@@ -72,6 +72,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         <app-location route="{{route}}"></app-location>
         <paper-listbox
           id="navigation-pane"
+          role="menu"
           class="listbox"
           selected="{{selected}}"
           attr-for-selected="link"
@@ -79,6 +80,7 @@ class TodoSideBar extends LocalizeMixin(PolymerElement) {
         >
           <template id="list" is="dom-repeat" items="{{lists}}">
             <paper-item
+              role="menuitem"
               class="list-item"
               link="/lists/{{index}}"
               on-contextmenu="_handleContextMenuEvent"
