@@ -109,7 +109,7 @@ class TodoSideBarMenu extends LocalizeMixin(PolymerElement) {
   }
 
   openMenu(positionTarget, selectedList) {
-    this.$.menu.selected = -1;
+    this.$.menu.selectIndex(-1);
     this.menuOpen = true;
     this.positionTarget = positionTarget;
     this.selectedList = selectedList;

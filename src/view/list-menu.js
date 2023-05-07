@@ -3,9 +3,13 @@ import "@polymer/paper-menu-button/paper-menu-button.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/paper-listbox/paper-listbox.js";
 import "@polymer/paper-item/paper-item.js";
+import "@polymer/iron-icons/av-icons.js";
+import "@polymer/iron-icons/notification-icons.js";
 import { LocalizeMixin } from "../common/localize-mixin.js";
+import { TodoSortOrder } from "../model/todo-settings.js";
 import "../common/shared-styles.js";
 import "./icon-label.js";
+import "./submenu.js";
 import "./delete-list.js";
 import "./theme-picker.js";
 
@@ -57,6 +61,11 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
             color: var(--primary-background-color);
           }
         }
+        paper-item {
+          --paper-item-selected: {
+            background-color: var(--secondary-color);
+          }
+        }
       </style>
       <paper-menu-button
         horizontal-align="right"
@@ -71,11 +80,11 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
           aria-haspopup="true"
         ></paper-icon-button>
         <paper-listbox
-          id="dropdown"
+          id="menu"
           role="menu"
           class="dropdown-content"
           slot="dropdown-content"
-          selectable="paper-item"
+          selectable="paper-item, todo-submenu"
         >
           <paper-item role="menuitem" class="menu-item">
             <todo-icon-label
@@ -83,14 +92,58 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
               text="[[localize('renameList')]]"
             ></todo-icon-label>
           </paper-item>
-          <paper-item role="menuitem" class="menu-item">
-            <todo-icon-label
-              start-icon="sort"
-              text="[[localize('sortList')]]"
-              end-icon="chevron-right"
+          <todo-submenu
+            parent-menu-open="[[menuOpen]]"
+            horizontal-align="left"
+            vertical-align="top"
+            horizontal-offset="-200"
+          >
+            <paper-item role="menuitem" class="menu-item" slot="menu-trigger">
+              <todo-icon-label
+                start-icon="sort"
+                text="[[localize('sortList')]]"
+                end-icon="chevron-right"
+              >
+              </todo-icon-label>
+            </paper-item>
+            <paper-listbox
+              id="sortmenu"
+              role="menu"
+              slot="menu-content"
+              class="dropdown-content"
             >
-            </todo-icon-label>
-          </paper-item>
+              <paper-item
+                role="menuitem"
+                class="menu-item"
+                on-tap="_sortTasksByImportance"
+              >
+                <todo-icon-label
+                  start-icon="star-border"
+                  text="[[localize('sortByImportance')]]"
+                ></todo-icon-label>
+              </paper-item>
+              <paper-item
+                role="menuitem"
+                class="menu-item"
+                on-tap="_sortTasksByAphabetically"
+              >
+                <todo-icon-label
+                  start-icon="av:sort-by-alpha"
+                  text="[[localize('sortAlphabetically')]]"
+                ></todo-icon-label>
+              </paper-item>
+              <paper-item
+                role="menuitem"
+                class="menu-item"
+                on-tap="_sortTasksByCreationDate"
+              >
+                <todo-icon-label
+                  start-icon="notification:event-note"
+                  text="[[localize('sortByCreateDate')]]"
+                ></todo-icon-label>
+              </paper-item>
+            </paper-listbox>
+          </todo-submenu>
           <paper-item
             role="menuitem"
             class="menu-item"
@@ -153,7 +206,20 @@ class TodoListMenu extends LocalizeMixin(PolymerElement) {
   }
 
   _handleMenuOpenChanged() {
-    this.$.dropdown.selected = -1;
+    this.$.menu.selectIndex(-1);
+    this.$.sortmenu.selectIndex(-1);
+  }
+
+  _sortTasksByImportance() {
+    this.set("settings.sortOrder", TodoSortOrder.IMPORTANCE);
+  }
+
+  _sortTasksByAphabetically() {
+    this.set("settings.sortOrder", TodoSortOrder.ALPHABETICAL);
+  }
+
+  _sortTasksByCreationDate() {
+    this.set("settings.sortOrder", TodoSortOrder.CREATION_DATE);
   }
 
   _toggleShowCompletedTasks() {
